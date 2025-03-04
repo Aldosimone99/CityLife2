@@ -32,7 +32,7 @@ export class LoginComponent {
       (response) => {
         if (response.success) {
           this.authService.setToken(response.token);
-          this.router.navigate(['/users']);
+          this.router.navigate(['/home']);
         } else {
           this.translate.get('INVALID_CREDENTIALS').subscribe((res: string) => {
             this.errorMessage = res;
