@@ -4,11 +4,13 @@ import com.example.citylife.model.User;
 import com.example.citylife.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
@@ -16,21 +18,28 @@ public class AuthController {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @PostMapping("/register")
-    public String register(@RequestParam String username, @RequestParam String password) {
-        if (userService.findByUsername(username).isPresent()) {
-            return "Errore: Username già in uso!";
-        }
-        userService.registerUser(username, password);
-        return "Utente registrato con successo!";
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password) {
+    public String login(@RequestParam String username, @RequestParam String password, Model model) {
         Optional<User> user = userService.findByUsername(username);
         if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
-            return "Login riuscito!";
+            return "redirect:/home";
         }
-        return "Errore: Credenziali non valide!";
+        model.addAttribute("error", "Errore: Credenziali non valide!");
+        return "login";
+    }
+
+    @PostMapping("/register")
+    public String register(@RequestParam String username, @RequestParam String password, Model model) {
+        if (userService.findByUsername(username).isPresent()) {
+            model.addAttribute("error", "Errore: Username già in uso!");
+            return "register";
+        }
+        userService.registerUser(username, password);
+        return "redirect:/auth/login";
     }
 }
