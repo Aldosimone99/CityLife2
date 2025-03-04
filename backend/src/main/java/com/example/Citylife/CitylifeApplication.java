@@ -1,4 +1,4 @@
-package com.example.Citylife;
+package com.example.citylife;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
