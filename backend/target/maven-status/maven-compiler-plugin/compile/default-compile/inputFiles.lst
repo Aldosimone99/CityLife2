@@ -1,1 +1,7 @@
-/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/com/example/Citylife/CitylifeApplication.java
+/app/backend/src/main/java/com/example/citylife/CitylifeApplication.java
+/app/backend/src/main/java/com/example/citylife/config/SecurityConfig.java
+/app/backend/src/main/java/com/example/citylife/controller/AuthController.java
+/app/backend/src/main/java/com/example/citylife/model/User.java
+/app/backend/src/main/java/com/example/citylife/repository/UserRepository.java
+/app/backend/src/main/java/com/example/citylife/service/UserDetailsServiceImpl.java
+/app/backend/src/main/java/com/example/citylife/service/UserService.java
