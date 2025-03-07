@@ -30,7 +30,7 @@ export class LoginComponent {
 
     this.authService.login({ username: this.username, password: this.password }).subscribe(
       (response) => {
-        if (response.success) {
+        if (response.token) {
           this.authService.setToken(response.token);
           this.router.navigate(['/home']);
         } else {

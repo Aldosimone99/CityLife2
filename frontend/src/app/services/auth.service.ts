@@ -14,6 +14,10 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, credentials);
   }
 
+  register(credentials: { username: string; password: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, credentials);
+  }
+
   setToken(token: string) {
     localStorage.setItem('authToken', token);
   }
@@ -24,6 +28,10 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return this.getToken() !== null;
+  }
+
+  isAuthenticated(): boolean {
+    return this.isLoggedIn();
   }
 
   logout() {

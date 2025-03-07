@@ -15,12 +15,11 @@ public class UserService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public User registerUser(String username, String password) {
-        String encodedPassword = passwordEncoder.encode(password);
+    public void registerUser(String username, String password) {
         User user = new User();
         user.setUsername(username);
-        user.setPassword(encodedPassword);
-        return userRepository.save(user);
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
     }
 
     public Optional<User> findByUsername(String username) {

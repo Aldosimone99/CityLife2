@@ -1,6 +1,8 @@
 /app/backend/src/main/java/com/example/citylife/CitylifeApplication.java
 /app/backend/src/main/java/com/example/citylife/config/SecurityConfig.java
+/app/backend/src/main/java/com/example/citylife/config/WebMvcConfig.java
 /app/backend/src/main/java/com/example/citylife/controller/AuthController.java
+/app/backend/src/main/java/com/example/citylife/controller/RestControllerController.java
 /app/backend/src/main/java/com/example/citylife/model/User.java
 /app/backend/src/main/java/com/example/citylife/repository/UserRepository.java
 /app/backend/src/main/java/com/example/citylife/service/UserDetailsServiceImpl.java
