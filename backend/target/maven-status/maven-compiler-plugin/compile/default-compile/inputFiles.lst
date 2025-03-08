@@ -1,0 +1,17 @@
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/GioeleApplication.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/controllers/EsempioController.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/cors/CorsConfig.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/exception/CustomResponse.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/exception/ErrorDetail.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/exception/ExceptionBackend.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/exception/GlobalExceptionHandler.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/exception/InfoRequest.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/interfaces/requestes/GetTokenRequest.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/interfaces/requestes/calcolatrice/CalcolatriceRequest.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/interfaces/responses/calcolatrice/CalcolatriceResponse.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/interfaces/responses/calcolatrice/GetTokenResponse.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/jwt/JwtTokenInterceptor.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/jwt/JwtUtil.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/jwt/WebMvcConfig.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/services/CalcolatriceService.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/esempio/gioele/gioele/services/ExceptionService.java
