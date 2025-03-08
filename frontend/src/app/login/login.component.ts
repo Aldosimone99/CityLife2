@@ -10,8 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   standalone: false,
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  token: string = '';
   errorMessage: string = '';
 
   constructor(
@@ -21,27 +20,27 @@ export class LoginComponent {
   ) {}
 
   onSubmit() {
-    if (!this.username || !this.password) {
-      this.translate.get('PLEASE_INSERT_CREDENTIALS').subscribe((res: string) => {
+    if (!this.token) {
+      this.translate.get('PLEASE_INSERT_TOKEN').subscribe((res: string) => {
         this.errorMessage = res;
       });
       return;
     }
 
-    this.authService.login({ username: this.username, password: this.password }).subscribe(
+    this.authService.login({ token: this.token }).subscribe(
       (response) => {
-        if (response.token) {
-          this.authService.setToken(response.token);
-          this.router.navigate(['/home']);
+        if (response.success) {
+          this.authService.setToken(this.token);
+          this.router.navigate(['/users']);
         } else {
-          this.translate.get('INVALID_CREDENTIALS').subscribe((res: string) => {
+          this.translate.get('INVALID_TOKEN').subscribe((res: string) => {
             this.errorMessage = res;
           });
         }
       },
       (error: any) => {
-        console.error('Invalid credentials', error);
-        this.translate.get('INVALID_CREDENTIALS').subscribe((res: string) => {
+        console.error('Invalid token', error);
+        this.translate.get('INVALID_TOKEN').subscribe((res: string) => {
           this.errorMessage = res;
         });
       }

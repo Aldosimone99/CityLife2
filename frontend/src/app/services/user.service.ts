@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = '/api'; // Cambia l'URL per puntare al backend locale
+  private apiUrl = 'https://gorest.co.in/public/v2/';
 
   constructor(private http: HttpClient) {}
 
@@ -93,8 +93,8 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<any> {
-    // Usa un ID utente valido per l'utente corrente
-    return this.http.get<any>(`${this.apiUrl}/users/current`).pipe(
+    // Use a valid user ID for the current user
+    return this.http.get<any>(`${this.apiUrl}/users/7045928`).pipe(
       catchError(this.handleError)
     );
   }

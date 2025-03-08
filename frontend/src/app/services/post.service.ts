@@ -7,7 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = '/api'; // Cambia l'URL per puntare al backend locale
+  private apiUrl = 'https://gorest.co.in/public/v2';
   private token: string | null = null;
 
   constructor(
@@ -36,7 +36,7 @@ export class PostService {
   }
 
   createPost(post: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/users/current/posts`, post, {
+    return this.http.post<any>(`${this.apiUrl}/users/7045928/posts`, post, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/json' // Ensure Content-Type header is included

@@ -1,40 +1,56 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = 'https://gorest.co.in/public/v2/';
+  private tokenKey = 'authToken';
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { username: string; password: string }): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials);
-  }
-
-  register(credentials: { username: string; password: string }): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, credentials);
-  }
-
-  setToken(token: string) {
-    localStorage.setItem('authToken', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('authToken');
-  }
-
-  isLoggedIn(): boolean {
-    return this.getToken() !== null;
+  login(credentials: { token: string }): Observable<any> {
+    return this.http.get(`${this.apiUrl}users`, {
+      headers: { Authorization: `Bearer ${credentials.token}` }
+    }).pipe(
+      map(response => {
+        this.setToken(credentials.token);
+        return { success: true };
+      }),
+      catchError(error => {
+        return of({ success: false });
+      })
+    );
   }
 
   isAuthenticated(): boolean {
-    return this.isLoggedIn();
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const token = localStorage.getItem(this.tokenKey);
+      return token !== null && this.isValidToken(token);
+    } else {
+      console.error('localStorage is not available');
+      return false;
+    }
   }
 
-  logout() {
-    localStorage.removeItem('authToken');
+  private isValidToken(token: string): boolean {
+    // Implementa la logica per verificare se il token è valido
+    // Ad esempio, puoi decodificare il token e verificare la sua scadenza
+    return true; // Modifica questa logica in base alle tue esigenze
+  }
+
+  logout(): void {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      localStorage.removeItem(this.tokenKey);
+    }
+  }
+
+  setToken(token: string): void {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      localStorage.setItem(this.tokenKey, token);
+    }
   }
 }

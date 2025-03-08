@@ -8,7 +8,7 @@
     "GET_HERE": "Ottienilo qui", 
     "INVALID_TOKEN": "Token non valido",
     "PLEASE_INSERT_TOKEN": "Per favore inserisci un token",
-    "WELCOME_MESSAGE": "Benvenuto a CityLife",
+    "WELCOME_MESSAGE": "Benvenuto su CityLife – Connettiti con i tuoi concittadini, condividi le tue idee e insieme costruite il futuro della vostra città!",
     "USERS": "Utenti",
     "SEARCH_PLACEHOLDER": "Cerca per nome o email",
     "ADD_USER": "Aggiungi Utente",
@@ -42,12 +42,5 @@
     "CANCEL": "Annulla",
     "CONFIRM_DELETE_USER": "Sei sicuro di voler eliminare",
     "LOGOUT": "Esci",
-    "NO_POSTS_AVAILABLE": "Nessun Post Disponibile",
-    "ENTER_CREDENTIALS": "Inserisci le tue credenziali",
-    "USERNAME": "Nome utente",
-    "PASSWORD": "Password",
-    "DONT_HAVE_AN_ACCOUNT?": "Non hai un account?",
-    "REGISTER_HERE": "Registrati qui",
-    "PLEASE_INSERT_CREDENTIALS": "Inserisci le tue credenziali",
-    "INVALID_CREDENTIALS": "Credenziali non valide"
+    "NO_POSTS_AVAILABLE": "Nessun Post Disponibile"
 }

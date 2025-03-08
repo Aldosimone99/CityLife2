@@ -10,7 +10,7 @@
     "LOGOUT": "Logout",
     "INVALID_TOKEN": "Invalid token",
     "PLEASE_INSERT_TOKEN": "Please insert a token",
-    "WELCOME_MESSAGE": "Welcome to CityLife",
+    "WELCOME_MESSAGE": "Welcome to CityLife – Connect with fellow citizens, share your thoughts, and shape the future of your city together!",
     "USERS": "Users",
     "SEARCH_PLACEHOLDER": "Search by name or email",
     "ADD_USER": "Add User",
@@ -43,12 +43,5 @@
     "CONFIRM_DELETE_COMMENT": "Are you sure you want to delete this comment?",
     "CANCEL": "Cancel",
     "CONFIRM_DELETE_USER": "Are you sure you want to delete",
-    "NO_POSTS_AVAILABLE": "No posts available",
-    "ENTER_CREDENTIALS": "Please enter your credentials",
-    "USERNAME": "Username",
-    "PASSWORD": "Password",
-    "DONT_HAVE_AN_ACCOUNT?": "Don't have an account?",
-    "REGISTER_HERE": "Register here",
-    "PLEASE_INSERT_CREDENTIALS": "Please insert your credentials",
-    "INVALID_CREDENTIALS": "Invalid credentials"
+    "NO_POSTS_AVAILABLE": "No posts available"
 }
