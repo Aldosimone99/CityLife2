@@ -1,0 +1,5 @@
+com/citylife/backend/model/User.class
+com/citylife/backend/repository/UserRepository.class
+com/citylife/backend/BackendApplication.class
+com/citylife/backend/service/UserService.class
+com/citylife/backend/controller/UserController.class
