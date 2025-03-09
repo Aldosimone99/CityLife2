@@ -1,6 +1,6 @@
 package com.citylife.backend.controller;
 
-import com.citylife.backend.model.User;
+import com.citylife.backend.model.Users;
 import com.citylife.backend.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,17 +17,17 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<Users> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
+    public Optional<Users> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public Users createUser(@RequestBody Users user) {
         return userService.createUser(user);
     }
 

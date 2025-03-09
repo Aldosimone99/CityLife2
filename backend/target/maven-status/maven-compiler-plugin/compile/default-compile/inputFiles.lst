@@ -1,5 +1,5 @@
 /Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/com/citylife/backend/BackendApplication.java
 /Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/com/citylife/backend/controller/UserController.java
-/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/com/citylife/backend/model/User.java
+/Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/com/citylife/backend/model/Users.java
 /Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/com/citylife/backend/repository/UserRepository.java
 /Users/aldosimone/Documents/GitHub/CityLife2/backend/src/main/java/com/citylife/backend/service/UserService.java

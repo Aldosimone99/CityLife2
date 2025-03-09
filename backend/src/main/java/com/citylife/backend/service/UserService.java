@@ -1,6 +1,6 @@
 package com.citylife.backend.service;
 
-import com.citylife.backend.model.User;
+import com.citylife.backend.model.Users;
 import com.citylife.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,15 +14,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
+    public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id) {
+    public Optional<Users> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    public User createUser(User user) {
+    public Users createUser(Users user) {
         return userRepository.save(user);
     }
 
