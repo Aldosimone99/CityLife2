@@ -5,17 +5,18 @@
       <div class="form-box">
         <header>
           <h1>{{ 'WELCOME' | translate }}</h1>
-          <p>{{ 'ENTER_TOKEN' | translate }}</p>
+          <p>{{ 'ENTER_CREDENTIALS' | translate }}</p>
         </header>
         <form (ngSubmit)="onSubmit()">
           <div class="input-group">
             <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-            <input type="text" id="token" [(ngModel)]="token" name="token" placeholder="{{ 'ENTER_TOKEN' | translate }}" />
+            <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="{{ 'ENTER_USERNAME' | translate }}" />
+            <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" />
           </div>
           <button type="submit" class="signin-btn">{{ 'SIGN_IN' | translate }}</button>
         </form>
         <footer>
-          <p>{{ 'DONT_HAVE_A_TOKEN?' | translate }} <a href="https://gorest.co.in/consumer/login" target="_blank">{{ 'GET_HERE' | translate }}</a></p>
+          <p>{{ 'DONT_HAVE_AN_ACCOUNT?' | translate }} <a href="https://gorest.co.in/consumer/login" target="_blank">{{ 'REGISTER_HERE' | translate }}</a></p>
         </footer>
       </div>
       <div class="language-switcher">

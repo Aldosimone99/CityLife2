@@ -1,53 +1,37 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
   standalone: false,
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  token: string = '';
+  username: string = '';
+  password: string = '';
   errorMessage: string = '';
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private translate: TranslateService
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    if (!this.token) {
-      this.translate.get('PLEASE_INSERT_TOKEN').subscribe((res: string) => {
-        this.errorMessage = res;
-      });
-      return;
-    }
-
-    this.authService.login({ token: this.token }).subscribe(
-      (response) => {
-        if (response.success) {
-          this.authService.setToken(this.token);
-          this.router.navigate(['/users']);
-        } else {
-          this.translate.get('INVALID_TOKEN').subscribe((res: string) => {
-            this.errorMessage = res;
-          });
-        }
+    console.log('Attempting to login with username:', this.username);
+    this.http.post('/api/users/login', { username: this.username, password: this.password }).subscribe(
+      (response: any) => {
+        console.log('Login successful:', response);
+        // Handle successful login
+        this.router.navigate(['/dashboard']);
       },
-      (error: any) => {
-        console.error('Invalid token', error);
-        this.translate.get('INVALID_TOKEN').subscribe((res: string) => {
-          this.errorMessage = res;
-        });
+      (error) => {
+        console.error('Login error:', error);
+        // Handle login error
+        this.errorMessage = 'Invalid username or password';
       }
     );
   }
 
   switchLanguage(language: string) {
-    this.translate.use(language);
+    // Implement language switch logic
   }
 }
