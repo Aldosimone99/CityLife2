@@ -1,0 +1,13 @@
+.dashboard-page {
+  padding: 20px;
+}
+
+header {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.content {
+  margin-top: 20px;
+}

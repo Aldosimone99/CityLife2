@@ -22,6 +22,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../enviroments/enviroments';
 import { NavbarComponent } from './navbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PostsComponent,
     CommentsComponent,
     NavbarComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
