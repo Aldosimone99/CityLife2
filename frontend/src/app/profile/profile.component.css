@@ -1,0 +1,21 @@
+.profile-page {
+  padding: 20px;
+  background-color: #121212; /* Dark background color */
+  color: #ffffff; /* Light text color */
+}
+
+header {
+  background-color: #1f1f1f; /* Darker background for header */
+  padding: 10px;
+  border-bottom: 1px solid #333333; /* Dark border */
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.profile-info {
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+}

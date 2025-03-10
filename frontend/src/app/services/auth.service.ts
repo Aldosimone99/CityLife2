@@ -8,14 +8,14 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = '/api/users'; // Use backend API
-  private tokenKey = 'authToken';
+  private userIdKey = 'userId';
 
   constructor(private http: HttpClient) {}
 
   login(credentials: { username: string, password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((response: any) => {
-        this.setToken(response.token);
+        this.setUserId(response.id);
         return { success: true };
       }),
       catchError(error => {
@@ -26,29 +26,30 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      const token = localStorage.getItem(this.tokenKey);
-      return token !== null && this.isValidToken(token);
+      const userId = localStorage.getItem(this.userIdKey);
+      return userId !== null;
     } else {
       console.error('localStorage is not available');
       return false;
     }
   }
 
-  private isValidToken(token: string): boolean {
-    // Implement logic to verify if the token is valid
-    // For example, you can decode the token and check its expiration
-    return true; // Modify this logic as per your requirements
-  }
-
   logout(): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      localStorage.removeItem(this.tokenKey);
+      localStorage.removeItem(this.userIdKey);
     }
   }
 
-  setToken(token: string): void {
+  setUserId(userId: number): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      localStorage.setItem(this.tokenKey, token);
+      localStorage.setItem(this.userIdKey, userId.toString());
     }
+  }
+
+  getUserId(): string | null {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      return localStorage.getItem(this.userIdKey);
+    }
+    return null;
   }
 }

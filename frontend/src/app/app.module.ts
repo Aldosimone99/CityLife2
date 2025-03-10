@@ -23,6 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../enviroments/enviroments';
 import { NavbarComponent } from './navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 import { Routes } from '@angular/router';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
-  { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] }
+  { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -46,6 +48,7 @@ const routes: Routes = [
     CommentsComponent,
     NavbarComponent,
     DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,7 @@ export class LoginComponent {
     this.http.post('/api/users/login', { username: this.username, password: this.password }).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
-        this.authService.setToken(response.token); // Store the token
+        this.authService.setUserId(response.id); // Store the user ID
         this.router.navigate(['/dashboard']);
       },
       (error) => {
