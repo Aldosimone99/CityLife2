@@ -16,7 +16,7 @@
           <button type="submit" class="signin-btn">{{ 'SIGN_IN' | translate }}</button>
         </form>
         <footer>
-          <p>{{ 'DONT_HAVE_AN_ACCOUNT?' | translate }} <a href="https://gorest.co.in/consumer/login" target="_blank">{{ 'REGISTER_HERE' | translate }}</a></p>
+          <p>{{ 'DONT_HAVE_AN_ACCOUNT?' | translate }} <a href="#" (click)="showRegisterPopup($event)">{{ 'REGISTER_HERE' | translate }}</a></p>
         </footer>
       </div>
       <div class="language-switcher">
@@ -30,5 +30,28 @@
         <h2>{{ 'WELCOME_MESSAGE' | translate }}</h2>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Registration Popup -->
+<div class="modal" [ngClass]="{'show': isRegisterPopupVisible}">
+  <div class="modal-content">
+    <span class="close" (click)="hideRegisterPopup()">&times;</span>
+    <h3>{{ 'REGISTER_NEW_USER' | translate }}</h3>
+    <form (ngSubmit)="onRegister()">
+      <div class="form-group">
+        <label for="registerEmail">{{ 'EMAIL' | translate }}:</label>
+        <input type="email" id="registerEmail" [(ngModel)]="registerEmail" name="registerEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="registerUsername">{{ 'USERNAME' | translate }}:</label>
+        <input type="text" id="registerUsername" [(ngModel)]="registerUsername" name="registerUsername" required>
+      </div>
+      <div class="form-group">
+        <label for="registerPassword">{{ 'PASSWORD' | translate }}:</label>
+        <input type="password" id="registerPassword" [(ngModel)]="registerPassword" name="registerPassword" required>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ 'REGISTER' | translate }}</button>
+    </form>
   </div>
 </div>

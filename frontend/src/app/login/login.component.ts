@@ -13,6 +13,10 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  isRegisterPopupVisible: boolean = false;
+  registerEmail: string = '';
+  registerUsername: string = '';
+  registerPassword: string = '';
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
@@ -27,6 +31,33 @@ export class LoginComponent {
       (error) => {
         console.error('Login error:', error);
         this.errorMessage = 'Invalid username or password';
+      }
+    );
+  }
+
+  showRegisterPopup(event: Event) {
+    event.preventDefault(); // Prevent the default link behavior
+    this.isRegisterPopupVisible = true;
+  }
+
+  hideRegisterPopup() {
+    this.isRegisterPopupVisible = false;
+  }
+
+  onRegister() {
+    const newUser = {
+      email: this.registerEmail,
+      username: this.registerUsername,
+      password: this.registerPassword
+    };
+
+    this.http.post('/api/users', newUser).subscribe(
+      (response: any) => {
+        console.log('User registered successfully:', response);
+        this.hideRegisterPopup();
+      },
+      (error) => {
+        console.error('Error registering user:', error);
       }
     );
   }
