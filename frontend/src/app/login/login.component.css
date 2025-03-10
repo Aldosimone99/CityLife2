@@ -155,6 +155,10 @@ footer a {
   margin-bottom: 5px;
 }
 
+.modal-content h3 {
+  color: white; /* Make the title white */
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -164,8 +168,10 @@ footer a {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
   padding-top: 60px;
 }
 
@@ -174,25 +180,139 @@ footer a {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: rgba(52, 58, 64, 0.6274509804);
   margin: 5% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  border: 1px solid #817b7b;
+  width: 30%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 375px;
+  height: 650px;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: auto;
 }
-
-.close {
+.modal-content .btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.modal-content .btn-primary:hover {
+  background-color: #0056b3;
+}
+.modal-content .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-
-.close:hover,
-.close:focus {
+.modal-content .close:hover,
+.modal-content .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 90%;
+  overflow-y: auto;
+}
+
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+  width: calc(100% - 10px); /* Increase the width */
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #444; /* Match the background color of the modal */
+  color: white;
+}
+
+.modal-form select {
+  height: 46px; /* Increase the height */
+}
+
+.modal-form input:focus,
+.modal-form select:focus,
+.modal-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.modal-form button {
+  width: 100%; /* Make the button take the full width */
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-form button:hover {
+  background-color: #0056b3;
+}
+
+.modal-form .form-group {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.modal-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.modal-form .form-group input,
+.modal-form .form-group select,
+.modal-form .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #444; /* Match the background color of the modal */
+  color: white;
+}
+
+.modal-form .form-group input:focus,
+.modal-form .form-group select:focus,
+.modal-form .form-group textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.modal-form .form-group .error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 0; /* Rimuovi completamente lo spazio sopra il messaggio di errore */
+  margin-bottom: 0; /* Rimuovi completamente lo spazio sotto il messaggio di errore */
+  line-height: 0.2; /* Riduci l'altezza della linea */
 }
 
 @media (max-width: 768px) {

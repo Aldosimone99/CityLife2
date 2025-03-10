@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,9 @@ export class LoginComponent {
   registerUsername: string = '';
   registerPassword: string = '';
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private translate: TranslateService) {
+    this.translate.setDefaultLang('en'); // Set default language
+  }
 
   onSubmit() {
     console.log('Attempting to login with username:', this.username);
@@ -30,7 +33,7 @@ export class LoginComponent {
       },
       (error) => {
         console.error('Login error:', error);
-        this.errorMessage = 'Invalid username or password';
+        this.errorMessage = this.translate.instant('INVALID_USERNAME_OR_PASSWORD');
       }
     );
   }
@@ -63,6 +66,6 @@ export class LoginComponent {
   }
 
   switchLanguage(language: string) {
-    // Implement language switch logic
+    this.translate.use(language);
   }
 }

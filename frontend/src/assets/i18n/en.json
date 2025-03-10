@@ -1,10 +1,12 @@
 {
     "WELCOME": "Welcome",
     "ENTER_TOKEN": "Please enter your token",
-    "DONT_HAVE_ACCOUNT": "Don’t have an account?",
+    "DONT_HAVE_AN_ACCOUNT?": "Don’t have an account?",
     "ALREADY_HAVE_ACCOUNT": "Already have an account?",
     "DONT_HAVE_A_TOKEN?": "Don’t have a token?",
     "GET_HERE": "Get here", 
+    "REGISTER_HERE": "Register here",
+    "ENTER_CREDENTIALS": "Please enter your credentials",
     "SIGN_UP": "Sign up",
     "SIGN_IN": "Sign in",
     "LOGOUT": "Logout",
@@ -23,6 +25,7 @@
     "ACTIVE": "Active",
     "INACTIVE": "Inactive",
     "ADD_NEW_USER": "Add New User",
+    "REGISTER_NEW_USER": "Sign up",
     "NAME_REQUIRED": "Name is required.",
     "EMAIL_REQUIRED": "Email is required.",
     "EMAIL_EXISTS": "Email already exists.",
@@ -43,5 +46,8 @@
     "CONFIRM_DELETE_COMMENT": "Are you sure you want to delete this comment?",
     "CANCEL": "Cancel",
     "CONFIRM_DELETE_USER": "Are you sure you want to delete",
-    "NO_POSTS_AVAILABLE": "No posts available"
+    "NO_POSTS_AVAILABLE": "No posts available",
+    "INVALID_USERNAME_OR_PASSWORD": "Invalid username or password",
+    "ENTER_USERNAME": "Enter username",
+    "ENTER_PASSWORD": "Enter password"
 }

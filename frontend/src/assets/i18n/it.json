@@ -3,8 +3,11 @@
     "ENTER_TOKEN": "Inserisci il tuo token",
     "DONT_HAVE_ACCOUNT": "Non hai un account?",
     "SIGN_UP": "Registrati",
+    "DONT_HAVE_AN_ACCOUNT?": "Non hai un account?",
     "SIGN_IN": "Accedi",
+    "REGISTER_HERE": "Registrati qui",
     "DONT_HAVE_A_TOKEN?": "Non hai un Token?",
+    "ENTER_CREDENTIALS": "Inserisci le tue credenziali",
     "GET_HERE": "Ottienilo qui", 
     "INVALID_TOKEN": "Token non valido",
     "PLEASE_INSERT_TOKEN": "Per favore inserisci un token",
@@ -21,6 +24,7 @@
     "ACTIVE": "Attivo",
     "INACTIVE": "Inattivo",
     "ADD_NEW_USER": "Aggiungi Nuovo Utente",
+    "REGISTER_NEW_USER": "Registrati",
     "NAME_REQUIRED": "Il nome è obbligatorio.",
     "EMAIL_REQUIRED": "L'email è obbligatoria.",
     "EMAIL_EXISTS": "L'email esiste già.",
@@ -42,5 +46,8 @@
     "CANCEL": "Annulla",
     "CONFIRM_DELETE_USER": "Sei sicuro di voler eliminare",
     "LOGOUT": "Esci",
-    "NO_POSTS_AVAILABLE": "Nessun Post Disponibile"
+    "NO_POSTS_AVAILABLE": "Nessun Post Disponibile",
+    "INVALID_USERNAME_OR_PASSWORD": "Nome utente o password non validi",
+    "ENTER_USERNAME": "Inserisci il nome utente",
+    "ENTER_PASSWORD": "Inserisci la password"
 }

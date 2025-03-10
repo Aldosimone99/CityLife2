@@ -38,17 +38,17 @@
   <div class="modal-content">
     <span class="close" (click)="hideRegisterPopup()">&times;</span>
     <h3>{{ 'REGISTER_NEW_USER' | translate }}</h3>
-    <form (ngSubmit)="onRegister()">
+    <form class="modal-form" (ngSubmit)="onRegister()">
       <div class="form-group">
         <label for="registerEmail">{{ 'EMAIL' | translate }}:</label>
         <input type="email" id="registerEmail" [(ngModel)]="registerEmail" name="registerEmail" required>
       </div>
       <div class="form-group">
-        <label for="registerUsername">{{ 'USERNAME' | translate }}:</label>
+        <label for="registerUsername">{{ 'USERNAME' | translate | titlecase }}:</label>
         <input type="text" id="registerUsername" [(ngModel)]="registerUsername" name="registerUsername" required>
       </div>
       <div class="form-group">
-        <label for="registerPassword">{{ 'PASSWORD' | translate }}:</label>
+        <label for="registerPassword">{{ 'PASSWORD' | translate | titlecase }}:</label>
         <input type="password" id="registerPassword" [(ngModel)]="registerPassword" name="registerPassword" required>
       </div>
       <button type="submit" class="btn btn-primary">{{ 'REGISTER' | translate }}</button>
