@@ -3,7 +3,7 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptors';
-
+import { AuthGuard } from './guards/auth.guards';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -23,10 +23,18 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../enviroments/enviroments';
 import { NavbarComponent } from './navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { Routes } from '@angular/router';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const routes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] }
+];
 
 @NgModule({
   declarations: [
@@ -58,7 +66,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

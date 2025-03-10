@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-users',
@@ -26,13 +27,22 @@ export class UsersComponent implements OnInit {
   usersPerPage: number = 10; // Default number of users per page
   usersPerPageOptions: number[] = [5, 10, 20, 50]; // Options for users per page
 
-  constructor(@Inject(UserService) private userService: UserService, private router: Router) {}
+  constructor(@Inject(UserService) private userService: UserService, private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data;
-      this.filteredUsers = data.slice(0, this.usersPerPage); // Display the initial set of users
-    });
+    this.fetchUsers();
+  }
+
+  fetchUsers() {
+    this.http.get('/api/users').subscribe(
+      (response: any) => {
+        this.users = response;
+        this.filteredUsers = this.users.slice(0, this.usersPerPage); // Display the initial set of users
+      },
+      (error) => {
+        console.error('Error fetching users:', error);
+      }
+    );
   }
 
   searchUsers() {
@@ -71,12 +81,17 @@ export class UsersComponent implements OnInit {
 
   confirmDeleteUser() {
     if (this.userToDelete) {
-      this.userService.deleteUser(this.userToDelete.id).subscribe(() => {
-        this.users = this.users.filter(user => user.id !== this.userToDelete.id);
-        this.filteredUsers = this.filteredUsers.filter(user => user.id !== this.userToDelete.id);
-        this.isDeleteConfirmationVisible = false;
-        this.userToDelete = null;
-      });
+      this.http.delete(`/api/users/${this.userToDelete.id}`).subscribe(
+        () => {
+          this.users = this.users.filter(user => user.id !== this.userToDelete.id);
+          this.filteredUsers = this.filteredUsers.filter(user => user.id !== this.userToDelete.id);
+          this.isDeleteConfirmationVisible = false;
+          this.userToDelete = null;
+        },
+        (error) => {
+          console.error('Error deleting user:', error);
+        }
+      );
     }
   }
 

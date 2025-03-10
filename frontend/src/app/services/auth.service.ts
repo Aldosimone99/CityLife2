@@ -7,17 +7,15 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://gorest.co.in/public/v2/';
+  private apiUrl = '/api/users'; // Use backend API
   private tokenKey = 'authToken';
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { token: string }): Observable<any> {
-    return this.http.get(`${this.apiUrl}users`, {
-      headers: { Authorization: `Bearer ${credentials.token}` }
-    }).pipe(
-      map(response => {
-        this.setToken(credentials.token);
+  login(credentials: { username: string, password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+      map((response: any) => {
+        this.setToken(response.token);
         return { success: true };
       }),
       catchError(error => {
@@ -37,9 +35,9 @@ export class AuthService {
   }
 
   private isValidToken(token: string): boolean {
-    // Implementa la logica per verificare se il token è valido
-    // Ad esempio, puoi decodificare il token e verificare la sua scadenza
-    return true; // Modifica questa logica in base alle tue esigenze
+    // Implement logic to verify if the token is valid
+    // For example, you can decode the token and check its expiration
+    return true; // Modify this logic as per your requirements
   }
 
   logout(): void {
