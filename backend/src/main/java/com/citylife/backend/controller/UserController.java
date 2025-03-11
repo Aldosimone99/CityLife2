@@ -45,7 +45,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Users> loginUser(@RequestBody Users user) {
-        Users foundUser = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        Users foundUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (foundUser != null) {
             return ResponseEntity.ok(foundUser);
         } else {

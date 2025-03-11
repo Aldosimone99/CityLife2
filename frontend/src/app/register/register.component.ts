@@ -15,7 +15,6 @@ import { AuthService } from '../services/auth.service';
 export class RegisterComponent {
   firstName: string = '';
   lastName: string = '';
-  username: string = '';
   password: string = '';
   email: string = '';
   gender: string = '';
@@ -37,7 +36,6 @@ export class RegisterComponent {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
-      username: this.username,
       password: this.password,
       gender: this.gender,
       dob: `${this.dobYear}-${this.dobMonth}-${this.dobDay}`
@@ -56,7 +54,7 @@ export class RegisterComponent {
   }
 
   onLogin() {
-    this.http.post('/api/users/login', { username: this.username, password: this.password }).subscribe(
+    this.http.post('/api/users/login', { username: this.email, password: this.password }).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
         this.authService.setUserId(response.id); // Store the user ID

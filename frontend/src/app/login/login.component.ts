@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
+  email: string = '';
   password: string = '';
   errorMessage: string = '';
 
@@ -24,8 +24,8 @@ export class LoginComponent {
   }
 
   onLogin() {
-    console.log('Attempting to login with username:', this.username);
-    this.http.post('/api/users/login', { username: this.username, password: this.password }).subscribe(
+    console.log('Attempting to login with email:', this.email);
+    this.http.post('/api/users/login', { email: this.email, password: this.password }).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
         this.authService.setUserId(response.id); // Store the user ID

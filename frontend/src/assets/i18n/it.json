@@ -20,6 +20,7 @@
     "GENDER": "Genere",
     "MALE": "Maschio",
     "FEMALE": "Femmina",
+    "OTHER": "Altro",
     "STATUS": "Stato",
     "ACTIVE": "Attivo",
     "INACTIVE": "Inattivo",
@@ -60,5 +61,10 @@
     "REGISTRATION_ERROR": "Errore durante la registrazione",
     "AGE": "Età",
     "ENTER_FIRST_NAME": "Inserisci Nome",
-    "ENTER_LAST_NAME": "Inserisci Cognome"
+    "ENTER_LAST_NAME": "Inserisci Cognome",
+    "BIRTHDAY": "Data di nascita",
+    "DAY": "Giorno",
+    "MONTH": "Mese",
+    "YEAR": "Anno",
+    "CREATE_NEW_ACCOUNT": "Crea un Nuovo Account"
 }

@@ -4,19 +4,18 @@
     <div class="form-section">
       <div class="form-box">
         <header>
-          <h1>{{ 'REGISTER' | translate }}</h1>
+          <h1 class="title">{{ 'CREATE_NEW_ACCOUNT' | translate }}</h1>
           <p>{{ 'ENTER_DETAILS' | translate }}</p>
         </header>
         <form (ngSubmit)="onSubmit()">
           <div class="input-group">
             <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
             <div class="name-row">
-              <input type="text" id="firstName" [(ngModel)]="firstName" name="firstName" placeholder="{{ 'ENTER_FIRST_NAME' | translate }}" />
-              <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" placeholder="{{ 'ENTER_LAST_NAME' | translate }}" />
+              <input type="text" id="firstName" [(ngModel)]="firstName" name="firstName" placeholder="{{ 'ENTER_FIRST_NAME' | translate }}" style="width: 100%;" />
+              <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" placeholder="{{ 'ENTER_LAST_NAME' | translate }}" style="width: 100%;" />
             </div>
-            <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="{{ 'ENTER_EMAIL' | translate }}" />
-            <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="{{ 'ENTER_USERNAME' | translate }}" />
-            <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" />
+            <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="{{ 'ENTER_EMAIL' | translate }}" class="rounded-input" />
+            <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" class="rounded-input" />
             <label for="gender">{{ 'GENDER' | translate }}:</label>
             <div class="gender-row">
               <label class="gender-option">
@@ -29,9 +28,10 @@
               </label>
               <label class="gender-option">
                 <input type="radio" [(ngModel)]="gender" name="gender" value="other" />
-                <span>{{ 'Other' | translate }}</span>
+                <span>{{ 'OTHER' | translate }}</span>
               </label>
             </div>
+            <label for="dob">{{ 'BIRTHDAY' | translate }}:</label>
             <div class="dob-row">
               <input type="number" id="dobDay" [(ngModel)]="dobDay" name="dobDay" placeholder="{{ 'DAY' | translate }}" min="1" max="31" />
               <input type="number" id="dobMonth" [(ngModel)]="dobMonth" name="dobMonth" placeholder="{{ 'MONTH' | translate }}" min="1" max="12" />

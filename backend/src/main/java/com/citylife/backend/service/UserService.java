@@ -34,15 +34,15 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public Users loginUser(String username, String password) {
-        logger.debug("Attempting to login user with username: {}", username);
-        Users foundUser = userRepository.findByUsernameAndPassword(username, password);
+    public Users loginUser(String email, String password) {
+        logger.debug("Attempting to login user with email: {}", email);
+        Users foundUser = userRepository.findByEmailAndPassword(email, password);
         if (foundUser != null) {
-            logger.debug("User found: {}", foundUser.getUsername());
+            logger.debug("User found: {}", foundUser.getEmail());
             return foundUser;
         } else {
-            logger.debug("Invalid username or password for username: {}", username);
-            throw new RuntimeException("Invalid username or password");
+            logger.debug("Invalid email or password for email: {}", email);
+            throw new RuntimeException("Invalid email or password");
         }
     }
 }

@@ -10,8 +10,9 @@
         <form (ngSubmit)="onSubmit()">
           <div class="input-group">
             <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-            <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="{{ 'ENTER_USERNAME' | translate }}" />
-            <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" />
+            <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="{{ 'ENTER_EMAIL' | translate }}" class="rounded-input" />
+            <div style="margin-bottom: 10px;"></div> <!-- Add space between input boxes -->
+            <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" class="rounded-input" />
           </div>
           <button type="submit" class="signin-btn">{{ 'SIGN_IN' | translate }}</button>
         </form>

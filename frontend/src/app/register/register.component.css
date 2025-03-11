@@ -66,6 +66,10 @@ header h1, header p {
   text-align: center;
 }
 
+.title {
+  font-size: 2rem; /* Reduce font size */
+}
+
 .divider {
   text-align: center;
   margin: 10px 0;
@@ -94,6 +98,11 @@ form .input-group input {
   border-radius: 5px;
   font-size: 1rem;
 }
+
+.rounded-input {
+  border-radius: 10px; /* Add rounded borders */
+}
+
 form .signin-btn {
   background: #000;
   color: #fff;
@@ -164,10 +173,12 @@ footer a {
 .name-row {
   display: flex;
   gap: 10px;
+  width: 100%; /* Make the name row expand to full width */
 }
 
 .name-row input {
   flex: 1;
+  width: 100%; /* Make the input boxes expand to full width */
 }
 
 .gender-row {
@@ -182,7 +193,7 @@ footer a {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 5px; /* Reduce padding to decrease height */
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
@@ -205,7 +216,7 @@ footer a {
   display: block;
   width: 100%;
   text-align: center;
-  padding: 10px;
+  padding: 5px; /* Reduce padding to decrease height */
   border-radius: 5px;
 }
 
@@ -213,10 +224,12 @@ footer a {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
+  width: 100%; /* Make the dob row expand to full width */
 }
 
 .dob-row input {
   flex: 1;
+  width: calc(33.33% - 10px); /* Fixed width for each dob input */
 }
 
 @media (max-width: 768px) {
