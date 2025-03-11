@@ -13,11 +13,15 @@ import { AuthService } from '../services/auth.service';
   imports: [TranslateModule, FormsModule]
 })
 export class RegisterComponent {
+  firstName: string = '';
+  lastName: string = '';
   username: string = '';
   password: string = '';
   email: string = '';
   gender: string = '';
-  age: number | null = null;
+  dobDay: number | null = null;
+  dobMonth: number | null = null;
+  dobYear: number | null = null;
   errorMessage: string = '';
 
   constructor(private http: HttpClient, private router: Router, private translate: TranslateService, private authService: AuthService) {
@@ -30,11 +34,13 @@ export class RegisterComponent {
 
   onRegister() {
     const newUser = {
+      firstName: this.firstName,
+      lastName: this.lastName,
       email: this.email,
       username: this.username,
       password: this.password,
       gender: this.gender,
-      age: this.age
+      dob: `${this.dobYear}-${this.dobMonth}-${this.dobDay}`
     };
 
     this.http.post('/api/users', newUser).subscribe(

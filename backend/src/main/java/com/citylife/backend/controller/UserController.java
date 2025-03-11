@@ -1,7 +1,10 @@
 package com.citylife.backend.controller;
 
 import com.citylife.backend.model.Users;
+import com.citylife.backend.repository.UserRepository;
 import com.citylife.backend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +14,9 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")  // Permette richieste da Angular
 public class UserController {
     private final UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -27,8 +33,9 @@ public class UserController {
     }
 
     @PostMapping
-    public Users createUser(@RequestBody Users user) {
-        return userService.createUser(user);
+    public ResponseEntity<Users> registerUser(@RequestBody Users user) {
+        Users savedUser = userRepository.save(user);
+        return ResponseEntity.ok(savedUser);
     }
 
     @DeleteMapping("/{id}")
@@ -37,7 +44,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Users loginUser(@RequestBody Users user) {
-        return userService.loginUser(user);
+    public ResponseEntity<Users> loginUser(@RequestBody Users user) {
+        Users foundUser = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        if (foundUser != null) {
+            return ResponseEntity.ok(foundUser);
+        } else {
+            return ResponseEntity.status(401).build();
+        }
     }
 }

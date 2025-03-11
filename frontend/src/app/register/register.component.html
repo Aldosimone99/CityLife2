@@ -10,11 +10,33 @@
         <form (ngSubmit)="onSubmit()">
           <div class="input-group">
             <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <div class="name-row">
+              <input type="text" id="firstName" [(ngModel)]="firstName" name="firstName" placeholder="{{ 'ENTER_FIRST_NAME' | translate }}" />
+              <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" placeholder="{{ 'ENTER_LAST_NAME' | translate }}" />
+            </div>
             <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="{{ 'ENTER_EMAIL' | translate }}" />
             <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="{{ 'ENTER_USERNAME' | translate }}" />
             <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" />
-            <input type="text" id="gender" [(ngModel)]="gender" name="gender" placeholder="{{ 'ENTER_GENDER' | translate }}" />
-            <input type="number" id="age" [(ngModel)]="age" name="age" placeholder="{{ 'ENTER_AGE' | translate }}" />
+            <label for="gender">{{ 'GENDER' | translate }}:</label>
+            <div class="gender-row">
+              <label class="gender-option">
+                <input type="radio" [(ngModel)]="gender" name="gender" value="male" />
+                <span>{{ 'MALE' | translate }}</span>
+              </label>
+              <label class="gender-option">
+                <input type="radio" [(ngModel)]="gender" name="gender" value="female" />
+                <span>{{ 'FEMALE' | translate }}</span>
+              </label>
+              <label class="gender-option">
+                <input type="radio" [(ngModel)]="gender" name="gender" value="other" />
+                <span>{{ 'Other' | translate }}</span>
+              </label>
+            </div>
+            <div class="dob-row">
+              <input type="number" id="dobDay" [(ngModel)]="dobDay" name="dobDay" placeholder="{{ 'DAY' | translate }}" min="1" max="31" />
+              <input type="number" id="dobMonth" [(ngModel)]="dobMonth" name="dobMonth" placeholder="{{ 'MONTH' | translate }}" min="1" max="12" />
+              <input type="number" id="dobYear" [(ngModel)]="dobYear" name="dobYear" placeholder="{{ 'YEAR' | translate }}" min="1900" max="2100" />
+            </div>
           </div>
           <button type="submit" class="signin-btn">{{ 'REGISTER' | translate }}</button>
         </form>

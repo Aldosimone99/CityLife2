@@ -76,6 +76,12 @@ header h1, header p {
 form .input-group {
   margin-bottom: 15px;
 }
+
+form .input-group input,
+form .input-group select {
+  margin-bottom: 10px; /* Add margin to create space between inputs */
+}
+
 form .input-group label {
   display: block;
   margin-bottom: 5px;
@@ -153,6 +159,64 @@ footer a {
 .error-message {
   color: red;
   margin-bottom: 5px;
+}
+
+.name-row {
+  display: flex;
+  gap: 10px;
+}
+
+.name-row input {
+  flex: 1;
+}
+
+.gender-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  width: 100%; /* Make the gender row expand to full width */
+}
+
+.gender-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  width: calc(33.33% - 10px); /* Fixed width for each gender option */
+}
+
+.gender-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.gender-option input[type="radio"]:checked + span {
+  background-color: #007bff;
+  color: white;
+}
+
+.gender-option span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.dob-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.dob-row input {
+  flex: 1;
 }
 
 @media (max-width: 768px) {

@@ -57,5 +57,8 @@
     "ENTER_EMAIL": "Enter email",
     "ENTER_GENDER": "Enter gender",
     "ENTER_AGE": "Enter age",
-    "REGISTRATION_ERROR": "Error during registration"
+    "REGISTRATION_ERROR": "Error during registration",
+    "AGE": "Age",
+    "ENTER_FIRST_NAME": "Enter First Name",
+    "ENTER_LAST_NAME": "Enter Last Name"
 }

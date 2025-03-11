@@ -36,7 +36,10 @@ export class UsersComponent implements OnInit {
   fetchUsers() {
     this.http.get('/api/users').subscribe(
       (response: any) => {
-        this.users = response;
+        this.users = response.map((user: any) => ({
+          ...user,
+          name: user.name // Ensure the name is retrieved from the database
+        }));
         this.filteredUsers = this.users.slice(0, this.usersPerPage); // Display the initial set of users
       },
       (error) => {

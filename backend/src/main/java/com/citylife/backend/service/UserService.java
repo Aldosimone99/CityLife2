@@ -2,6 +2,7 @@ package com.citylife.backend.service;
 
 import com.citylife.backend.model.Users;
 import com.citylife.backend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +14,9 @@ import org.slf4j.LoggerFactory;
 @Service
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Users> getAllUsers() {
         return userRepository.findAll();
@@ -27,7 +26,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public Users createUser(Users user) {
+    public Users saveUser(Users user) {
         return userRepository.save(user);
     }
 
@@ -35,18 +34,15 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public Users loginUser(Users user) {
-        logger.debug("Attempting to login user with username: {}", user.getUsername());
-        List<Users> foundUsers = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-        if (foundUsers.size() == 1) {
-            logger.debug("User found: {}", foundUsers.get(0).getUsername());
-            return foundUsers.get(0);
-        } else if (foundUsers.isEmpty()) {
-            logger.debug("Invalid username or password for username: {}", user.getUsername());
-            throw new RuntimeException("Invalid username or password");
+    public Users loginUser(String username, String password) {
+        logger.debug("Attempting to login user with username: {}", username);
+        Users foundUser = userRepository.findByUsernameAndPassword(username, password);
+        if (foundUser != null) {
+            logger.debug("User found: {}", foundUser.getUsername());
+            return foundUser;
         } else {
-            logger.debug("Multiple users found with username: {}", user.getUsername());
-            throw new RuntimeException("Multiple users found with the same username and password");
+            logger.debug("Invalid username or password for username: {}", username);
+            throw new RuntimeException("Invalid username or password");
         }
     }
 }
