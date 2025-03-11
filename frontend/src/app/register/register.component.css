@@ -99,6 +99,10 @@ form .input-group input {
   font-size: 1rem;
 }
 
+input:invalid {
+  border: 1px solid red;
+}
+
 .rounded-input {
   border-radius: 10px; /* Add rounded borders */
 }

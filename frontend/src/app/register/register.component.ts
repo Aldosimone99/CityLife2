@@ -17,6 +17,7 @@ export class RegisterComponent {
   lastName: string = '';
   password: string = '';
   email: string = '';
+  username: string = ''; // Add username property
   gender: string = '';
   dobDay: number | null = null;
   dobMonth: number | null = null;
@@ -32,25 +33,46 @@ export class RegisterComponent {
   }
 
   onRegister() {
-    const newUser = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      password: this.password,
-      gender: this.gender,
-      dob: `${this.dobYear}-${this.dobMonth}-${this.dobDay}`
-    };
+    this.checkEmailAndUsername().then((isAvailable) => {
+      if (isAvailable) {
+        const newUser = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          username: this.username, // Include username in the newUser object
+          password: this.password,
+          gender: this.gender,
+          dob: `${this.dobYear}-${this.dobMonth}-${this.dobDay}`
+        };
 
-    this.http.post('/api/users', newUser).subscribe(
-      (response: any) => {
-        console.log('User registered successfully:', response);
-        this.onLogin(); // Log in the user after successful registration
-      },
-      (error) => {
-        console.error('Error registering user:', error);
-        this.errorMessage = this.translate.instant('REGISTRATION_ERROR');
+        this.http.post('/api/users', newUser).subscribe(
+          (response: any) => {
+            console.log('User registered successfully:', response);
+            this.onLogin(); // Log in the user after successful registration
+          },
+          (error) => {
+            console.error('Error registering user:', error);
+            this.errorMessage = this.translate.instant('REGISTRATION_ERROR');
+          }
+        );
+      } else {
+        this.errorMessage = this.translate.instant('EMAIL_OR_USERNAME_EXISTS');
       }
-    );
+    });
+  }
+
+  checkEmailAndUsername(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.http.post('/api/users/check', { email: this.email, username: this.username }).subscribe(
+        (response: any) => {
+          resolve(response.isAvailable);
+        },
+        (error) => {
+          console.error('Error checking email and username:', error);
+          resolve(false);
+        }
+      );
+    });
   }
 
   onLogin() {
@@ -69,5 +91,14 @@ export class RegisterComponent {
 
   switchLanguage(language: string) {
     this.translate.use(language);
+  }
+
+  validateInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.value) {
+      input.classList.add('invalid');
+    } else {
+      input.classList.remove('invalid');
+    }
   }
 }

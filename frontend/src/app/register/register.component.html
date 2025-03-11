@@ -15,6 +15,7 @@
               <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" placeholder="{{ 'ENTER_LAST_NAME' | translate }}" style="width: 100%;" />
             </div>
             <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="{{ 'ENTER_EMAIL' | translate }}" class="rounded-input" />
+            <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="{{ 'CREATE_USERNAME' | translate }}" class="rounded-input" (blur)="validateInput($event)" />
             <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" class="rounded-input" />
             <label for="gender">{{ 'GENDER' | translate }}:</label>
             <div class="gender-row">

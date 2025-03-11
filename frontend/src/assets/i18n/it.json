@@ -30,6 +30,7 @@
     "EMAIL_REQUIRED": "L'email è obbligatoria.",
     "EMAIL_EXISTS": "L'email esiste già.",
     "ENTER_VALID_EMAIL": "Inserisci un'email valida.",
+    "EMAIL_OR_USERNAME_EXISTS": "Email o nome utente già esistente",
     "ALL_POSTS": "Tutti i Post",
     "SEARCH_POSTS": "Cerca post...",
     "WRITE_NEW_POST": "Scrivi un nuovo post...",
@@ -66,5 +67,6 @@
     "DAY": "Giorno",
     "MONTH": "Mese",
     "YEAR": "Anno",
-    "CREATE_NEW_ACCOUNT": "Crea un Nuovo Account"
+    "CREATE_NEW_ACCOUNT": "Crea un Nuovo Account",
+    "CREATE_USERNAME": "Crea un nome utente"
 }
