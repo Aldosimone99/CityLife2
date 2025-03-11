@@ -49,5 +49,13 @@
     "NO_POSTS_AVAILABLE": "No posts available",
     "INVALID_USERNAME_OR_PASSWORD": "Invalid username or password",
     "ENTER_USERNAME": "Enter username",
-    "ENTER_PASSWORD": "Enter password"
+    "ENTER_PASSWORD": "Enter password",
+    "REGISTER": "Register",
+    "ENTER_DETAILS": "Enter your details",
+    "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
+    "SIGN_IN_HERE": "Sign in here",
+    "ENTER_EMAIL": "Enter email",
+    "ENTER_GENDER": "Enter gender",
+    "ENTER_AGE": "Enter age",
+    "REGISTRATION_ERROR": "Error during registration"
 }

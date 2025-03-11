@@ -49,5 +49,13 @@
     "NO_POSTS_AVAILABLE": "Nessun Post Disponibile",
     "INVALID_USERNAME_OR_PASSWORD": "Nome utente o password non validi",
     "ENTER_USERNAME": "Inserisci il nome utente",
-    "ENTER_PASSWORD": "Inserisci la password"
+    "ENTER_PASSWORD": "Inserisci la password",
+    "REGISTER": "Registrati",
+    "ENTER_DETAILS": "Inserisci i tuoi dati",
+    "ALREADY_HAVE_AN_ACCOUNT": "Hai già un account?",
+    "SIGN_IN_HERE": "Accedi qui",
+    "ENTER_EMAIL": "Inserisci l'email",
+    "ENTER_GENDER": "Inserisci il genere",
+    "ENTER_AGE": "Inserisci l'età",
+    "REGISTRATION_ERROR": "Errore durante la registrazione"
 }

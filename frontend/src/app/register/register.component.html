@@ -4,20 +4,23 @@
     <div class="form-section">
       <div class="form-box">
         <header>
-          <h1>{{ 'WELCOME' | translate }}</h1>
-          <p>{{ 'ENTER_CREDENTIALS' | translate }}</p>
+          <h1>{{ 'REGISTER' | translate }}</h1>
+          <p>{{ 'ENTER_DETAILS' | translate }}</p>
         </header>
         <form (ngSubmit)="onSubmit()">
           <div class="input-group">
             <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="{{ 'ENTER_EMAIL' | translate }}" />
             <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="{{ 'ENTER_USERNAME' | translate }}" />
             <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="{{ 'ENTER_PASSWORD' | translate }}" />
+            <input type="text" id="gender" [(ngModel)]="gender" name="gender" placeholder="{{ 'ENTER_GENDER' | translate }}" />
+            <input type="number" id="age" [(ngModel)]="age" name="age" placeholder="{{ 'ENTER_AGE' | translate }}" />
           </div>
-          <button type="submit" class="signin-btn">{{ 'SIGN_IN' | translate }}</button>
+          <button type="submit" class="signin-btn">{{ 'REGISTER' | translate }}</button>
         </form>
         <footer>
-          <p>{{ 'DONT_HAVE_AN_ACCOUNT?' | translate }} 
-            <a href="/register">{{ 'REGISTER_HERE' | translate }}</a>
+          <p>{{ 'ALREADY_HAVE_AN_ACCOUNT' | translate }} 
+            <a href="/login">{{ 'SIGN_IN_HERE' | translate }}</a>
           </p>
         </footer>
       </div>
