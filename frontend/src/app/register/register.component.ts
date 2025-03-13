@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'; // Import CommonModule
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './register.component.html',
   standalone: true,
   styleUrls: ['./register.component.css'],
-  imports: [TranslateModule, FormsModule]
+  imports: [TranslateModule, FormsModule, CommonModule] // Include CommonModule
 })
 export class RegisterComponent {
   firstName: string = '';
@@ -22,14 +23,22 @@ export class RegisterComponent {
   dobDay: number | null = null;
   dobMonth: number | null = null;
   dobYear: number | null = null;
+  age: number | null = null; // Add age property
   errorMessage: string = '';
+  showPopup: boolean = false; // Add showPopup property
+  isFormValid: boolean = false; // Add isFormValid property
+  formError: boolean = false; // Add formError property
 
   constructor(private http: HttpClient, private router: Router, private translate: TranslateService, private authService: AuthService) {
     this.translate.setDefaultLang('en'); // Set default language
   }
 
   onSubmit() {
-    this.onRegister();
+    if (this.isFormValid) {
+      this.onRegister();
+    } else {
+      this.formError = true; // Show form error message
+    }
   }
 
   onRegister() {
@@ -38,17 +47,18 @@ export class RegisterComponent {
         const newUser = {
           firstName: this.firstName,
           lastName: this.lastName,
-          email: this.email,
+          email: this.email.toLowerCase(), // Ensure email is case-insensitive
           username: this.username, // Include username in the newUser object
           password: this.password,
           gender: this.gender,
-          dob: `${this.dobYear}-${this.dobMonth}-${this.dobDay}`
+          dob: `${this.dobYear}-${this.dobMonth}-${this.dobDay}`,
+          age: this.age // Include age in the newUser object
         };
 
         this.http.post('/api/users', newUser).subscribe(
           (response: any) => {
             console.log('User registered successfully:', response);
-            this.onLogin(); // Log in the user after successful registration
+            this.showPopup = true; // Show the popup after successful registration
           },
           (error) => {
             console.error('Error registering user:', error);
@@ -63,7 +73,7 @@ export class RegisterComponent {
 
   checkEmailAndUsername(): Promise<boolean> {
     return new Promise((resolve) => {
-      this.http.post('/api/users/check', { email: this.email, username: this.username }).subscribe(
+      this.http.post('/api/users/check', { email: this.email.toLowerCase(), username: this.username }).subscribe(
         (response: any) => {
           resolve(response.isAvailable);
         },
@@ -76,7 +86,7 @@ export class RegisterComponent {
   }
 
   onLogin() {
-    this.http.post('/api/users/login', { username: this.email, password: this.password }).subscribe(
+    this.http.post('/api/users/login', { username: this.username, password: this.password }).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
         this.authService.setUserId(response.id); // Store the user ID
@@ -100,5 +110,15 @@ export class RegisterComponent {
     } else {
       input.classList.remove('invalid');
     }
+    this.checkFormValidity();
+  }
+
+  checkFormValidity() {
+    this.isFormValid = !!(this.firstName && this.lastName && this.email && this.username && this.password && this.gender && this.age !== null);
+    this.formError = !this.isFormValid; // Update form error state
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']); // Navigate to the login page
   }
 }

@@ -34,6 +34,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public boolean isEmailOrUsernameAvailable(String email, String username) {
+        return !userRepository.existsByEmail(email) && !userRepository.existsByUsername(username);
+    }
+
     public Users loginUser(String email, String password) {
         logger.debug("Attempting to login user with email: {}", email);
         Users foundUser = userRepository.findByEmailAndPassword(email, password);

@@ -68,5 +68,8 @@
     "YEAR": "Year",
     "CREATE_NEW_ACCOUNT": "Create a New Account",
     "CREATE_USERNAME": "Create a username",
-    "EMAIL_OR_USERNAME_EXISTS": "Email or username already exists"
+    "EMAIL_OR_USERNAME_EXISTS": "Email or username already exists",
+    "REGISTRATION_COMPLETED": "Registration completed",
+    "GO_TO_LOGIN": "Go to Login",
+    "PLEASE_FILL_ALL_FIELDS": "Please fill all fields"
 }

@@ -68,5 +68,8 @@
     "MONTH": "Mese",
     "YEAR": "Anno",
     "CREATE_NEW_ACCOUNT": "Crea un Nuovo Account",
-    "CREATE_USERNAME": "Crea un nome utente"
+    "CREATE_USERNAME": "Crea un nome utente",
+    "REGISTRATION_COMPLETED": "Registrazione completata",
+    "GO_TO_LOGIN": "Vai al Login",
+    "PLEASE_FILL_ALL_FIELDS": "Per favore riempi tutti i campi"
 }

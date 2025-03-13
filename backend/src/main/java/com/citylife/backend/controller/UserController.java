@@ -1,12 +1,14 @@
 package com.citylife.backend.controller;
 
 import com.citylife.backend.model.Users;
+import com.citylife.backend.model.LoginRequest;
 import com.citylife.backend.repository.UserRepository;
 import com.citylife.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -33,9 +35,15 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Users> registerUser(@RequestBody Users user) {
-        Users savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+    public ResponseEntity<?> registerUser(@RequestBody Users user) {
+        userService.saveUser(user);
+        return ResponseEntity.ok("User registered successfully");
+    }
+
+    @PostMapping("/check")
+    public ResponseEntity<?> checkEmailAndUsername(@RequestBody Users user) {
+        boolean isAvailable = userService.isEmailOrUsernameAvailable(user.getEmail(), user.getUsername());
+        return ResponseEntity.ok(Map.of("isAvailable", isAvailable));
     }
 
     @DeleteMapping("/{id}")
@@ -44,12 +52,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Users> loginUser(@RequestBody Users user) {
-        Users foundUser = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
-        if (foundUser != null) {
-            return ResponseEntity.ok(foundUser);
-        } else {
-            return ResponseEntity.status(401).build();
-        }
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+        Users user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
+        return ResponseEntity.ok(Map.of("id", user.getId()));
     }
 }
