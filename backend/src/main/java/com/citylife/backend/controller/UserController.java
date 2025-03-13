@@ -7,6 +7,8 @@ import com.citylife.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,12 +35,13 @@ public class UserController {
     public Optional<Users> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
-
-    @PostMapping
-    public ResponseEntity<?> registerUser(@RequestBody Users user) {
-        userService.saveUser(user);
-        return ResponseEntity.ok("User registered successfully");
-    }
+@PostMapping
+public ResponseEntity<Map<String, String>> registerUser(@RequestBody Users user) {
+    userService.saveUser(user);
+    Map<String, String> response = new HashMap<>();
+    response.put("message", "User registered successfully");
+    return ResponseEntity.ok(response);
+}
 
     @PostMapping("/check")
     public ResponseEntity<?> checkEmailAndUsername(@RequestBody Users user) {

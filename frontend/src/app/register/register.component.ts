@@ -34,6 +34,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    this.checkFormValidity();
     if (this.isFormValid) {
       this.onRegister();
     } else {
@@ -55,10 +56,15 @@ export class RegisterComponent {
           age: this.age // Include age in the newUser object
         };
 
-        this.http.post('/api/users', newUser).subscribe(
-          (response: any) => {
-            console.log('User registered successfully:', response);
-            this.showPopup = true; // Show the popup after successful registration
+        this.http.post('/api/users', newUser, { observe: 'response' }).subscribe(
+          (response) => {
+            if (response.status === 200) { // Check for 200 OK status
+              console.log('User registered successfully:', response);
+              this.showPopup = true; // Show the popup after successful registration
+              this.errorMessage = ''; // Clear any previous error messages
+            } else {
+              this.errorMessage = this.translate.instant('REGISTRATION_ERROR');
+            }
           },
           (error) => {
             console.error('Error registering user:', error);
