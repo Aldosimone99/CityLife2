@@ -99,6 +99,11 @@ export class UserService {
     );
   }
 
+  getLoggedInUserId(): number {
+    // Replace with actual logic to get the logged-in user's ID
+    return 1; // Example ID
+  }
+
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError('Something bad happened; please try again later.');

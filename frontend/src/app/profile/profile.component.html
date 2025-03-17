@@ -1,14 +1,20 @@
 <app-navbar></app-navbar>
 <div class="profile-page">
   <header>
-    <h1>{{ 'PROFILE' | translate }}</h1>
+    <h1>{{ user.firstName }} {{ user.lastName }}</h1>
   </header>
   <div class="content">
-    <div class="profile-info">
-      <p><strong>{{ 'USERNAME' | translate }}:</strong> {{ user.username }}</p>
-      <p><strong>{{ 'EMAIL' | translate }}:</strong> {{ user.email }}</p>
-      <p><strong>{{ 'AGE' | translate }}:</strong> {{ user.age }}</p>
-      <p><strong>{{ 'GENDER' | translate }}:</strong> {{ user.gender }}</p>
+    <div class="row">
+      <div class="col-left">
+        <div class="profile-info">
+          <p><strong>{{ 'EMAIL' | translate }}:</strong> {{ user.email }}</p>
+          <p><strong>{{ 'AGE' | translate }}:</strong> {{ user.age }}</p>
+          <p><strong>{{ 'GENDER' | translate }}:</strong> {{ user.gender }}</p>
+        </div>
+      </div>
+      <div class="col-right">
+        <!-- Aggiungi qui il contenuto della colonna di destra -->
+      </div>
     </div>
   </div>
 </div>

@@ -16,7 +16,6 @@ import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FormsModule } from '@angular/forms';
-import { PostsComponent } from './posts/posts.component';
 import { CommentsComponent } from './comments/comments.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -34,7 +33,6 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
-  { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 
@@ -44,7 +42,6 @@ const routes: Routes = [
     LoginComponent,
     UsersComponent,
     UserDetailComponent,
-    PostsComponent,
     CommentsComponent,
     NavbarComponent,
     DashboardComponent,

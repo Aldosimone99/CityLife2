@@ -2,9 +2,7 @@ package com.citylife.backend.controller;
 
 import com.citylife.backend.model.Users;
 import com.citylife.backend.model.LoginRequest;
-import com.citylife.backend.repository.UserRepository;
 import com.citylife.backend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +16,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")  // Permette richieste da Angular
 public class UserController {
     private final UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
 
     public UserController(UserService userService) {
         this.userService = userService;

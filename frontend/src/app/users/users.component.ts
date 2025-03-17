@@ -26,8 +26,13 @@ export class UsersComponent implements OnInit {
   emailExistsError: boolean = false;
   usersPerPage: number = 10; // Default number of users per page
   usersPerPageOptions: number[] = [5, 10, 20, 50]; // Options for users per page
+  loggedInUserId!: number;
 
-  constructor(@Inject(UserService) private userService: UserService, private router: Router, private http: HttpClient) {}
+  constructor(@Inject(UserService) private userService: UserService, private router: Router, private http: HttpClient) {
+    this.userService.getCurrentUser().subscribe(user => {
+      this.loggedInUserId = user.id;
+    });
+  }
 
   ngOnInit() {
     this.fetchUsers();

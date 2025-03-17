@@ -14,14 +14,18 @@
     </select>
   </div>
   <div class="user-list">
-    <div *ngFor="let user of filteredUsers" class="user-box" (click)="viewUser(user.id)">
-      <div class="status-indicator" [ngClass]="{'active': user.status === 'active', 'inactive': user.status === 'inactive'}"></div>
-      <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="Profile Image">
-      <span class="user-name">{{ user.name }}</span>
-      <button class="delete-btn" (click)="deleteUser(user.id); $event.stopPropagation()">
-        <i class="bi bi-trash3"></i>
-      </button>
-    </div>
+    <ng-container *ngFor="let user of filteredUsers">
+      <ng-container *ngIf="user.id !== loggedInUserId">
+        <div class="user-box" (click)="viewUser(user.id)">
+          <div class="status-indicator" [ngClass]="{'active': user.status === 'active', 'inactive': user.status === 'inactive'}"></div>
+          <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="Profile Image">
+          <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
+          <button class="delete-btn" (click)="deleteUser(user.id); $event.stopPropagation()">
+            <i class="bi bi-trash3"></i>
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
   <div class="modal" [ngClass]="{'show': isAddUserFormVisible}">
     <div class="modal-content">

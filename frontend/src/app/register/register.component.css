@@ -66,10 +66,6 @@ header h1, header p {
   text-align: center;
 }
 
-.title {
-  font-size: 2rem; /* Reduce font size */
-}
-
 .divider {
   text-align: center;
   margin: 10px 0;
@@ -80,12 +76,6 @@ header h1, header p {
 form .input-group {
   margin-bottom: 15px;
 }
-
-form .input-group input,
-form .input-group select {
-  margin-bottom: 10px; /* Add margin to create space between inputs */
-}
-
 form .input-group label {
   display: block;
   margin-bottom: 5px;
@@ -98,19 +88,6 @@ form .input-group input {
   border-radius: 5px;
   font-size: 1rem;
 }
-
-input:invalid {
-  border: 1px solid red;
-}
-
-.rounded-input {
-  border-radius: 10px; /* Add rounded borders */
-}
-
-.capitalize {
-  text-transform: capitalize;
-}
-
 form .signin-btn {
   background: #000;
   color: #fff;
@@ -176,101 +153,6 @@ footer a {
 .error-message {
   color: red;
   margin-bottom: 5px;
-}
-
-.name-row {
-  display: flex;
-  gap: 10px;
-  width: 100%; /* Make the name row expand to full width */
-}
-
-.name-row input {
-  flex: 1;
-  width: 100%; /* Make the input boxes expand to full width */
-}
-
-.gender-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  width: 100%; /* Make the gender row expand to full width */
-}
-
-.gender-option {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px; /* Reduce padding to decrease height */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  position: relative;
-  width: calc(33.33% - 10px); /* Fixed width for each gender option */
-}
-
-.gender-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.gender-option input[type="radio"]:checked + span {
-  background-color: #007bff;
-  color: white;
-}
-
-.gender-option span {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 5px; /* Reduce padding to decrease height */
-  border-radius: 5px;
-}
-
-.dob-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  width: 100%; /* Make the dob row expand to full width */
-}
-
-.dob-row input {
-  flex: 1;
-  width: calc(33.33% - 10px); /* Fixed width for each dob input */
-}
-
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.popup-content h2 {
-  margin-bottom: 20px;
-}
-
-.popup-content button {
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
 }
 
 @media (max-width: 768px) {
