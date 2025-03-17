@@ -1,6 +1,6 @@
 package com.citylife.backend.service;
 
-import com.citylife.backend.model.Users;
+import com.citylife.backend.model.User;
 import com.citylife.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Users> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<Users> getUserById(Long id) {
+    public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    public Users saveUser(Users user) {
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
 
@@ -38,9 +38,9 @@ public class UserService {
         return !userRepository.existsByEmail(email) && !userRepository.existsByUsername(username);
     }
 
-    public Users loginUser(String email, String password) {
+    public User loginUser(String email, String password) {
         logger.debug("Attempting to login user with email: {}", email);
-        Users foundUser = userRepository.findByEmailAndPassword(email, password);
+        User foundUser = userRepository.findByEmailAndPassword(email, password);
         if (foundUser != null) {
             logger.debug("User found: {}", foundUser.getEmail());
             return foundUser;

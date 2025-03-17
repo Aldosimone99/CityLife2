@@ -1,6 +1,6 @@
 package com.citylife.backend.controller;
 
-import com.citylife.backend.model.Users;
+import com.citylife.backend.model.User;
 import com.citylife.backend.model.LoginRequest;
 import com.citylife.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +22,16 @@ public class UserController {
     }
 
     @GetMapping
-    public List<Users> getAllUsers() {
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Optional<Users> getUserById(@PathVariable Long id) {
+    public Optional<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 @PostMapping
-public ResponseEntity<Map<String, String>> registerUser(@RequestBody Users user) {
+public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
     userService.saveUser(user);
     Map<String, String> response = new HashMap<>();
     response.put("message", "User registered successfully");
@@ -39,7 +39,7 @@ public ResponseEntity<Map<String, String>> registerUser(@RequestBody Users user)
 }
 
     @PostMapping("/check")
-    public ResponseEntity<?> checkEmailAndUsername(@RequestBody Users user) {
+    public ResponseEntity<?> checkEmailAndUsername(@RequestBody User user) {
         boolean isAvailable = userService.isEmailOrUsernameAvailable(user.getEmail(), user.getUsername());
         return ResponseEntity.ok(Map.of("isAvailable", isAvailable));
     }
@@ -51,7 +51,7 @@ public ResponseEntity<Map<String, String>> registerUser(@RequestBody Users user)
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        Users user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
+        User user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
         return ResponseEntity.ok(Map.of("id", user.getId()));
     }
 }

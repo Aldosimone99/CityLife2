@@ -1,12 +1,12 @@
 package com.citylife.backend.repository;
 
-import com.citylife.backend.model.Users;
+import com.citylife.backend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);
-    Users findByEmailAndPassword(String email, String password);
+    User findByEmailAndPassword(String email, String password);
 }
