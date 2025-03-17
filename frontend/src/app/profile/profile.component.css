@@ -4,18 +4,205 @@
   color: #ffffff; /* Light text color */
 }
 
-header {
-  background-color: #1f1f1f; /* Darker background for header */
-  padding: 10px;
-  border-bottom: 1px solid #333333; /* Dark border */
+.container {
+  display: flex;
+  width: 80%;
+  margin: 20px auto;
+  background: rgba(24, 25, 26, 0.821); /* Semi-transparent background */
+  border-radius: 10px; /* Optional: add rounded corners */
 }
 
-.content {
-  margin-top: 20px;
+.sidebar {
+  width: 30%;
+  padding: 10px;
+  border-right: #383232 2px solid;
+}
+
+main {
+  flex: 1;
+  padding: 10px;
 }
 
 .profile-info {
   background-color: #1f1f1f;
   padding: 20px;
   border-radius: 10px;
+}
+
+.user-posts {
+  text-align: center;
+  font-size: 25px;
+  margin-top: 50px;
+
+  .add-post {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px auto; /* Center the input bar */
+
+    textarea {
+      width: 100%;
+      padding: 8px; /* Reduce padding */
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #3a3b3c;
+      color: white;
+      resize: none;
+      font-size: 16px; /* Reduce font size */
+    }
+
+    button {
+      align-self: flex-end;
+      padding: 8px 16px; /* Reduce padding */
+      border-radius: 5px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 14px; /* Reduce font size */
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+
+  .post-container {
+    width: 500px;
+    background-color: #242526;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 40px auto;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: left;
+  }
+
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    div {
+      strong {
+        display: block;
+        font-size: 18px;
+      }
+
+      p {
+        color: gray;
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+  }
+
+  .post-content {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .post-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-top: 1px solid #3A3B3C;
+
+    button {
+      background: none;
+      border: none;
+      color: #B0B3B8;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #3A3B3C;
+      }
+
+      &:last-child {
+        color: #B0B3B8;
+      }
+    }
+  }
+
+  .comments {
+    margin-top: 10px;
+
+    .comment-box {
+      position: relative; /* Add position relative to the comment box */
+      background-color: #3a3b3c;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+      p {
+        margin: 0;
+        font-size: 15px;
+        color: #e4e6eb;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+
+      button {
+        position: absolute; /* Position the button absolutely */
+        top: 6px; /* Adjust the top position */
+        right: 10px; /* Adjust the right position */
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        font-size: 1.2rem;
+
+        &:hover {
+          color: red;
+        }
+      }
+    }
+
+    .add-comment {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+
+      input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #3a3b3c;
+        color: white;
+      }
+
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
 }

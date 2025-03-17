@@ -1,20 +1,50 @@
 <app-navbar></app-navbar>
 <div class="profile-page">
-  <header>
-    <h1>{{ user.firstName }} {{ user.lastName }}</h1>
-  </header>
-  <div class="content">
-    <div class="row">
-      <div class="col-left">
-        <div class="profile-info">
-          <p><strong>{{ 'EMAIL' | translate }}:</strong> {{ user.email }}</p>
-          <p><strong>{{ 'AGE' | translate }}:</strong> {{ user.age }}</p>
-          <p><strong>{{ 'GENDER' | translate }}:</strong> {{ user.gender }}</p>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="profile-info">
+        <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+        <p><strong>{{ 'EMAIL' | translate }}:</strong> {{ user.email }}</p>
+        <p><strong>{{ 'AGE' | translate }}:</strong> {{ user.age }}</p>
+        <p><strong>{{ 'GENDER' | translate }}:</strong> {{ user.gender }}</p>
+      </div>
+    </aside>
+    <main>
+      <section class="user-posts">
+        <h2 *ngIf="posts.length > 0">{{ 'ALL_POSTS' | translate }}</h2>
+        <h2 *ngIf="posts.length === 0">{{ 'NO_POSTS_AVAILABLE' | translate }}</h2>
+        <div class="add-post">
+          <textarea [(ngModel)]="newPost" placeholder="{{ 'WRITE_NEW_POST' | translate }}"></textarea>
+          <button (click)="addPost()">{{ 'POST' | translate }}</button>
         </div>
-      </div>
-      <div class="col-right">
-        <!-- Aggiungi qui il contenuto della colonna di destra -->
-      </div>
-    </div>
+        <div class="post-container" *ngFor="let post of posts">
+          <div class="post-header">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="Profile">
+            <div>
+              <strong>{{ post.user.firstName }} {{ post.user.lastName }}</strong>
+            </div>
+          </div>
+          <div class="post-content">
+            {{ post.body }}
+          </div>
+          <div class="post-actions">
+            <button (click)="toggleComments(post.id)">💬 {{ 'COMMENTS' | translate }}</button>
+            <button (click)="confirmDeletePost(post)">🗑️ {{ 'DELETE' | translate }}</button>
+          </div>
+          <div class="comments" *ngIf="showComments[post.id]">
+            <div *ngFor="let comment of comments[post.id]" class="comment-box">
+              <p><strong>{{ comment.name }}</strong>: {{ comment.body }}</p>
+              <button (click)="confirmDeleteComment(comment)">
+                <i class="bi bi-trash3"></i> <!-- Add icon here -->
+              </button>
+            </div>
+            <div class="add-comment">
+              <input type="text" [(ngModel)]="newComment[post.id]" placeholder="{{ 'ADD_COMMENT' | translate }}">
+              <button (click)="addComment(post.id)">{{ 'POST' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 </div>
