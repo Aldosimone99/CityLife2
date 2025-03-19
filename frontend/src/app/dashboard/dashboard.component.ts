@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,6 +7,18 @@ import { Component } from '@angular/core';
   standalone: false,
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
-  // Add any necessary properties and methods for the dashboard
+export class DashboardComponent implements OnInit {
+  posts: any[] = [];
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.http.get<any[]>('/api/posts').subscribe(data => {
+      this.posts = data;
+    });
+  }
 }
