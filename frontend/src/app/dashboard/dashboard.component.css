@@ -2,14 +2,17 @@
   padding: 20px;
   background-color: #121212; /* Dark background color */
   color: #ffffff; /* Light text color */
+  font-family: Arial, sans-serif; /* Ensure consistent font */
 }
 
 header {
   background-color: #1f1f1f; /* Darker background for header */
   padding: 10px;
   border-bottom: 1px solid #333333; /* Dark border */
+  color: #ffffff; /* Light text color */
 }
 
 .content {
   margin-top: 20px;
+  color: #ffffff; /* Light text color */
 }
