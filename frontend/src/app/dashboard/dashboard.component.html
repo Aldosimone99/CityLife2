@@ -4,8 +4,6 @@
     <h1>Home</h1>
   </header>
   <div class="content">
-    <!-- Add dashboard content here -->
-    <p>Welcome to your dashboard!</p>
     <div *ngFor="let post of posts" class="post-container">
       <div class="post-header">
         <img [src]="post.user.profileImage" alt="User Image">

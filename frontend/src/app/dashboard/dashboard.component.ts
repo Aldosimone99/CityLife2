@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,8 +19,21 @@ export class DashboardComponent implements OnInit {
   }
 
   fetchPosts() {
-    this.http.get<any[]>('/api/posts').subscribe(data => {
-      this.posts = data;
+    this.http.get<any[]>('/api/posts').pipe(
+      switchMap(posts => {
+        const userRequests = posts.map(post => {
+          if (post.userId) {
+            return this.http.get<any>(`/api/users/${post.userId}`).pipe(
+              map(user => ({ ...post, user }))
+            );
+          } else {
+            return of({ ...post, user: { name: 'User', profileImage: 'default.png' } });
+          }
+        });
+        return forkJoin(userRequests);
+      })
+    ).subscribe(postsWithUsers => {
+      this.posts = postsWithUsers;
     });
   }
 }
