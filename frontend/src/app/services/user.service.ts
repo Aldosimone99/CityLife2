@@ -60,7 +60,7 @@ export class UserService {
     );
   }
 
-  addPost(userId: number, post: { body: string; title: string; }): Observable<any> {
+  addPost(userId: number, post: { body: string; }): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/users/${userId}/posts`, post, { headers }).pipe(
       catchError(this.handleError)
