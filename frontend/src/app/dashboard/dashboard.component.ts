@@ -20,18 +20,10 @@ export class DashboardComponent implements OnInit {
 
   fetchPosts() {
     this.http.get<any[]>('/api/posts').pipe(
-      switchMap(posts => {
-        const userRequests = posts.map(post => {
-          if (post.userId) {
-            return this.http.get<any>(`/api/users/${post.userId}`).pipe(
-              map(user => ({ ...post, user }))
-            );
-          } else {
-            return of({ ...post, user: { name: 'User', profileImage: 'default.png' } });
-          }
-        });
-        return forkJoin(userRequests);
-      })
+      map(posts => posts.map(post => ({
+        ...post,
+        userName: `${post.user.firstName} ${post.user.lastName}`
+      })))
     ).subscribe(postsWithUsers => {
       this.posts = postsWithUsers;
     });
