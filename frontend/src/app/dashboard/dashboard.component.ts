@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
       map(posts => posts.map(post => ({
         ...post,
         userName: `${post.user.firstName} ${post.user.lastName}`
-      })))
+      })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())),
     ).subscribe(postsWithUsers => {
       this.posts = postsWithUsers;
     });
