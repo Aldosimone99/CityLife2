@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
         this.posts = postsWithUsers.map(post => ({
           ...post,
           userName: `${post.user.firstName} ${post.user.lastName}`
-        }));
+        })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       });
     } else {
       console.error('User ID is not available');
@@ -65,14 +65,30 @@ export class ProfileComponent implements OnInit {
     if (userId && this.newPost.trim()) {
       const post = {
         body: this.newPost,
-        userId: userId
+        user: {
+          id: userId
+        },
+        createdAt: new Date().toISOString() // Aggiungi la data di creazione
       };
+  
+      // Fai la richiesta POST per aggiungere il nuovo post
       this.http.post(`/api/posts`, post).subscribe(
         (response: any) => {
-          this.posts.unshift({
+          // Associa i dati dell'utente al post
+          const newPostWithUser = {
             ...response,
-            user: this.user
-          });
+            user: this.user,
+            userName: `${this.user.firstName} ${this.user.lastName}`,
+            createdAt: post.createdAt // Usa la data di creazione impostata
+          };
+  
+          // Aggiungi il post in cima alla lista dei post
+          this.posts.unshift(newPostWithUser);
+  
+          // Ordina i post per data
+          this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+          // Reset del campo di input per il nuovo post
           this.newPost = '';
         },
         (error) => {
