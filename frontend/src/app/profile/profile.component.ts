@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadUserProfile();
-    this.loadUserPosts();
+    this.fetchPosts();
   }
 
   loadUserProfile() {
@@ -38,18 +39,22 @@ export class ProfileComponent implements OnInit {
       console.error('User ID is not available');
     }
   }
-
-  loadUserPosts() {
+  fetchPosts() {
     const userId = this.authService.getUserId();
+    console.log('User ID:', userId); // Per debug
+  
     if (userId) {
-      this.http.get(`/api/users/${userId}/posts`).subscribe(
-        (response: any) => {
-          this.posts = response;
-        },
-        (error) => {
-          console.error('Error loading user posts:', error);
-        }
-      );
+      this.http.get<any[]>(`/api/posts`).pipe(
+        map(posts => 
+          posts.filter(post => post.user.id === +userId) // Usa + per forzare la conversione a numero
+        )
+      ).subscribe(postsWithUsers => {
+        console.log('Filtered Posts:', postsWithUsers); // Verifica i post dopo il filtro
+        this.posts = postsWithUsers.map(post => ({
+          ...post,
+          userName: `${post.user.firstName} ${post.user.lastName}`
+        }));
+      });
     } else {
       console.error('User ID is not available');
     }
