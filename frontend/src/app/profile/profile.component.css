@@ -233,7 +233,7 @@ main {
   padding: 20px;
   border: 1px solid #817b7b;
   width: 380px;
-  height: 260px;
+  height: 280px; /* Adjust height */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -246,6 +246,7 @@ main {
 
 .delete-confirmation-modal p {
   margin-bottom: 15px; /* Add margin to move the paragraph down */
+  font-size: 20px; /* Decrease font size */
 }
 
 .delete-confirmation-modal .btn-danger,
