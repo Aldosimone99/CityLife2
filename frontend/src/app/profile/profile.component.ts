@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
+import { PostService } from '../services/post.service';
 import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css'],
   standalone: false,
-  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
   user: any = {};
@@ -16,8 +17,10 @@ export class ProfileComponent implements OnInit {
   showComments: { [key: number]: boolean } = {};
   comments: { [key: number]: any[] } = {};
   newComment: { [key: number]: string } = {};
+  isDeleteConfirmationVisible: boolean = false;
+  postToDelete: any = null;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private postService: PostService) {}
 
   ngOnInit() {
     this.loadUserProfile();
@@ -39,17 +42,15 @@ export class ProfileComponent implements OnInit {
       console.error('User ID is not available');
     }
   }
+
   fetchPosts() {
     const userId = this.authService.getUserId();
-    console.log('User ID:', userId); // Per debug
-  
     if (userId) {
       this.http.get<any[]>(`/api/posts`).pipe(
         map(posts => 
           posts.filter(post => post.user.id === +userId) // Usa + per forzare la conversione a numero
         )
       ).subscribe(postsWithUsers => {
-        console.log('Filtered Posts:', postsWithUsers); // Verifica i post dopo il filtro
         this.posts = postsWithUsers.map(post => ({
           ...post,
           userName: `${post.user.firstName} ${post.user.lastName}`
@@ -103,7 +104,25 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmDeletePost(post: any) {
-    // Logic to confirm delete post
+    this.postToDelete = post;
+    this.isDeleteConfirmationVisible = true;
+  }
+
+  cancelDeletePost() {
+    this.postToDelete = null;
+    this.isDeleteConfirmationVisible = false;
+  }
+
+  deletePost(postId: number) {
+    this.postService.deletePost(postId).subscribe(
+      () => {
+        this.posts = this.posts.filter(post => post.id !== postId);
+        this.cancelDeletePost();
+      },
+      (error) => {
+        console.error('Error deleting post:', error);
+      }
+    );
   }
 
   confirmDeleteComment(comment: any) {
@@ -114,16 +133,8 @@ export class ProfileComponent implements OnInit {
     // Logic to add a new comment
   }
 
-  deletePost() {
-    // Logic to delete a post
-  }
-
   deleteComment() {
     // Logic to delete a comment
-  }
-
-  cancelDeletePost() {
-    // Logic to cancel delete post
   }
 
   cancelDeleteComment() {

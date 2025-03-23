@@ -16,7 +16,6 @@ import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { FormsModule } from '@angular/forms';
-import { CommentsComponent } from './comments/comments.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../enviroments/enviroments';
@@ -42,7 +41,6 @@ const routes: Routes = [
     LoginComponent,
     UsersComponent,
     UserDetailComponent,
-    CommentsComponent,
     NavbarComponent,
     DashboardComponent,
     ProfileComponent

@@ -36,13 +36,22 @@
             <div *ngFor="let comment of comments[post.id]" class="comment-box">
               <p><strong>{{ comment.name }}</strong>: {{ comment.body }}</p>
               <button (click)="confirmDeleteComment(comment)">
-                <i class="bi bi-trash3"></i> <!-- Add icon here -->
+                <i class="bi bi-trash3"></i>
               </button>
             </div>
             <div class="add-comment">
               <input type="text" [(ngModel)]="newComment[post.id]" placeholder="{{ 'ADD_COMMENT' | translate }}">
               <button (click)="addComment(post.id)">{{ 'POST' | translate }}</button>
             </div>
+          </div>
+        </div>
+        <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible}">
+          <div class="modal-content">
+            <h3>{{ 'CONFIRM_DELETE' | translate }}</h3>
+            <span class="close" (click)="cancelDeletePost()">&times;</span>
+            <p>{{ 'CONFIRM_DELETE_POST' | translate }} {{ postToDelete?.body }}?</p>
+            <button class="btn btn-danger" (click)="deletePost(postToDelete?.id)">{{ 'DELETE' | translate }}</button>
+            <button class="btn btn-secondary" (click)="cancelDeletePost()">{{ 'CANCEL' | translate }}</button>
           </div>
         </div>
       </section>
