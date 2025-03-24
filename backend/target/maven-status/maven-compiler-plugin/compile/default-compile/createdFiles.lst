@@ -1,7 +1,6 @@
 com/citylife/backend/controller/PostController.class
 com/citylife/backend/controller/UserController.class
 com/citylife/backend/service/UserService.class
-com/citylife/backend/model/LoginRequest.class
 com/citylife/backend/model/User.class
 com/citylife/backend/repository/PostRepository.class
 com/citylife/backend/repository/UserRepository.class

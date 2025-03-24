@@ -1,7 +1,7 @@
 package com.citylife.backend.controller;
 
+import com.citylife.backend.interfaces.requestes.LoginRequest;
 import com.citylife.backend.model.User;
-import com.citylife.backend.model.LoginRequest;
 import com.citylife.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
