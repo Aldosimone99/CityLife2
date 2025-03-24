@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,19 +15,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "firstname")
+    @Column(name = "firstname")
     private String firstName;
-    @Column (name = "lastname")
+    @Column(name = "lastname")
     private String lastName;
-    @Column (name = "email")
+    @Column(name = "email")
     private String email;
-    @Column (name = "username")
+    @Column(name = "username")
     private String username;
-    @Column (name = "password")
+    @Column(name = "password")
     private String password;
-    @Column (name = "gender")
+    @Column(name = "gender")
     private String gender;
-    @Column (name = "age")
+    @Column(name = "age")
     private Integer age;
 
+    // Metodi getter manuali
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }
