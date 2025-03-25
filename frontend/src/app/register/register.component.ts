@@ -62,6 +62,8 @@ export class RegisterComponent {
               console.log('User registered successfully:', response);
               this.showPopup = true; // Show the popup after successful registration
               this.errorMessage = ''; // Clear any previous error messages
+              alert('Utente registrato'); // Add positive feedback message
+              this.router.navigate(['/login']); // Redirect to the login page
             } else {
               this.errorMessage = this.translate.instant('REGISTRATION_ERROR');
             }
