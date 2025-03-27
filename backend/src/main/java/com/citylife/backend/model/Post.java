@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +16,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotNull
+    @Lob // Explicitly mark this as a large object
+    @Column(nullable = false, columnDefinition = "TEXT") // Use TEXT for PostgreSQL
     private String body;
 
     @ManyToOne

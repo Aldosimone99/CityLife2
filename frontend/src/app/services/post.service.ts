@@ -8,21 +8,38 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = 'http://localhost:4200/api/posts'; // Sostituisci con l'URL del tuo backend
+  private apiUrl = '/api/posts'; // Sostituisci con l'URL del tuo backend
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getPosts(): Observable<any[]> {
     const headers = this.authService.getAuthHeaders();
+    console.log('Headers:', headers);
+  
+    const token = headers.get('Authorization');
+    console.log('Authorization header:', token); 
+  
+    if (!token) {
+      console.error('Authorization token is missing');
+      return throwError(() => new Error('Authorization token is missing'));
+    }
+  
     return this.http.get<any[]>(this.apiUrl, { headers }).pipe(
       catchError((error) => {
         console.error('Error fetching posts:', error);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
 
-  addPost(postData: any): Observable<any> {
+  addPost(postData: { content: string; userId: number }): Observable<any> {
+    if (!postData.content || typeof postData.content !== 'string' || postData.content.trim().length < 1) {
+      return throwError(() => new Error('Invalid post content: must be a string with at least 1 characters.'));
+    }
+    if (isNaN(postData.userId) || postData.userId <= 0) {
+      return throwError(() => new Error('Invalid userId: must be a positive number.'));
+    }
+
     const headers = this.authService.getAuthHeaders();
     return this.http.post<any>(this.apiUrl, postData, { headers }).pipe(
       catchError((error) => {
@@ -33,6 +50,10 @@ export class PostService {
   }
 
   deletePost(postId: number): Observable<any> {
+    if (isNaN(postId) || postId <= 0) {
+      return throwError(() => new Error('Invalid postId: must be a positive number.'));
+    }
+
     const headers = this.authService.getAuthHeaders();
     return this.http.delete<any>(`${this.apiUrl}/${postId}`, { headers }).pipe(
       catchError((error) => {

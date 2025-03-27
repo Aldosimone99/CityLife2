@@ -37,7 +37,14 @@ export class ProfileComponent implements OnInit {
     if (userId) {
       this.authService.getUser(userId).subscribe(
         (response) => {
-          this.user = response; // Directly assign the response from the backend
+          this.user = {
+            id: response.id,               // Map 'id' from the database
+            firstName: response.firstname, // Map 'firstname' from the database
+            lastName: response.lastname,   // Map 'lastname' from the database
+            email: response.email,         // Map 'email' from the database
+            age: response.age,             // Map 'age' from the database
+            gender: response.gender        // Map 'gender' from the database
+          };
         },
         (error) => console.error('Error loading user profile:', error)
       );
@@ -126,9 +133,9 @@ export class ProfileComponent implements OnInit {
 
   addPost() {
     const userId = this.authService.getUserId();
-    if (userId && this.newPost.trim()) {
+    if (userId && this.newPost.trim().length >= 1) {
       const post = {
-        body: this.newPost,
+        content: this.newPost.trim(), // Ensure content is not empty
         userId: userId,
         createdAt: new Date().toISOString()
       };
@@ -144,6 +151,8 @@ export class ProfileComponent implements OnInit {
         },
         (error) => console.error('Error adding post:', error)
       );
+    } else {
+      console.error('Post body must be at least 1 characters long');
     }
   }
 
@@ -158,6 +167,11 @@ export class ProfileComponent implements OnInit {
   }
 
   deletePost(postId: number) {
+    if (isNaN(postId) || postId <= 0) {
+      console.error('Invalid postId: must be a positive number.');
+      return;
+    }
+
     this.postService.deletePost(postId).subscribe(
       () => {
         this.posts = this.posts.filter((post: any) => post.id !== postId);

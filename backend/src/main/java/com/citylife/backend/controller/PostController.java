@@ -2,6 +2,7 @@ package com.citylife.backend.controller;
 
 import com.citylife.backend.model.Post;
 import com.citylife.backend.service.PostService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,11 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost = postService.savePost(post);
-        return ResponseEntity.ok(createdPost);
+        if (post.getBody() == null || post.getBody().trim().isEmpty()) {
+            throw new IllegalArgumentException("Post body cannot be null or empty");
+        }
+        Post savedPost = postService.savePost(post);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedPost);
     }
 
     @GetMapping
@@ -29,15 +33,25 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
-        return postService.getPostById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Post> getPostById(@PathVariable String id) {
+        try {
+            Long postId = Long.parseLong(id);
+            return postService.getPostById(postId)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().build(); // Return 400 for invalid id
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deletePost(@PathVariable String id) {
+        try {
+            Long postId = Long.parseLong(id);
+            postService.deletePost(postId);
+            return ResponseEntity.noContent().build();
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().build(); // Return 400 for invalid id
+        }
     }
 }

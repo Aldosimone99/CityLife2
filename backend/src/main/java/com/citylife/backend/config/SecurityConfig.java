@@ -6,7 +6,6 @@ import com.citylife.backend.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationManagerResolver;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,13 +19,8 @@ import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
-    private final CustomUserDetailsService userDetailsService;
-    private final JwtUtil jwtUtil;
-
     public SecurityConfig(JwtRequestFilter jwtRequestFilter, CustomUserDetailsService userDetailsService, JwtUtil jwtUtil) {
         this.jwtRequestFilter = jwtRequestFilter;
-        this.userDetailsService = userDetailsService;
-        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -34,7 +28,8 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // Updated for Spring Security 6.1+
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/public/**", "/api/users/login").permitAll() // Ensure /api/users/login is accessible
+                .requestMatchers("/public/**", "/api/users/login").permitAll() // Public endpoints
+                .requestMatchers("/api/posts/**").authenticated() // Protect /api/posts
                 .anyRequest().authenticated()
             )
             .exceptionHandling(ex -> ex
