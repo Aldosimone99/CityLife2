@@ -20,12 +20,14 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestBody Post post) {
+    public ResponseEntity<?> createPost(@RequestBody Post post, @RequestHeader("Authorization") String token) {
         if (post.getBody() == null || post.getBody().trim().isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Post body cannot be null or empty")); // Return JSON error
         }
         try {
-            Post savedPost = postService.savePost(post);
+            Post savedPost = postService.savePostWithLoggedInUser(post, token);
+            // Ensure the user object is fully populated in the response
+            savedPost.getUser().setPassword(null); // Exclude sensitive data like password
             return ResponseEntity.status(HttpStatus.CREATED).body(savedPost);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage())); // Return JSON error

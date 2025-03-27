@@ -135,17 +135,15 @@ export class ProfileComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId && this.newPost.trim().length >= 1) {
       const post = {
-        body: this.newPost.trim(), // Use 'body' instead of 'content' to match the backend
-        user: { id: userId }, // Ensure the user object is properly structured
-        createdAt: new Date().toISOString()
+        body: this.newPost.trim(), // Use 'body' to match the backend
       };
 
       this.postService.addPost(post).subscribe(
         (response) => {
           this.posts.unshift({
             ...response,
-            userName: `${this.user.firstName} ${this.user.lastName}`,
-            createdAt: post.createdAt
+            userName: response.user ? `${response.user.firstName} ${response.user.lastName}` : 'Unknown User', // Use user details from the response
+            createdAt: response.createdAt
           });
           this.newPost = '';
         },

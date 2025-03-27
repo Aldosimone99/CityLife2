@@ -32,14 +32,10 @@ export class PostService {
     );
   }
 
-  addPost(postData: { body: string; user: { id: number } }): Observable<any> {
+  addPost(postData: { body: string }): Observable<any> {
     if (!postData.body || typeof postData.body !== 'string' || postData.body.trim().length < 1) {
       console.error('Invalid post body: must be a string with at least 1 character.');
       return throwError(() => new Error('Invalid post body: must be a string with at least 1 character.'));
-    }
-    if (!postData.user || isNaN(postData.user.id) || postData.user.id <= 0) {
-      console.error('Invalid user ID: must be a positive number.');
-      return throwError(() => new Error('Invalid user ID: must be a positive number.'));
     }
 
     const headers = this.authService.getAuthHeaders();

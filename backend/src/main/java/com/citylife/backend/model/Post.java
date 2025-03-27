@@ -21,7 +21,7 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT") // Use TEXT for PostgreSQL
     private String body;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER) // Ensure the user is eagerly fetched
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
