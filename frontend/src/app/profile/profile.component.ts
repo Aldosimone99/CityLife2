@@ -44,12 +44,12 @@ export class ProfileComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId) {
       this.postService.getPosts().pipe(
-        map(posts => posts.filter(post => post.user.id === +userId))
+        map(posts => (posts as any[]).filter((post: any) => post.user.id === +userId))
       ).subscribe(postsWithUsers => {
-        this.posts = postsWithUsers.map(post => ({
+        this.posts = postsWithUsers.map((post: any) => ({
           ...post,
           userName: `${post.user.firstName} ${post.user.lastName}`
-        })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        })).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
         // Carica i commenti per ogni post
         this.posts.forEach(post => this.fetchComments(post.id));
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
   fetchComments(postId: number) {
     this.commentService.getComments(postId).subscribe(
       (response) => {
-        this.comments[postId] = response.map(comment => ({
+        this.comments[postId] = response.map((comment: any) => ({
           ...comment,
           createdAt: new Date(comment.createdAt)
         }));
@@ -101,7 +101,7 @@ export class ProfileComponent implements OnInit {
   deleteComment(postId: number, commentId: number) {
     this.commentService.deleteComment(postId, commentId).subscribe(
       () => {
-        this.comments[postId] = this.comments[postId].filter(comment => comment.id !== commentId);
+        this.comments[postId] = this.comments[postId].filter((comment: any) => comment.id !== commentId);
       },
       (error) => console.error('Error deleting comment:', error)
     );

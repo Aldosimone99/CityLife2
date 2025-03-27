@@ -24,18 +24,29 @@ export class LoginComponent {
   }
 
   onLogin() {
-    console.log('Attempting to login with email:', this.email);
-    this.http.post('/api/users/login', { email: this.email, password: this.password }).subscribe(
-      (response: any) => {
-        console.log('Login successful:', response);
-        this.authService.setUserId(response.id); // Store the user ID
-        this.router.navigate(['/dashboard']);
-      },
-      (error) => {
-        console.error('Login error:', error);
-        this.errorMessage = this.translate.instant('INVALID_USERNAME_OR_PASSWORD');
-      }
-    );
+    const loginData = {
+        email: this.email,
+        password: this.password
+    };
+
+    this.http.post<{ token: string; id: number }>('/api/users/login', loginData).subscribe({
+        next: (response) => {
+            console.log('Login successful:', response);
+            localStorage.setItem('token', response.token); // Store token in localStorage
+            this.authService.getUserId(); // Corrected method call
+            this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+            console.error('Login error:', error);
+            if (error.status === 403) {
+                alert('Access Forbidden. Please check your credentials.');
+            } else if (error.status === 500) {
+                alert('Internal Server Error. Please try again later.');
+            } else {
+                alert('Login failed. Please check your credentials.');
+            }
+        }
+    });
   }
 
   switchLanguage(language: string) {

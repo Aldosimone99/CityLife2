@@ -4,6 +4,8 @@ import com.citylife.backend.interfaces.requestes.LoginRequest;
 import com.citylife.backend.model.User;
 import com.citylife.backend.service.UserService;
 import com.citylife.backend.util.JwtUtil; // Import JwtUtil
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,6 +22,7 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil; // Add JwtUtil field
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     public UserController(UserService userService, JwtUtil jwtUtil) { // Inject JwtUtil
         this.userService = userService;
@@ -53,9 +58,15 @@ public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) 
     }
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        User user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
-        String token = jwtUtil.generateToken(user.getEmail());
-        return ResponseEntity.ok(Map.of("token", token, "id", user.getId()));
+        logger.info("Login request received for email: {}", loginRequest.getEmail());
+        try {
+            User user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
+            String token = jwtUtil.generateToken(user.getEmail());
+            return ResponseEntity.ok(Map.of("token", token, "id", user.getId()));
+        } catch (Exception e) {
+            logger.error("Error during login: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Login failed");
+        }
     }
 
     

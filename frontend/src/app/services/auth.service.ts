@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +11,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { username: string, password: string }): Observable<any> {
-    return this.http.post<{ id: number }>(`${this.apiUrl}/login`, credentials).pipe(
-      map((response) => {
-        // Salva l'ID dell'utente in una variabile o in memoria
-        localStorage.setItem('userId', response.id.toString()); // Salva l'ID in localStorage
-        return { success: true, userId: response.id };
-      }),
-      catchError((error) => {
-        console.error('Login failed:', error);
-        return of({ success: false });
+  login(credentials: { email: string; password: string }) {
+    return this.http.post<{ token: string }>('http://localhost:4200/api/users/login', credentials).pipe(
+      tap((response) => {
+        localStorage.setItem('authToken', response.token); // Salva il token JWT
       })
     );
   }
