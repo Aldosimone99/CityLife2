@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -19,12 +20,16 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
+    public ResponseEntity<?> createPost(@RequestBody Post post) {
         if (post.getBody() == null || post.getBody().trim().isEmpty()) {
-            throw new IllegalArgumentException("Post body cannot be null or empty");
+            return ResponseEntity.badRequest().body(Map.of("error", "Post body cannot be null or empty")); // Return JSON error
         }
-        Post savedPost = postService.savePost(post);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedPost);
+        try {
+            Post savedPost = postService.savePost(post);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedPost);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage())); // Return JSON error
+        }
     }
 
     @GetMapping

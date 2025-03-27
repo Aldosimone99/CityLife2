@@ -32,19 +32,27 @@ export class PostService {
     );
   }
 
-  addPost(postData: { content: string; userId: number }): Observable<any> {
-    if (!postData.content || typeof postData.content !== 'string' || postData.content.trim().length < 1) {
-      return throwError(() => new Error('Invalid post content: must be a string with at least 1 characters.'));
+  addPost(postData: { body: string; user: { id: number } }): Observable<any> {
+    if (!postData.body || typeof postData.body !== 'string' || postData.body.trim().length < 1) {
+      console.error('Invalid post body: must be a string with at least 1 character.');
+      return throwError(() => new Error('Invalid post body: must be a string with at least 1 character.'));
     }
-    if (isNaN(postData.userId) || postData.userId <= 0) {
-      return throwError(() => new Error('Invalid userId: must be a positive number.'));
+    if (!postData.user || isNaN(postData.user.id) || postData.user.id <= 0) {
+      console.error('Invalid user ID: must be a positive number.');
+      return throwError(() => new Error('Invalid user ID: must be a positive number.'));
     }
 
     const headers = this.authService.getAuthHeaders();
     return this.http.post<any>(this.apiUrl, postData, { headers }).pipe(
       catchError((error) => {
-        console.error('Error adding post:', error);
-        return throwError(error);
+        let errorMessage = 'An error occurred while adding the post.';
+        if (error.error && typeof error.error === 'object' && error.error.error) {
+          errorMessage = error.error.error; // Extract JSON error message
+        } else if (typeof error.error === 'string') {
+          errorMessage = error.error; // Handle plain text error
+        }
+        console.error('Error adding post:', errorMessage);
+        return throwError(() => new Error(errorMessage));
       })
     );
   }

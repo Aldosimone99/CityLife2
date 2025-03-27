@@ -135,8 +135,8 @@ export class ProfileComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId && this.newPost.trim().length >= 1) {
       const post = {
-        content: this.newPost.trim(), // Ensure content is not empty
-        userId: userId,
+        body: this.newPost.trim(), // Use 'body' instead of 'content' to match the backend
+        user: { id: userId }, // Ensure the user object is properly structured
         createdAt: new Date().toISOString()
       };
 
@@ -149,10 +149,12 @@ export class ProfileComponent implements OnInit {
           });
           this.newPost = '';
         },
-        (error) => console.error('Error adding post:', error)
+        (error) => {
+          console.error('Error adding post:', error.error || error.message || error);
+        }
       );
     } else {
-      console.error('Post body must be at least 1 characters long');
+      console.error('Post body must be at least 1 character long');
     }
   }
 
