@@ -36,6 +36,10 @@ public class JwtUtil {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String email = extractEmail(token);
+        // Exclude "register" page from token validation
+        if ("register".equals(email)) {
+            return true;
+        }
         return email.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
