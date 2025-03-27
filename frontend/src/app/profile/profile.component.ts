@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { PostService } from '../services/post.service';
+import { CommentService } from '../services/comment.service';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -13,14 +13,15 @@ import { map } from 'rxjs/operators';
 export class ProfileComponent implements OnInit {
   user: any = {};
   posts: any[] = [];
-  newPost: string = '';
   showComments: { [key: number]: boolean } = {};
   comments: { [key: number]: any[] } = {};
   newComment: { [key: number]: string } = {};
-  isDeleteConfirmationVisible: boolean = false;
-  postToDelete: any = null;
 
-  constructor(private http: HttpClient, private authService: AuthService, private postService: PostService) {}
+  constructor(
+    private authService: AuthService,
+    private postService: PostService,
+    private commentService: CommentService
+  ) {}
 
   ngOnInit() {
     this.loadUserProfile();
@@ -30,13 +31,9 @@ export class ProfileComponent implements OnInit {
   loadUserProfile() {
     const userId = this.authService.getUserId();
     if (userId) {
-      this.http.get(`/api/users/${userId}`).subscribe(
-        (response: any) => {
-          this.user = response;
-        },
-        (error) => {
-          console.error('Error loading user profile:', error);
-        }
+      this.authService.getUser(userId).subscribe(
+        (response) => (this.user = response),
+        (error) => console.error('Error loading user profile:', error)
       );
     } else {
       console.error('User ID is not available');
@@ -46,56 +43,17 @@ export class ProfileComponent implements OnInit {
   fetchPosts() {
     const userId = this.authService.getUserId();
     if (userId) {
-      this.http.get<any[]>(`/api/posts`).pipe(
-        map(posts => 
-          posts.filter(post => post.user.id === +userId) // Usa + per forzare la conversione a numero
-        )
+      this.postService.getPosts().pipe(
+        map(posts => posts.filter(post => post.user.id === +userId))
       ).subscribe(postsWithUsers => {
         this.posts = postsWithUsers.map(post => ({
           ...post,
           userName: `${post.user.firstName} ${post.user.lastName}`
         })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-      });
-    } else {
-      console.error('User ID is not available');
-    }
-  }
 
-  addPost() {
-    const userId = this.authService.getUserId();
-    if (userId && this.newPost.trim()) {
-      const post = {
-        body: this.newPost,
-        user: {
-          id: userId
-        },
-        createdAt: new Date().toISOString() // Aggiungi la data di creazione
-      };
-  
-      // Fai la richiesta POST per aggiungere il nuovo post
-      this.http.post(`/api/posts`, post).subscribe(
-        (response: any) => {
-          // Associa i dati dell'utente al post
-          const newPostWithUser = {
-            ...response,
-            user: this.user,
-            userName: `${this.user.firstName} ${this.user.lastName}`,
-            createdAt: post.createdAt // Usa la data di creazione impostata
-          };
-  
-          // Aggiungi il post in cima alla lista dei post
-          this.posts.unshift(newPostWithUser);
-  
-          // Ordina i post per data
-          this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  
-          // Reset del campo di input per il nuovo post
-          this.newPost = '';
-        },
-        (error) => {
-          console.error('Error adding post:', error);
-        }
-      );
+        // Carica i commenti per ogni post
+        this.posts.forEach(post => this.fetchComments(post.id));
+      });
     }
   }
 
@@ -103,41 +61,49 @@ export class ProfileComponent implements OnInit {
     this.showComments[postId] = !this.showComments[postId];
   }
 
-  confirmDeletePost(post: any) {
-    this.postToDelete = post;
-    this.isDeleteConfirmationVisible = true;
-  }
-
-  cancelDeletePost() {
-    this.postToDelete = null;
-    this.isDeleteConfirmationVisible = false;
-  }
-
-  deletePost(postId: number) {
-    this.postService.deletePost(postId).subscribe(
-      () => {
-        this.posts = this.posts.filter(post => post.id !== postId);
-        this.cancelDeletePost();
+  fetchComments(postId: number) {
+    this.commentService.getComments(postId).subscribe(
+      (response) => {
+        this.comments[postId] = response.map(comment => ({
+          ...comment,
+          createdAt: new Date(comment.createdAt)
+        }));
       },
-      (error) => {
-        console.error('Error deleting post:', error);
-      }
+      (error) => console.error('Error fetching comments:', error)
     );
   }
 
-  confirmDeleteComment(comment: any) {
-    // Logic to confirm delete comment
-  }
-
   addComment(postId: number) {
-    // Logic to add a new comment
+    const userId = this.authService.getUserId();
+    if (userId && this.newComment[postId]?.trim()) {
+      const comment = {
+        content: this.newComment[postId],
+        userId: userId,
+        createdAt: new Date().toISOString()
+      };
+
+      this.commentService.addComment(postId, comment).subscribe(
+        (response) => {
+          if (!this.comments[postId]) {
+            this.comments[postId] = [];
+          }
+          this.comments[postId].push({
+            ...response,
+            createdAt: comment.createdAt
+          });
+          this.newComment[postId] = '';
+        },
+        (error) => console.error('Error adding comment:', error)
+      );
+    }
   }
 
-  deleteComment() {
-    // Logic to delete a comment
-  }
-
-  cancelDeleteComment() {
-    // Logic to cancel delete comment
+  deleteComment(postId: number, commentId: number) {
+    this.commentService.deleteComment(postId, commentId).subscribe(
+      () => {
+        this.comments[postId] = this.comments[postId].filter(comment => comment.id !== commentId);
+      },
+      (error) => console.error('Error deleting comment:', error)
+    );
   }
 }

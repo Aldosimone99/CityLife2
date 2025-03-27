@@ -3,6 +3,7 @@ package com.citylife.backend.controller;
 import com.citylife.backend.interfaces.requestes.LoginRequest;
 import com.citylife.backend.model.User;
 import com.citylife.backend.service.UserService;
+import com.citylife.backend.util.JwtUtil; // Import JwtUtil
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,11 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")  // Permette richieste da Angular
 public class UserController {
     private final UserService userService;
+    private final JwtUtil jwtUtil; // Add JwtUtil field
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtUtil jwtUtil) { // Inject JwtUtil
         this.userService = userService;
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping
@@ -48,10 +51,12 @@ public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) 
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
-
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         User user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
-        return ResponseEntity.ok(Map.of("id", user.getId()));
+        String token = jwtUtil.generateToken(user.getEmail());
+        return ResponseEntity.ok(Map.of("token", token, "id", user.getId()));
     }
+
+    
 }

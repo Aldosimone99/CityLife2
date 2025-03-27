@@ -8,48 +8,41 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = '/api/users'; // Use backend API
-  private userIdKey = 'userId';
 
   constructor(private http: HttpClient) {}
 
   login(credentials: { username: string, password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-      map((response: any) => {
-        this.setUserId(response.id);
-        return { success: true };
+    return this.http.post<{ id: number }>(`${this.apiUrl}/login`, credentials).pipe(
+      map((response) => {
+        // Salva l'ID dell'utente in una variabile o in memoria
+        localStorage.setItem('userId', response.id.toString()); // Salva l'ID in localStorage
+        return { success: true, userId: response.id };
       }),
-      catchError(error => {
+      catchError((error) => {
+        console.error('Login failed:', error);
         return of({ success: false });
       })
     );
   }
 
-  isAuthenticated(): boolean {
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      const userId = localStorage.getItem(this.userIdKey);
-      return userId !== null;
-    } else {
-      console.error('localStorage is not available');
-      return false;
-    }
+  isAuthenticated(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/isAuthenticated`).pipe(
+      catchError(() => of(false))
+    );
   }
 
-  logout(): void {
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      localStorage.removeItem(this.userIdKey);
-    }
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/logout`, {}).pipe(
+      catchError(() => of())
+    );
   }
 
-  setUserId(userId: number): void {
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      localStorage.setItem(this.userIdKey, userId.toString());
-    }
+  getUser(userId: number): Observable<any> {
+    return this.http.get<any>(`/api/users/${userId}`);
   }
 
-  getUserId(): string | null {
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      return localStorage.getItem(this.userIdKey);
-    }
-    return null;
-  }
+getUserId(): number | null {
+  const userId = localStorage.getItem('userId'); // Legge l'ID salvato durante il login
+  return userId ? parseInt(userId, 10) : null;
+}
 }
