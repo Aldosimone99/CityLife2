@@ -70,7 +70,8 @@ userPosts: any;
         body: this.newPost,
         title: 'Default Title' // Aggiungi un titolo di default se richiesto dall'API
       };
-      this.userService.addPost(this.user.id, post).subscribe((newPost: any) => {
+      this.userService.addPost(post); // Ensure only one argument is passed
+      this.userService.addPost(post).subscribe((newPost: any) => {
         this.posts.unshift(newPost); // Aggiungi il nuovo post all'inizio dell'array dei post
         this.newPost = ''; // Pulisci il campo di input
       }, error => {
@@ -138,7 +139,7 @@ userPosts: any;
         this.comments[postId] = this.comments[postId].filter(comment => comment.id !== this.commentToDelete.id); // Remove the deleted comment from the comments array
         this.commentToDelete = null;
         this.isDeleteCommentConfirmationVisible = false;
-      }, (error: any) => {
+      }, (error: unknown) => { // Explicitly type the error parameter
         console.error('Error deleting comment:', error); // Log for debugging
       });
     }

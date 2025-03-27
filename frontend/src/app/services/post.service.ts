@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,40 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts() {
-    const token = localStorage.getItem('authToken'); // Assicurati che il token sia salvato dopo il login
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(this.apiUrl, { headers });
+  getPosts(): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<any[]>(this.apiUrl, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error fetching posts:', error);
+        return throwError(error);
+      })
+    );
   }
 
-  deletePost(postId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${postId}`);
+  addPost(postData: any): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<any>(this.apiUrl, postData, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error adding post:', error);
+        return throwError(error);
+      })
+    );
   }
 
-  addPost(post: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, post);
+  deletePost(postId: number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.delete<any>(`${this.apiUrl}/${postId}`, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error deleting post:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
   }
 }

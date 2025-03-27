@@ -35,8 +35,12 @@ export class AuthService {
     return this.http.get<any>(`/api/users/${userId}`);
   }
 
-getUserId(): number | null {
-  const userId = localStorage.getItem('userId'); // Legge l'ID salvato durante il login
-  return userId ? parseInt(userId, 10) : null;
-}
+  getUserId(): number | null {
+    const userId = localStorage.getItem('userId'); // Legge l'ID salvato durante il login
+    return userId ? parseInt(userId, 10) : null;
+  }
+
+  setUserId(userId: number): void {
+    localStorage.setItem('userId', userId.toString());
+  }
 }

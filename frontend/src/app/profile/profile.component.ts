@@ -16,6 +16,10 @@ export class ProfileComponent implements OnInit {
   showComments: { [key: number]: boolean } = {};
   comments: { [key: number]: any[] } = {};
   newComment: { [key: number]: string } = {};
+  newPost: string = ''; // Initialize the newPost property
+  isDeleteConfirmationVisible: boolean = false;
+  postToDelete: any = null;
+  commentToDelete: any = null;
 
   constructor(
     private authService: AuthService,
@@ -98,12 +102,66 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  confirmDeleteComment(comment: any) {
+    this.commentToDelete = comment;
+    // Logic to show a confirmation modal can be added here if needed
+  }
+
+  cancelDeleteComment() {
+    this.commentToDelete = null;
+    // Logic to hide the confirmation modal can be added here if needed
+  }
+
   deleteComment(postId: number, commentId: number) {
     this.commentService.deleteComment(postId, commentId).subscribe(
       () => {
         this.comments[postId] = this.comments[postId].filter((comment: any) => comment.id !== commentId);
+        this.cancelDeleteComment();
       },
       (error) => console.error('Error deleting comment:', error)
+    );
+  }
+
+  addPost() {
+    const userId = this.authService.getUserId();
+    if (userId && this.newPost.trim()) {
+      const post = {
+        body: this.newPost,
+        userId: userId,
+        createdAt: new Date().toISOString()
+      };
+
+      this.postService.addPost(post).subscribe(
+        (response) => {
+          this.posts.unshift({
+            ...response,
+            userName: `${this.user.firstName} ${this.user.lastName}`,
+            createdAt: post.createdAt
+          });
+          this.newPost = '';
+        },
+        (error) => console.error('Error adding post:', error)
+      );
+    }
+  }
+
+  confirmDeletePost(post: any) {
+    this.isDeleteConfirmationVisible = true;
+    this.postToDelete = post;
+  }
+
+  cancelDeletePost() {
+    this.isDeleteConfirmationVisible = false;
+    this.postToDelete = null;
+  }
+
+  deletePost(postId: number) {
+    this.postService.deletePost(postId).subscribe(
+      () => {
+        this.posts = this.posts.filter((post: any) => post.id !== postId);
+        this.cancelDeletePost();
+      },
+      (error) => console.error('Error deleting post:', error)
     );
   }
 }
