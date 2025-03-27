@@ -32,9 +32,9 @@ export class LoginComponent {
     this.http.post<{ token: string; id: number }>('/api/users/login', loginData).subscribe({
         next: (response) => {
             console.log('Login successful:', response);
-            localStorage.setItem('token', response.token); // Store token in localStorage
-            this.authService.getUserId(); // Corrected method call
-            this.router.navigate(['/dashboard']);
+            localStorage.setItem('authToken', response.token); // Store token in localStorage
+            localStorage.setItem('userId', response.id.toString()); // Store user ID in localStorage
+            this.router.navigate(['/profile']); // Redirect to profile page
         },
         error: (error) => {
             console.error('Login error:', error);

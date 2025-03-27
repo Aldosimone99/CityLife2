@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -32,7 +32,12 @@ export class AuthService {
   }
 
   getUser(userId: number): Observable<any> {
-    return this.http.get<any>(`/api/users/${userId}`);
+    return this.http.get<any>(`${this.apiUrl}/${userId}`).pipe(
+      catchError((error) => {
+        console.error('Error fetching user data:', error);
+        return throwError(error);
+      })
+    );
   }
 
   getUserId(): number | null {
@@ -42,5 +47,12 @@ export class AuthService {
 
   setUserId(userId: number): void {
     localStorage.setItem('userId', userId.toString());
+  }
+
+  getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
   }
 }

@@ -22,7 +22,9 @@ export class DashboardComponent implements OnInit {
     this.http.get<any[]>('/api/posts').pipe(
       map(posts => posts.map(post => ({
         ...post,
-        userName: `${post.user.firstName} ${post.user.lastName}`
+        userName: post.user && post.user.firstName && post.user.lastName 
+          ? `${post.user.firstName} ${post.user.lastName}` 
+          : 'Unknown User' // Handle undefined user or missing properties
       })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())),
     ).subscribe(postsWithUsers => {
       this.posts = postsWithUsers;

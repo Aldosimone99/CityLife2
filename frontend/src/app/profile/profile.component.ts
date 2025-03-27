@@ -36,7 +36,9 @@ export class ProfileComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId) {
       this.authService.getUser(userId).subscribe(
-        (response) => (this.user = response),
+        (response) => {
+          this.user = response; // Directly assign the response from the backend
+        },
         (error) => console.error('Error loading user profile:', error)
       );
     } else {
@@ -48,14 +50,14 @@ export class ProfileComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId) {
       this.postService.getPosts().pipe(
-        map(posts => (posts as any[]).filter((post: any) => post.user.id === +userId))
+        map(posts => (posts as any[]).filter((post: any) => post.user && post.user.id === +userId)) // Add null check for post.user
       ).subscribe(postsWithUsers => {
         this.posts = postsWithUsers.map((post: any) => ({
           ...post,
-          userName: `${post.user.firstName} ${post.user.lastName}`
+          userName: post.user ? `${post.user.firstName} ${post.user.lastName}` : 'Unknown User' // Handle undefined user
         })).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-        // Carica i commenti per ogni post
+        // Load comments for each post
         this.posts.forEach(post => this.fetchComments(post.id));
       });
     }
