@@ -35,15 +35,14 @@ export class LoginComponent {
             localStorage.setItem('authToken', response.token); // Store token in localStorage
             localStorage.setItem('userId', response.id.toString()); // Store user ID in localStorage
             this.router.navigate(['/profile']); // Redirect to profile page
+            this.errorMessage = ''; // Clear error message on successful login
         },
         error: (error) => {
             console.error('Login error:', error);
             if (error.status === 403) {
-                alert('Access Forbidden. Please check your credentials.');
-            } else if (error.status === 500) {
-                alert('Internal Server Error. Please try again later.');
+                this.errorMessage = 'Access Forbidden. Please check your credentials.';
             } else {
-                alert('Login failed. Please check your credentials.');
+                this.errorMessage = 'Login failed. Please check your credentials.';
             }
         }
     });
