@@ -29,7 +29,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Updated for Spring Security 6.1+
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/public/**", "/api/users/login", "/api/users/check", "/api/users").permitAll() // Public endpoints
-                .requestMatchers("/api.posts/**").authenticated() // Protect /api/posts
+                .requestMatchers("/api/posts/**").authenticated() // Protect /api/posts
+                .requestMatchers("/api/posts/{postId}/comments/**").authenticated() // Protect comments endpoint
                 .anyRequest().authenticated()
             )
             .exceptionHandling(ex -> ex

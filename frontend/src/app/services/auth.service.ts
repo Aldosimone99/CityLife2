@@ -68,6 +68,38 @@ export class AuthService {
     );
   }
 
+  createComment(postId: number, comment: { content: string; userId: number; author: string }): Observable<any> {
+    if (!comment.content || typeof comment.content !== 'string' || comment.content.trim() === '') {
+      return throwError(() => new Error('Invalid comment content: must be a non-empty string.'));
+    }
+    if (isNaN(comment.userId) || comment.userId <= 0) {
+      return throwError(() => new Error('Invalid userId: must be a positive number.'));
+    }
+    if (!comment.author || typeof comment.author !== 'string' || comment.author.trim() === '') {
+      return throwError(() => new Error('Invalid author: must be a non-empty string.'));
+    }
+
+    const headers = this.getAuthHeaders(); // Include Authorization header
+    const apiUrl = `/api/posts/${postId}/comments`; // Use the correct URL for comments
+    return this.http.post<any>(apiUrl, comment, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error creating comment:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  getComments(postId: number): Observable<any> {
+    const headers = this.getAuthHeaders(); // Include Authorization header
+    const apiUrl = `/api/posts/${postId}/comments`; // Use the correct URL for comments
+    return this.http.get<any>(apiUrl, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error fetching comments:', error);
+        return throwError(error);
+      })
+    );
+  }
+
   getUserId(): number | null {
     if (typeof window !== 'undefined' && localStorage) {
       const userId = localStorage.getItem('userId');

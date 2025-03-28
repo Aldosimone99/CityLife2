@@ -20,6 +20,7 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<Comment> createComment(@PathVariable Long postId, @RequestBody Comment comment) {
+        comment.setPostId(postId); // Ensure the postId is set
         return ResponseEntity.ok(commentService.createComment(postId, comment));
     }
 

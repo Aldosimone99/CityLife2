@@ -35,41 +35,24 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
 
-        logger.debug("Authorization Header: {}", authorizationHeader); // Log the Authorization header
-
-        String email = null;
+        String username = null;
         String jwt = null;
 
-        // Controlla se l'header contiene un token valido
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7); // Rimuove "Bearer " dal token
-            try {
-                email = jwtUtil.extractEmail(jwt); // Estrae l'email dal token
-            } catch (Exception e) {
-                logger.error("Error extracting email from token: {}", e.getMessage());
-            }
-        } else {
-            logger.warn("Authorization header is missing or does not start with 'Bearer '");
+            jwt = authorizationHeader.substring(7);
+            username = jwtUtil.extractUsername(jwt); // Ensure this extracts the username correctly
         }
 
-        // Se l'email è valida e l'utente non è già autenticato
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var userDetails = this.userDetailsService.loadUserByUsername(email);
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            var userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            // Verifica che il token sia valido per l'utente
-            if (jwtUtil.validateToken(jwt, userDetails)) {
+            if (jwtUtil.validateToken(jwt, userDetails)) { // Ensure token validation works correctly
                 var authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-            } else {
-                logger.warn("Invalid JWT token for email: {}", email);
             }
-        } else if (email == null) {
-            logger.warn("No email extracted from token or token missing");
         }
-
-        // Continua con il filtro successivo nella catena
         chain.doFilter(request, response);
     }
 }

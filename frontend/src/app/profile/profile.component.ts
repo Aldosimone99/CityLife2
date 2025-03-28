@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
   }
 
   fetchComments(postId: number) {
-    this.commentService.getComments(postId).subscribe(
+    this.authService.getComments(postId).subscribe(
       (response) => {
         this.comments[postId] = response.map((comment: any) => ({
           ...comment,
@@ -92,18 +92,15 @@ export class ProfileComponent implements OnInit {
       const comment = {
         content: this.newComment[postId],
         userId: userId,
-        createdAt: new Date().toISOString()
+        author: `${this.user.firstName} ${this.user.lastName}` // Use the user's full name as the author
       };
 
-      this.commentService.addComment(postId, comment).subscribe(
+      this.authService.createComment(postId, comment).subscribe(
         (response) => {
           if (!this.comments[postId]) {
             this.comments[postId] = [];
           }
-          this.comments[postId].push({
-            ...response,
-            createdAt: comment.createdAt
-          });
+          this.comments[postId].push(response);
           this.newComment[postId] = '';
         },
         (error) => console.error('Error adding comment:', error)
