@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { PostService } from '../services/post.service';
 import { CommentService } from '../services/comment.service';
 import { map } from 'rxjs/operators';
+import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
 
 @Component({
   selector: 'app-profile',
@@ -61,7 +62,8 @@ export class ProfileComponent implements OnInit {
       ).subscribe(postsWithUsers => {
         this.posts = postsWithUsers.map((post: any) => ({
           ...post,
-          userName: post.user ? `${post.user.firstName} ${post.user.lastName}` : 'Unknown User' // Handle undefined user
+          userName: post.user ? `${post.user.firstName} ${post.user.lastName}` : 'Unknown User', // Handle undefined user
+          createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) // Format as "x time ago"
         })).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
         // Load comments for each post
@@ -79,7 +81,7 @@ export class ProfileComponent implements OnInit {
       (response) => {
         this.comments[postId] = response.map((comment: any) => ({
           ...comment,
-          createdAt: new Date(comment.createdAt)
+          createdAt: formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) // Format as "x time ago"
         }));
       },
       (error) => console.error('Error fetching comments:', error)

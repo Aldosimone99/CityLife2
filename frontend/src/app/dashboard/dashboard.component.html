@@ -9,7 +9,7 @@
         <img [src]="post.user.profileImage" alt="User Image">
         <div>
           <strong>{{ post.userName }}</strong>
-          <p>{{ post.createdAt | date:'short' }}</p>
+          <p>{{ post.createdAt }}</p> <!-- Display "x time ago" -->
         </div>
       </div>
       <div class="post-content">
@@ -17,7 +17,17 @@
       </div>
       <div class="post-actions">
         <button>Like</button>
-        <button>Comment</button>
+        <button (click)="toggleComments(post.id)">Comment</button>
+      </div>
+      <div class="comments" *ngIf="showComments[post.id]">
+        <div *ngFor="let comment of comments[post.id]" class="comment-box">
+          <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
+          <p>{{ comment.createdAt }}</p> <!-- Display "x time ago" -->
+        </div>
+        <div class="add-comment">
+          <input type="text" [(ngModel)]="newComment[post.id]" placeholder="Add a comment">
+          <button (click)="addComment(post.id)">Post</button>
+        </div>
       </div>
     </div>
   </div>
