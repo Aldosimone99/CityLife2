@@ -110,12 +110,12 @@ export class ProfileComponent implements OnInit {
 
   confirmDeleteComment(comment: any) {
     this.commentToDelete = comment;
-    // Logic to show a confirmation modal can be added here if needed
+    this.isDeleteConfirmationVisible = true; // Show the confirmation modal
   }
 
   cancelDeleteComment() {
     this.commentToDelete = null;
-    // Logic to hide the confirmation modal can be added here if needed
+    this.isDeleteConfirmationVisible = false; // Hide the confirmation modal
   }
 
   deleteComment(postId: number, commentId: number) {

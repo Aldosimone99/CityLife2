@@ -35,7 +35,7 @@
           <div class="comments" *ngIf="showComments[post.id]">
             <div *ngFor="let comment of comments[post.id]" class="comment-box">
               <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
-              <p>{{ comment.createdAt | date:'short' }}</p> <!-- Mostra la data di creazione -->
+              <p>{{ comment.createdAt | date:'short' }}</p>
               <button (click)="confirmDeleteComment(comment)">
                 <i class="bi bi-trash3"></i>
               </button>
@@ -53,6 +53,15 @@
             <p>{{ 'CONFIRM_DELETE_POST' | translate }}</p>
             <button class="btn btn-danger" (click)="deletePost(postToDelete?.id)">{{ 'DELETE' | translate }}</button>
             <button class="btn btn-secondary" (click)="cancelDeletePost()">{{ 'CANCEL' | translate }}</button>
+          </div>
+        </div>
+        <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible}">
+          <div class="modal-content">
+            <h3>{{ 'CONFIRM_DELETE' | translate }}</h3>
+            <span class="close" (click)="cancelDeleteComment()">&times;</span>
+            <p>{{ 'CONFIRM_DELETE_COMMENT' | translate }}</p>
+            <button class="btn btn-danger" (click)="deleteComment(commentToDelete?.postId, commentToDelete?.id)">{{ 'DELETE' | translate }}</button>
+            <button class="btn btn-secondary" (click)="cancelDeleteComment()">{{ 'CANCEL' | translate }}</button>
           </div>
         </div>
       </section>
