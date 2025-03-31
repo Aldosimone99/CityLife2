@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
 
 @Component({
   selector: 'app-user-detail',
@@ -13,7 +14,6 @@ export class UserDetailComponent implements OnInit {
   posts: any[] = [];
   comments: { [key: number]: any[] } = {};
   showComments: { [key: number]: boolean } = {};
-  newPost: string = ''; // Add a newPost variable to store the new post content
   postToDelete: any = null; // Add a variable to store the post to be deleted
   isDeleteConfirmationVisible: boolean = false; // Add a variable to control the visibility of the delete confirmation modal
   newComment: { [key: number]: string } = {}; // Add a newComment object to store new comments
@@ -47,37 +47,40 @@ userPosts: any;
       });
     }
     if (this.posts.length === 0) {
-      this.userService.getUserPosts(userId).subscribe(posts => {
-        this.posts = posts;
-      });
+      this.userService.getUserPosts(userId) // Removed the second argument
+        .subscribe(posts => {
+          this.posts = posts.map(post => ({
+            ...post,
+            userName: this.user.name,
+            createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })
+          })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        }, error => {
+          console.error('Error fetching posts:', error); // Log error for debugging
+        });
     }
+  }
+
+  getAuthToken(): string {
+    // Replace with your logic to retrieve the token (e.g., from localStorage or a service)
+    return localStorage.getItem('authToken') || '';
   }
 
   toggleComments(postId: number): void {
     if (!this.comments[postId]) {
-      this.userService.getPostComments(postId).subscribe((comments: any[]) => {
-        this.comments[postId] = comments;
-        this.showComments[postId] = true;
-      });
+      this.fetchComments(postId);
+      this.showComments[postId] = true;
     } else {
       this.showComments[postId] = !this.showComments[postId];
     }
   }
 
-  addPost(): void {
-    if (this.newPost.trim()) {
-      const post = {
-        body: this.newPost,
-        title: 'Default Title' // Aggiungi un titolo di default se richiesto dall'API
-      };
-      this.userService.addPost(post); // Ensure only one argument is passed
-      this.userService.addPost(post).subscribe((newPost: any) => {
-        this.posts.unshift(newPost); // Aggiungi il nuovo post all'inizio dell'array dei post
-        this.newPost = ''; // Pulisci il campo di input
-      }, error => {
-        console.error('Error creating post:', error); // Log per debug
-      });
-    }
+  fetchComments(postId: number): void {
+    this.userService.getPostComments(postId).subscribe((comments: any[]) => {
+      this.comments[postId] = comments.map(comment => ({
+        ...comment,
+        createdAt: formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) // Format as "x time ago"
+      }));
+    });
   }
 
   confirmDeletePost(post: any): void {

@@ -1,16 +1,12 @@
 :host {
   display: block;
   font-family: Arial, sans-serif;
-  background-color: #18191a;
-  color: #e4e6eb;
-  height: 100vh;
-  width: 100vw;
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+  width: 100%;
   margin: 0;
   padding: 0;
-  background-image: url("../../assets/imgs/city.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .container {
@@ -19,12 +15,13 @@
   margin: 20px auto;
   background: rgba(24, 25, 26, 0.821);
   border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar {
   width: 30%;
   padding: 10px;
-  border-right: #383232 2px solid;
+  border-right: #ddd 1px solid;
 }
 
 main {
@@ -50,39 +47,6 @@ main {
   text-align: center;
   font-size: 25px;
   margin-top: 50px;
-}
-.user-posts .add-post {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto 20px auto; /* Center the input bar */
-}
-.user-posts .add-post textarea {
-  width: 100%;
-  padding: 8px; /* Reduce padding */
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #3a3b3c;
-  color: white;
-  resize: none;
-  font-size: 16px; /* Reduce font size */
-}
-.user-posts .add-post button {
-  align-self: flex-end;
-  padding: 8px 16px; /* Reduce padding */
-  border-radius: 5px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 14px; /* Reduce font size */
-}
-.user-posts .add-post button:hover {
-  background-color: #0056b3;
 }
 .user-posts .post-container {
   width: 500px;
@@ -392,10 +356,6 @@ main {
   .user-posts {
     font-size: 20px;
   }
-  .user-posts .add-post {
-    width: 100%;
-    max-width: 100%;
-  }
   .user-posts .post-container {
     width: 100%;
     margin: 20px 0;
@@ -452,10 +412,6 @@ main {
   }
   .user-posts {
     font-size: 20px;
-  }
-  .user-posts .add-post {
-    width: 100%;
-    max-width: 100%;
   }
   .user-posts .post-container {
     width: 100%;
