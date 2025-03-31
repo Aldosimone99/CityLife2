@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
 
   confirmDeleteComment(comment: any) {
     this.commentToDelete = comment;
-    this.isDeleteConfirmationVisible = true; // Show the confirmation modal
+    this.isDeleteConfirmationVisible = true; // Ensure this is for comments
   }
 
   cancelDeleteComment() {
@@ -156,12 +156,12 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmDeletePost(post: any) {
-    this.isDeleteConfirmationVisible = true;
+    this.isDeleteConfirmationVisible = true; // Ensure this is for posts
     this.postToDelete = post;
   }
 
   cancelDeletePost() {
-    this.isDeleteConfirmationVisible = false;
+    this.isDeleteConfirmationVisible = false; // Ensure this is for posts
     this.postToDelete = null;
   }
 

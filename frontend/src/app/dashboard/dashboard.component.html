@@ -4,6 +4,10 @@
     <h1>Home</h1>
   </header>
   <div class="content">
+    <div class="add-post">
+      <textarea [(ngModel)]="newPost" placeholder="Write a new post"></textarea>
+      <button (click)="addPost()">Post</button>
+    </div>
     <div *ngFor="let post of posts" class="post-container">
       <div class="post-header">
         <img [src]="post.user.profileImage || 'https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg'" alt="Profile">

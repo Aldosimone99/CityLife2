@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-        <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible}">
+        <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible && postToDelete}">
           <div class="modal-content">
             <h3>{{ 'CONFIRM_DELETE' | translate }}</h3>
             <span class="close" (click)="cancelDeletePost()">&times;</span>
@@ -55,7 +55,7 @@
             <button class="btn btn-secondary" (click)="cancelDeletePost()">{{ 'CANCEL' | translate }}</button>
           </div>
         </div>
-        <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible}">
+        <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible && commentToDelete}">
           <div class="modal-content">
             <h3>{{ 'CONFIRM_DELETE' | translate }}</h3>
             <span class="close" (click)="cancelDeleteComment()">&times;</span>

@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   showComments: { [key: number]: boolean } = {};
   comments: { [key: number]: any[] } = {};
   newComment: { [key: number]: string } = {};
+  newPost: string = ''; // Initialize the newPost property
 
   constructor(private http: HttpClient) {}
 
@@ -68,6 +69,30 @@ export class DashboardComponent implements OnInit {
         },
         (error) => console.error('Error adding comment:', error)
       );
+    }
+  }
+
+  addPost() {
+    if (this.newPost.trim().length >= 1) {
+      const post = {
+        body: this.newPost.trim(), // Use 'body' to match the backend
+      };
+
+      this.http.post('/api/posts', post).subscribe(
+        (response: any) => {
+          this.posts.unshift({
+            ...response,
+            userName: response.user ? `${response.user.firstName} ${response.user.lastName}` : 'Unknown User', // Use user details from the response
+            createdAt: formatDistanceToNow(new Date(response.createdAt), { addSuffix: true })
+          });
+          this.newPost = '';
+        },
+        (error) => {
+          console.error('Error adding post:', error.error || error.message || error);
+        }
+      );
+    } else {
+      console.error('Post body must be at least 1 character long');
     }
   }
 }

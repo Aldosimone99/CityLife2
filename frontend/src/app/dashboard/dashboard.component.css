@@ -1,6 +1,6 @@
 .dashboard-page {
   padding: 20px;
-  background-color: #121212; /* Dark background color */
+  background-color: #121212; /* Match the background color from profile component */
   color: #ffffff; /* Light text color */
   font-family: Arial, sans-serif; /* Ensure consistent font */
 }
@@ -154,6 +154,43 @@ header {
       &:hover {
         background-color: #0056b3;
       }
+    }
+  }
+}
+
+.add-post {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 20px auto; /* Center the input bar */
+
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #3a3b3c;
+    color: white;
+    resize: none;
+    font-size: 16px;
+  }
+
+  button {
+    align-self: flex-end;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+
+    &:hover {
+      background-color: #0056b3;
     }
   }
 }
