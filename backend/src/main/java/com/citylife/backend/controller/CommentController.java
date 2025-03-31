@@ -19,9 +19,9 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<Comment> createComment(@PathVariable Long postId, @RequestBody Comment comment) {
+    public ResponseEntity<Comment> createComment(@PathVariable Long postId, @RequestBody Comment comment, @RequestHeader("Authorization") String token) {
         comment.setPostId(postId); // Ensure the postId is set
-        return ResponseEntity.ok(commentService.createComment(postId, comment));
+        return ResponseEntity.ok(commentService.createCommentWithLoggedInUser(postId, comment, token));
     }
 
     @GetMapping
