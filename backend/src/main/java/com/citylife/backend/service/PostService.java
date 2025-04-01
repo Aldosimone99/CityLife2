@@ -23,6 +23,11 @@ public class PostService {
     @Autowired
     private JwtUtil jwtUtil; // Ensure JwtUtil is available for extracting user information
 
+    public List<Post> getPostsByUserId(Long userId) {
+        // Recupera i post dal repository in base all'ID dell'utente
+        return postRepository.findByUserId(userId);
+    }
+
     @Transactional // Ensure this method runs within a transaction
     public Post savePost(Post post) {
         if (post.getBody() == null || post.getBody().trim().length() < 1) {

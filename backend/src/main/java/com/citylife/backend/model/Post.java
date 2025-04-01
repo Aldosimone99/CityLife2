@@ -17,7 +17,7 @@ public class Post {
     private Long id;
 
     @NotNull
-    @Lob // Explicitly mark this as a large object
+    @Basic(fetch = FetchType.LAZY)
     @Column(nullable = false, columnDefinition = "TEXT") // Use TEXT for PostgreSQL
     private String body;
 

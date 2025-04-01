@@ -148,4 +148,31 @@ userPosts: any;
       });
     }
   }
+
+  fetchPosts(): void {
+    const userId = this.route.snapshot.paramMap.get('id'); // Ottieni l'ID dell'utente dalla route
+    if (userId) {
+      const userIdNumber = Number(userId); // Converti l'ID in numero
+      if (!isNaN(userIdNumber)) {
+        const authToken = this.getAuthToken(); // Recupera il token di autenticazione
+        this.userService.getUserPosts(userIdNumber, authToken) // Passa l'ID e il token al servizio
+          .subscribe(posts => {
+            this.posts = posts.map((post: any) => ({
+              ...post,
+              userName: this.user ? `${this.user.firstName} ${this.user.lastName}` : 'Unknown User', // Usa il nome dell'utente se disponibile
+              createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) // Formatta la data
+            })).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+            // Carica i commenti per ogni post
+            this.posts.forEach(post => this.fetchComments(post.id));
+          }, error => {
+            console.error('Error fetching posts:', error); // Log per il debugging
+          });
+      } else {
+        console.error('Invalid user ID:', userId);
+      }
+    } else {
+      console.error('User ID not found in route parameters');
+    }
+  }
 }

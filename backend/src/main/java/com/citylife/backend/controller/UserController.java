@@ -1,9 +1,11 @@
 package com.citylife.backend.controller;
 
 import com.citylife.backend.interfaces.requestes.LoginRequest;
+import com.citylife.backend.model.Post;
 import com.citylife.backend.model.User;
 import com.citylife.backend.service.UserService;
 import com.citylife.backend.util.JwtUtil; // Import JwtUtil
+import com.citylife.backend.service.PostService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +23,13 @@ import org.slf4j.LoggerFactory;
 @CrossOrigin(origins = "http://localhost:4200")  // Permette richieste da Angular
 public class UserController {
     private final UserService userService;
+    private final PostService postService;
     private final JwtUtil jwtUtil; // Add JwtUtil field
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    public UserController(UserService userService, JwtUtil jwtUtil) { // Inject JwtUtil
+    public UserController(UserService userService, PostService postService, JwtUtil jwtUtil) {
         this.userService = userService;
+        this.postService = postService; // Inietta PostService
         this.jwtUtil = jwtUtil;
     }
 
@@ -78,6 +82,31 @@ public ResponseEntity<?> getUserById(
     }
 }
 
+@GetMapping("/{id}/posts")
+public ResponseEntity<?> getUserPosts(
+    @PathVariable Long id,
+    @RequestHeader("Authorization") String token
+) {
+    try {
+        // Rimuovi il prefisso "Bearer " dal token
+        String jwt = token.replace("Bearer ", "");
+        // Verifica il token e ottieni l'email
+        String email = jwtUtil.extractUsername(jwt);
+
+        // Controlla se l'utente esiste
+        Optional<User> user = userService.getUserById(id);
+        if (user.isPresent()) {
+            // Recupera i post dell'utente
+            List<Post> posts = postService.getPostsByUserId(id);
+            return ResponseEntity.ok(posts);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    } catch (Exception e) {
+        logger.error("Error retrieving posts for user ID {}: {}", id, e.getMessage(), e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid or missing token");
+    }
+}
 
 @PostMapping
 public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
