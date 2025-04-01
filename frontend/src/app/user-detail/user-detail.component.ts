@@ -47,7 +47,8 @@ userPosts: any;
       });
     }
     if (this.posts.length === 0) {
-      this.userService.getUserPosts(userId) // Removed the second argument
+      const authToken = this.getAuthToken(); // Retrieve the auth token
+      this.userService.getUserPosts(userId, authToken) // Pass the token to the service
         .subscribe(posts => {
           this.posts = posts.map(post => ({
             ...post,

@@ -37,13 +37,9 @@ export class UserService {
     );
   }
 
-  getUserPosts(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`/api/users/${userId}/posts`).pipe(
-      catchError((error) => {
-        console.error('Error fetching user posts:', error);
-        return throwError(error);
-      })
-    );
+  getUserPosts(userId: number, authToken: string): Observable<any[]> {
+    const headers = { Authorization: `Bearer ${authToken}` }; // Add the token to headers
+    return this.http.get<any[]>(`/api/users/${userId}/posts`, { headers });
   }
 
   getPostComments(postId: number): Observable<any[]> {

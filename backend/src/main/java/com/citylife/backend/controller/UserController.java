@@ -54,10 +54,31 @@ public ResponseEntity<?> getLoggedUserDetails(@RequestHeader("Authorization") St
     }
 }
 
-    @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+@GetMapping("/{id}")
+public ResponseEntity<?> getUserById(
+    @PathVariable Long id,
+    @RequestHeader("Authorization") String token
+) {
+    try {
+        // Rimuovi il prefisso "Bearer " dal token
+        String jwt = token.replace("Bearer ", "");
+        // Verifica il token e ottieni l'email
+        String email = jwtUtil.extractUsername(jwt);
+
+        // Controlla se l'utente esiste
+        Optional<User> user = userService.getUserById(id);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    } catch (Exception e) {
+        logger.error("Error retrieving user by ID: {}", e.getMessage(), e);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid or missing token");
     }
+}
+
+
 @PostMapping
 public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
     userService.saveUser(user);
