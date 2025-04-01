@@ -1,15 +1,19 @@
 .dashboard-page {
   padding: 20px;
   background-color: #121212; /* Match the background color from profile component */
-  color: #ffffff; /* Light text color */
+  color: #cc8989; /* Light text color */
   font-family: Arial, sans-serif; /* Ensure consistent font */
 }
 
 header {
-  background-color: #1f1f1f; /* Darker background for header */
+  background-color: rgba(24, 25, 26, 0.821); /* Darker background for header */
   padding: 10px;
-  border-bottom: 1px solid #333333; /* Dark border */
   color: #ffffff; /* Light text color */
+  text-align: center; /* Center the text */
+}
+
+header h1 {
+  margin-bottom: 20px; /* Add more space below the h1 */
 }
 
 .content {
@@ -193,4 +197,17 @@ header {
       background-color: #0056b3;
     }
   }
+
+  h2 {
+    text-align: center; /* Center the h2 */
+  }
+}
+
+.posts-container {
+  background-color: rgba(24, 25, 26, 0.821); /* Sfondo del contenitore */
+  border-radius: 10px; /* Angoli arrotondati */
+  padding: 20px; /* Spaziatura interna */
+  margin: 20px auto; /* Centra il contenitore */
+  max-width: 800px; /* Larghezza massima */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra */
 }

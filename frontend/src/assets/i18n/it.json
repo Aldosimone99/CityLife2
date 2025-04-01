@@ -80,7 +80,8 @@
         "ADD_COMMENT": "Aggiungi un commento...",
         "LIKE": "Mi piace",
         "COMMENT": "Commenta",
-        "NO_POSTS_AVAILABLE": "Nessun post disponibile"
+        "NO_POSTS_AVAILABLE": "Nessun post disponibile",
+        "WRITE_POST": "Scrivi un nuovo post"
     },
     "PROFILE": {
         "TITLE": "Profilo",

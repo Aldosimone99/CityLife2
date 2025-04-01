@@ -1,39 +1,46 @@
 <app-navbar></app-navbar>
-<div class="container">
-  <header>
-    <h1>{{ 'DASHBOARD.WELCOME' | translate: { userName: userName } }}</h1>
-  </header>
-  <div class="content">
-    <div class="add-post">
-      <textarea [(ngModel)]="newPost" placeholder="{{ 'DASHBOARD.WRITE_NEW_POST' | translate }}"></textarea>
-      <button (click)="addPost()">{{ 'DASHBOARD.POST' | translate }}</button>
-    </div>
-    <div *ngIf="posts.length === 0" class="no-posts">
-      <p>{{ 'DASHBOARD.NO_POSTS_AVAILABLE' | translate }}</p>
-    </div>
-    <div *ngFor="let post of posts" class="post-container">
-      <div class="post-header">
-        <img [src]="post.user.profileImage || 'https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg'" alt="Profile">
-        <div>
-          <strong>{{ post.userName }}</strong>
-          <p>{{ post.createdAt }}</p>
+<div class="dashboard-page"> <!-- Aggiungi la classe dashboard-page -->
+  <div class="container">
+    <div class="content">
+      <div class="posts-container"> <!-- Nuovo contenitore -->
+        <header>
+          <h1>{{ 'DASHBOARD.WELCOME' | translate: { userName: userName } }}</h1>
+        </header>
+
+
+        <div class="add-post">
+          <h2>{{ 'DASHBOARD.WRITE_POST' | translate }}</h2>
+          <textarea [(ngModel)]="newPost" placeholder="{{ 'DASHBOARD.WRITE_NEW_POST' | translate }}"></textarea>
+          <button (click)="addPost()">{{ 'DASHBOARD.POST' | translate }}</button>
         </div>
-      </div>
-      <div class="post-content">
-        <p>{{ post.body }}</p>
-      </div>
-      <div class="post-actions">
-        <button>{{ 'DASHBOARD.LIKE' | translate }}</button>
-        <button (click)="toggleComments(post.id)">{{ 'DASHBOARD.COMMENT' | translate }}</button>
-      </div>
-      <div class="comments" *ngIf="showComments[post.id]">
-        <div *ngFor="let comment of comments[post.id]" class="comment-box">
-          <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
-          <p>{{ comment.createdAt }}</p>
+        <div *ngIf="posts.length === 0" class="no-posts">
+          <p>{{ 'DASHBOARD.NO_POSTS_AVAILABLE' | translate }}</p>
         </div>
-        <div class="add-comment">
-          <input type="text" [(ngModel)]="newComment[post.id]" placeholder="{{ 'DASHBOARD.ADD_COMMENT' | translate }}">
-          <button (click)="addComment(post.id)">{{ 'DASHBOARD.POST' | translate }}</button>
+        <div *ngFor="let post of posts" class="post-container">
+          <div class="post-header">
+            <img [src]="post.user.profileImage || 'https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg'" alt="Profile">
+            <div>
+              <strong>{{ post.userName }}</strong>
+              <p>{{ post.createdAt }}</p>
+            </div>
+          </div>
+          <div class="post-content">
+            <p>{{ post.body }}</p>
+          </div>
+          <div class="post-actions">
+            <button>{{ 'DASHBOARD.LIKE' | translate }}</button>
+            <button (click)="toggleComments(post.id)">{{ 'DASHBOARD.COMMENT' | translate }}</button>
+          </div>
+          <div class="comments" *ngIf="showComments[post.id]">
+            <div *ngFor="let comment of comments[post.id]" class="comment-box">
+              <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
+              <p>{{ comment.createdAt }}</p>
+            </div>
+            <div class="add-comment">
+              <input type="text" [(ngModel)]="newComment[post.id]" placeholder="{{ 'DASHBOARD.ADD_COMMENT' | translate }}">
+              <button (click)="addComment(post.id)">{{ 'DASHBOARD.POST' | translate }}</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
