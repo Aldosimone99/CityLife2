@@ -34,6 +34,26 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/me")
+public ResponseEntity<?> getLoggedUserDetails(@RequestHeader("Authorization") String token) {
+    try {
+        // Rimuovi il prefisso "Bearer " dal token
+        String jwt = token.replace("Bearer ", "");
+        // Estrai l'email dal token
+        String email = jwtUtil.extractUsername(jwt);
+        // Recupera i dettagli dell'utente dal database
+        Optional<User> user = userService.getUserByEmail(email);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+    } catch (Exception e) {
+        logger.error("Error retrieving user details: {}", e.getMessage(), e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving user details");
+    }
+}
+
     @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
