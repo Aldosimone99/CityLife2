@@ -4,18 +4,18 @@
     <aside class="sidebar">
       <div class="profile-info">
         <h1>{{ user.firstName }} {{ user.lastName }}</h1>
-        <p><strong>{{ 'EMAIL' | translate }}:</strong> {{ user.email }}</p>
-        <p><strong>{{ 'AGE' | translate }}:</strong> {{ user.age }}</p>
-        <p><strong>{{ 'GENDER' | translate }}:</strong> {{ user.gender }}</p>
+        <p><strong>{{ 'PROFILE.EMAIL' | translate }}:</strong> {{ user.email }}</p>
+        <p><strong>{{ 'PROFILE.AGE' | translate }}:</strong> {{ user.age }}</p>
+        <p><strong>{{ 'PROFILE.GENDER' | translate }}:</strong> {{ user.gender | uppercase | translate }}</p>
       </div>
     </aside>
     <main>
       <section class="user-posts">
-        <h2 *ngIf="posts.length > 0">{{ 'ALL_POSTS' | translate }}</h2>
-        <h2 *ngIf="posts.length === 0">{{ 'NO_POSTS_AVAILABLE' | translate }}</h2>
+        <h2 *ngIf="posts.length > 0">{{ 'PROFILE.ALL_POSTS' | translate }}</h2>
+        <h2 *ngIf="posts.length === 0">{{ 'PROFILE.NO_POSTS_AVAILABLE' | translate }}</h2>
         <div class="add-post">
-          <textarea [(ngModel)]="newPost" placeholder="{{ 'WRITE_NEW_POST' | translate }}"></textarea>
-          <button (click)="addPost()">{{ 'POST' | translate }}</button>
+          <textarea [(ngModel)]="newPost" placeholder="{{ 'PROFILE.WRITE_NEW_POST' | translate }}"></textarea>
+          <button (click)="addPost()">{{ 'PROFILE.POST' | translate }}</button>
         </div>
         <div class="post-container" *ngFor="let post of posts">
           <div class="post-header">
@@ -29,8 +29,8 @@
             {{ post.body }}
           </div>
           <div class="post-actions">
-            <button (click)="toggleComments(post.id)">💬 {{ 'COMMENTS' | translate }}</button>
-            <button (click)="confirmDeletePost(post)">🗑️ {{ 'DELETE' | translate }}</button>
+            <button (click)="toggleComments(post.id)">💬 {{ 'PROFILE.COMMENTS' | translate }}</button>
+            <button (click)="confirmDeletePost(post)">🗑️ {{ 'PROFILE.DELETE' | translate }}</button>
           </div>
           <div class="comments" *ngIf="showComments[post.id]">
             <div *ngFor="let comment of comments[post.id]" class="comment-box">
@@ -41,27 +41,27 @@
               </button>
             </div>
             <div class="add-comment">
-              <input type="text" [(ngModel)]="newComment[post.id]" placeholder="{{ 'ADD_COMMENT' | translate }}">
-              <button (click)="addComment(post.id)">{{ 'POST' | translate }}</button>
+              <input type="text" [(ngModel)]="newComment[post.id]" placeholder="{{ 'PROFILE.ADD_COMMENT' | translate }}">
+              <button (click)="addComment(post.id)">{{ 'PROFILE.POST' | translate }}</button>
             </div>
           </div>
         </div>
         <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible && postToDelete}">
           <div class="modal-content">
-            <h3>{{ 'CONFIRM_DELETE' | translate }}</h3>
+            <h3>{{ 'PROFILE.CONFIRM_DELETE' | translate }}</h3>
             <span class="close" (click)="cancelDeletePost()">&times;</span>
-            <p>{{ 'CONFIRM_DELETE_POST' | translate }}</p>
-            <button class="btn btn-danger" (click)="deletePost(postToDelete?.id)">{{ 'DELETE' | translate }}</button>
-            <button class="btn btn-secondary" (click)="cancelDeletePost()">{{ 'CANCEL' | translate }}</button>
+            <p>{{ 'PROFILE.CONFIRM_DELETE_POST' | translate }}</p>
+            <button class="btn btn-danger" (click)="deletePost(postToDelete?.id)">{{ 'PROFILE.DELETE' | translate }}</button>
+            <button class="btn btn-secondary" (click)="cancelDeletePost()">{{ 'PROFILE.CANCEL' | translate }}</button>
           </div>
         </div>
         <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible && commentToDelete}">
           <div class="modal-content">
-            <h3>{{ 'CONFIRM_DELETE' | translate }}</h3>
+            <h3>{{ 'PROFILE.CONFIRM_DELETE' | translate }}</h3>
             <span class="close" (click)="cancelDeleteComment()">&times;</span>
-            <p>{{ 'CONFIRM_DELETE_COMMENT' | translate }}</p>
-            <button class="btn btn-danger" (click)="deleteComment(commentToDelete?.postId, commentToDelete?.id)">{{ 'DELETE' | translate }}</button>
-            <button class="btn btn-secondary" (click)="cancelDeleteComment()">{{ 'CANCEL' | translate }}</button>
+            <p>{{ 'PROFILE.CONFIRM_DELETE_COMMENT' | translate }}</p>
+            <button class="btn btn-danger" (click)="deleteComment(commentToDelete?.postId, commentToDelete?.id)">{{ 'PROFILE.DELETE' | translate }}</button>
+            <button class="btn btn-secondary" (click)="cancelDeleteComment()">{{ 'PROFILE.CANCEL' | translate }}</button>
           </div>
         </div>
       </section>

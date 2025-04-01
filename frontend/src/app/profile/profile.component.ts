@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { PostService } from '../services/post.service';
 import { CommentService } from '../services/comment.service';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
 
@@ -25,7 +26,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private postService: PostService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private http: HttpClient // Aggiungi HttpClient
   ) {}
 
   ngOnInit() {
@@ -34,24 +36,22 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserProfile() {
-    const userId = this.authService.getUserId();
-    if (userId) {
-      this.authService.getUser(userId).subscribe(
-        (response) => {
-          this.user = {
-            id: response.id,               // Map 'id' from the database
-            firstName: response.firstname, // Map 'firstname' from the database
-            lastName: response.lastname,   // Map 'lastname' from the database
-            email: response.email,         // Map 'email' from the database
-            age: response.age,             // Map 'age' from the database
-            gender: response.gender        // Map 'gender' from the database
-          };
-        },
-        (error) => console.error('Error loading user profile:', error)
-      );
-    } else {
-      console.error('User ID is not available');
-    }
+    const headers = this.authService.getAuthHeaders(); // Recupera l'header di autorizzazione
+    this.http.get<any>('/api/users/me', { headers }).subscribe(
+      (response) => {
+        this.user = {
+          id: response.id,
+          firstName: response.firstName,
+          lastName: response.lastName,
+          email: response.email,
+          age: response.age,
+          gender: response.gender
+        };
+      },
+      (error) => {
+        console.error('Error loading user profile:', error);
+      }
+    );
   }
 
   fetchPosts() {

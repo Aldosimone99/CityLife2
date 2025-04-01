@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
+import { AuthService } from '../services/auth.service'; // Import AuthService
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +17,25 @@ export class DashboardComponent implements OnInit {
   comments: { [key: number]: any[] } = {};
   newComment: { [key: number]: string } = {};
   newPost: string = ''; // Initialize the newPost property
+  userName: string = ''; // Variabile per il nome completo dell'utente
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
+    this.fetchUserDetails(); // Recupera i dettagli dell'utente loggato
     this.fetchPosts();
+  }
+
+  fetchUserDetails() {
+    const headers = this.authService.getAuthHeaders(); // Recupera l'header di autorizzazione
+    this.http.get<any>('/api/users/me', { headers }).subscribe(
+      (response) => {
+        this.userName = `${response.firstName} ${response.lastName}`.trim(); // Imposta il nome completo
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
   }
 
   fetchPosts() {

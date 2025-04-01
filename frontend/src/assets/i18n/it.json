@@ -71,5 +71,35 @@
     "CREATE_USERNAME": "Crea un nome utente",
     "REGISTRATION_COMPLETED": "Registrazione completata",
     "GO_TO_LOGIN": "Vai al Login",
-    "PLEASE_FILL_ALL_FIELDS": "Per favore riempi tutti i campi"
+    "PLEASE_FILL_ALL_FIELDS": "Per favore riempi tutti i campi",
+    "DASHBOARD": {
+        "WELCOME": "Benvenuto, {{userName}}!",
+        "WRITE_NEW_POST": "Scrivi un nuovo post...",
+        "POST": "Pubblica",
+        "COMMENTS": "Commenti",
+        "ADD_COMMENT": "Aggiungi un commento...",
+        "LIKE": "Mi piace",
+        "COMMENT": "Commenta",
+        "NO_POSTS_AVAILABLE": "Nessun post disponibile"
+    },
+    "PROFILE": {
+        "TITLE": "Profilo",
+        "EMAIL": "Email",
+        "AGE": "Età",
+        "GENDER": "Genere",
+        "MALE": "MASCHIO",
+        "FEMALE": "FEMMINA",
+        "OTHER": "ALTRO",
+        "ALL_POSTS": "Tutti i Post",
+        "NO_POSTS_AVAILABLE": "Nessun post disponibile",
+        "WRITE_NEW_POST": "Scrivi un nuovo post...",
+        "POST": "Pubblica",
+        "COMMENTS": "Commenti",
+        "ADD_COMMENT": "Aggiungi un commento...",
+        "CONFIRM_DELETE": "Conferma Eliminazione",
+        "CONFIRM_DELETE_POST": "Sei sicuro di voler eliminare questo post?",
+        "CONFIRM_DELETE_COMMENT": "Sei sicuro di voler eliminare questo commento?",
+        "CANCEL": "Annulla",
+        "DELETE": "Elimina"
+    }
 }
