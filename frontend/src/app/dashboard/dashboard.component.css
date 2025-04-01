@@ -58,6 +58,15 @@ header h1 {
   }
 }
 
+.post-header a {
+  color: white; /* Set the text color to white */
+  text-decoration: none; /* Remove the underline */
+}
+
+.post-header a:hover {
+  text-decoration: underline; /* Optional: Add underline on hover */
+}
+
 .post-content {
   font-size: 16px;
   margin-bottom: 15px;
