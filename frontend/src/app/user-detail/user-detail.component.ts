@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
+import { HttpClient } from '@angular/common/http'; // Import HttpClient
 
 @Component({
   selector: 'app-user-detail',
@@ -19,11 +20,12 @@ export class UserDetailComponent implements OnInit {
   newComment: { [key: number]: string } = {}; // Add a newComment object to store new comments
   commentToDelete: any = null; // Add a variable to store the comment to be deleted
   isDeleteCommentConfirmationVisible: boolean = false; // Add a variable to control the visibility of the delete comment confirmation modal
-userPosts: any;
+  userPosts: any;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private http: HttpClient // Inject HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +54,7 @@ userPosts: any;
         .subscribe(posts => {
           this.posts = posts.map(post => ({
             ...post,
-            userName: this.user.name,
+            userName: post.user ? `${post.user.firstName || ''} ${post.user.lastName || ''}`.trim() || 'Unknown User' : 'Unknown User', // Handle undefined user
             createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })
           })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         }, error => {
@@ -76,12 +78,16 @@ userPosts: any;
   }
 
   fetchComments(postId: number): void {
-    this.userService.getPostComments(postId).subscribe((comments: any[]) => {
-      this.comments[postId] = comments.map(comment => ({
-        ...comment,
-        createdAt: formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) // Format as "x time ago"
-      }));
-    });
+    this.http.get<any[]>(`/api/posts/${postId}/comments`).subscribe(
+      (response) => {
+        this.comments[postId] = response.map(comment => ({
+          ...comment,
+          body: comment.body || 'No content available', // Ensure the body is set
+          createdAt: formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) // Format as "x time ago"
+        }));
+      },
+      (error) => console.error('Error fetching comments:', error)
+    );
   }
 
   confirmDeletePost(post: any): void {
@@ -106,23 +112,19 @@ userPosts: any;
     }
   }
 
-  addComment(postId: number): void {
-    if (this.newComment[postId]) {
-      const comment = {
-        postId: postId,
-        body: this.newComment[postId],
-        name: 'User', // Replace with the actual user's name if available
-        email: 'user@example.com' // Add an email field if required by the API
-      };
-      this.userService.addComment(postId, comment).subscribe((newComment) => {
-        if (!this.comments[postId]) {
-          this.comments[postId] = [];
-        }
-        this.comments[postId].push(newComment);
-        this.newComment[postId] = ''; // Clear the input field
-      }, error => {
-        console.error('Error adding comment:', error); // Log for debugging
-      });
+  addComment(postId: number) {
+    if (this.newComment[postId]?.trim()) {
+      const comment = { content: this.newComment[postId] };
+      this.http.post(`/api/posts/${postId}/comments`, comment).subscribe(
+        (response: any) => {
+          if (!this.comments[postId]) {
+            this.comments[postId] = [];
+          }
+          this.comments[postId].push(response);
+          this.newComment[postId] = '';
+        },
+        (error) => console.error('Error adding comment:', error)
+      );
     }
   }
 
@@ -159,10 +161,10 @@ userPosts: any;
           .subscribe(posts => {
             this.posts = posts.map((post: any) => ({
               ...post,
-              userName: this.user ? `${this.user.firstName} ${this.user.lastName}` : 'Unknown User', // Usa il nome dell'utente se disponibile
+              userName: post.user ? `${post.user.firstName || ''} ${post.user.lastName || ''}`.trim() || 'Unknown User' : 'Unknown User', // Handle undefined user
               createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) // Formatta la data
             })).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  
+
             // Carica i commenti per ogni post
             this.posts.forEach(post => this.fetchComments(post.id));
           }, error => {
