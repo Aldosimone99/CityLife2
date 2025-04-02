@@ -48,15 +48,9 @@ Prima di eseguire l'applicazione, assicurati di avere installato:
 
 Clona il progetto eseguendo il comando: git clone <https://github.com/Aldosimone99/CityLife2.git>
 
-
-1. Installa le dipendenze utilizzando il comando:
-   ```bash
-   npm install
-   ```
-
 ### Backend (Spring Boot)
 
-1. Vai nella directory principale del progetto e avvia il docker compose:
+1. Assicurati di avere Docker installato e in esecuzione. Avvia il database tramite Docker Compose:
    ```bash
    docker-compose up
    ```
@@ -80,11 +74,16 @@ Clona il progetto eseguendo il comando: git clone <https://github.com/Aldosimone
    ```bash
    cd frontend
    ```
-2. Installa le dipendenze:
+
+2. Assicurati di avere Angular CLI installato globalmente:
+   ```bash
+   npm install -g @angular/cli
+   ```
+3. Installa le dipendenze:
    ```bash
    npm install
    ```
-3. Avvia il server di sviluppo di Angular:
+4. Avvia il server di sviluppo di Angular:
    ```bash
    ng serve
    ```
