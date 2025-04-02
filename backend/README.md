@@ -152,13 +152,12 @@ Questa configurazione garantisce che solo gli utenti autorizzati possano acceder
    cd CityLife2/backend
    ```
 
-  2. Inizializza il database tramite Docker:
+3. Inizializza il database tramite Docker:
    ```bash
    docker-compose up
-   cd CityLife2/backend
    ```
 
-3. Avvia l'applicazione:
+4. Avvia l'applicazione:
    ```bash
    mvn spring-boot:run
    ```

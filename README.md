@@ -40,8 +40,9 @@ Prima di eseguire l'applicazione, assicurati di avere installato:
 - **Node.js** (per Angular)
 - **Angular CLI**
 - **Java 17+** (per Spring Boot)
+- **Docker Compose** (per avviare il database PostgreSQL)
 - **Maven** (per costruire il backend)
-- **Database**: PostgreSQL
+
 
 ## Guida Introduttiva
 
