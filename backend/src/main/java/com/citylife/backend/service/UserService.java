@@ -10,6 +10,10 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Service
 public class UserService {
@@ -17,6 +21,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -30,8 +37,13 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    @Transactional // Assicura che il metodo venga eseguito in una transazione
     public User saveUser(User user) {
-        return userRepository.save(user);
+        if (!entityManager.contains(user)) {
+            user = entityManager.merge(user); // Sincronizza l'oggetto con il contesto di persistenza
+        }
+        userRepository.saveAndFlush(user); // Forza il salvataggio immediato
+        return user;
     }
 
     public void deleteUser(Long id) {

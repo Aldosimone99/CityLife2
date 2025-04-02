@@ -39,82 +39,130 @@ public class UserController {
     }
 
     @GetMapping("/me")
-public ResponseEntity<?> getLoggedUserDetails(@RequestHeader("Authorization") String token) {
-    try {
-        // Rimuovi il prefisso "Bearer " dal token
-        String jwt = token.replace("Bearer ", "");
-        // Estrai l'email dal token
-        String email = jwtUtil.extractUsername(jwt);
-        // Recupera i dettagli dell'utente dal database
-        Optional<User> user = userService.getUserByEmail(email);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+    public ResponseEntity<?> getLoggedUserDetails(@RequestHeader("Authorization") String token) {
+        try {
+            // Rimuovi il prefisso "Bearer " dal token
+            String jwt = token.replace("Bearer ", "");
+            // Estrai l'email dal token
+            String email = jwtUtil.extractUsername(jwt);
+            // Recupera i dettagli dell'utente dal database
+            Optional<User> user = userService.getUserByEmail(email);
+            if (user.isPresent()) {
+                return ResponseEntity.ok(user.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            logger.error("Error retrieving user details: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving user details");
         }
-    } catch (Exception e) {
-        logger.error("Error retrieving user details: {}", e.getMessage(), e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving user details");
     }
-}
 
-@GetMapping("/{id}")
-public ResponseEntity<?> getUserById(
-    @PathVariable Long id,
-    @RequestHeader("Authorization") String token
-) {
-    try {
-        // Rimuovi il prefisso "Bearer " dal token
-        String jwt = token.replace("Bearer ", "");
-        // Verifica il token e ottieni l'email
-        String email = jwtUtil.extractUsername(jwt);
+    @PutMapping("/me")
+    public ResponseEntity<?> updateLoggedUserDetails(
+        @RequestHeader("Authorization") String token,
+        @RequestBody User updatedUserDetails
+    ) {
+        try {
+            String jwt = token.replace("Bearer ", "");
+            String email = jwtUtil.extractUsername(jwt);
 
-        // Controlla se l'utente esiste
-        Optional<User> user = userService.getUserById(id);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            Optional<User> userOptional = userService.getUserByEmail(email);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+
+                if (updatedUserDetails.getFirstName() != null) {
+                    user.setFirstName(updatedUserDetails.getFirstName());
+                }
+                if (updatedUserDetails.getLastName() != null) {
+                    user.setLastName(updatedUserDetails.getLastName());
+                }
+                if (updatedUserDetails.getEmail() != null) {
+                    user.setEmail(updatedUserDetails.getEmail());
+                }
+                if (updatedUserDetails.getUsername() != null) {
+                    user.setUsername(updatedUserDetails.getUsername());
+                }
+                if (updatedUserDetails.getPassword() != null) {
+                    user.setPassword(updatedUserDetails.getPassword());
+                }
+                if (updatedUserDetails.getGender() != null) {
+                    user.setGender(updatedUserDetails.getGender());
+                }
+                if (updatedUserDetails.getAge() != null) {
+                    user.setAge(updatedUserDetails.getAge());
+                }
+
+                User savedUser = userService.saveUser(user);
+                logger.info("Updated user: {}", savedUser);
+
+                return ResponseEntity.ok(Map.of("message", "User details updated successfully"));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            logger.error("Error updating user details: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user details");
         }
-    } catch (Exception e) {
-        logger.error("Error retrieving user by ID: {}", e.getMessage(), e);
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid or missing token");
     }
-}
 
-@GetMapping("/{id}/posts")
-public ResponseEntity<?> getUserPosts(
-    @PathVariable Long id,
-    @RequestHeader("Authorization") String token
-) {
-    try {
-        // Rimuovi il prefisso "Bearer " dal token
-        String jwt = token.replace("Bearer ", "");
-        // Verifica il token e ottieni l'email
-        String email = jwtUtil.extractUsername(jwt);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(
+        @PathVariable Long id,
+        @RequestHeader("Authorization") String token
+    ) {
+        try {
+            // Rimuovi il prefisso "Bearer " dal token
+            String jwt = token.replace("Bearer ", "");
+            // Verifica il token e ottieni l'email
+            String email = jwtUtil.extractUsername(jwt);
 
-        // Controlla se l'utente esiste
-        Optional<User> user = userService.getUserById(id);
-        if (user.isPresent()) {
-            // Recupera i post dell'utente
-            List<Post> posts = postService.getPostsByUserId(id);
-            return ResponseEntity.ok(posts);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            // Controlla se l'utente esiste
+            Optional<User> user = userService.getUserById(id);
+            if (user.isPresent()) {
+                return ResponseEntity.ok(user.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            logger.error("Error retrieving user by ID: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid or missing token");
         }
-    } catch (Exception e) {
-        logger.error("Error retrieving posts for user ID {}: {}", id, e.getMessage(), e);
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid or missing token");
     }
-}
 
-@PostMapping
-public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
-    userService.saveUser(user);
-    Map<String, String> response = new HashMap<>();
-    response.put("message", "User registered successfully");
-    return ResponseEntity.ok(response);
-}
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<?> getUserPosts(
+        @PathVariable Long id,
+        @RequestHeader("Authorization") String token
+    ) {
+        try {
+            // Rimuovi il prefisso "Bearer " dal token
+            String jwt = token.replace("Bearer ", "");
+            // Verifica il token e ottieni l'email
+            String email = jwtUtil.extractUsername(jwt);
+
+            // Controlla se l'utente esiste
+            Optional<User> user = userService.getUserById(id);
+            if (user.isPresent()) {
+                // Recupera i post dell'utente
+                List<Post> posts = postService.getPostsByUserId(id);
+                return ResponseEntity.ok(posts);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            logger.error("Error retrieving posts for user ID {}: {}", id, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid or missing token");
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
+        userService.saveUser(user);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User registered successfully");
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/check")
     public ResponseEntity<?> checkEmailAndUsername(@RequestBody User user) {
@@ -126,6 +174,7 @@ public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) 
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         logger.info("Login request received for email: {}", loginRequest.getEmail());
@@ -138,6 +187,4 @@ public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Login failed");
         }
     }
-
-    
 }
