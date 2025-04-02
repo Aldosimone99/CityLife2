@@ -3,7 +3,10 @@
   background-color: #121212; /* Match the background color from profile component */
   color: #cc8989; /* Light text color */
   font-family: Arial, sans-serif; /* Ensure consistent font */
+  height: 100vh;
+  width: 100vw;
 }
+
 
 header {
   background-color: rgba(24, 25, 26, 0.821); /* Darker background for header */

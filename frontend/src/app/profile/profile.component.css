@@ -2,6 +2,8 @@
   padding: 20px;
   background-color: #121212; /* Dark background color */
   color: #ffffff; /* Light text color */
+  height: 100vh;
+  width: 100vw;
 }
 
 .container {
@@ -24,9 +26,15 @@ main {
 }
 
 .profile-info {
-  background-color: #1f1f1f;
   padding: 20px;
   border-radius: 10px;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
 .user-posts {
