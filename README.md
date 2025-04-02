@@ -6,11 +6,11 @@ CityLife è un progetto basato su Angular per il frontend e Spring Boot per il b
 
 ### FrontEnd
 
-La sezione FrontEnd contiene il codice dell'interfaccia utente, costruito con Angular. Per dettagli su come configurare e avviare il frontend, consulta il file frontend/README.md.
+La sezione FrontEnd contiene il codice dell'interfaccia utente, costruito con Angular. Per dettagli su come configurare e avviare il frontend, consulta il file [frontend/README.md](./frontend/README.md).
 
 ### BackEnd
 
-La sezione BackEnd include il codice per il server e la gestione dell'API, costruito con Java Spring Boot. Per dettagli su come configurare e avviare il backend, consulta il file backend/README.md.
+La sezione BackEnd include il codice per il server e la gestione dell'API, costruito con Java Spring Boot. Per dettagli su come configurare e avviare il backend, consulta il file [backend/README.md](./backend/README.md).
 
 ## Panoramica del Progetto
 
