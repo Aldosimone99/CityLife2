@@ -3,10 +3,10 @@
   <aside class="sidebar">
     <div class="profile">
       <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="Profile Picture" class="profile-image">
-      <h2>{{ user.name }}</h2>
+      <h2>{{ user.firstName }} {{ user.lastName }}</h2> <!-- Display user's full name -->
+      <p>{{ 'AGE' | translate }}: {{ user.age }}</p> <!-- Display user's age -->
       <p>{{ 'EMAIL' | translate }}: {{ user.email }}</p>
       <p>{{ 'GENDER' | translate }}: {{ user.gender === 'male' ? ('MALE' | translate) : ('FEMALE' | translate) }}</p>
-      <p>{{ 'STATUS' | translate }}: {{ user.status === 'inactive' ? 'Offline' : 'Online' }} <span [ngClass]="{'online-dot': user.status === 'active', 'offline-dot': user.status === 'inactive'}"></span></p>
     </div>
   </aside>
   

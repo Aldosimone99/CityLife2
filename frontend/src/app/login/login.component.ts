@@ -34,7 +34,7 @@ export class LoginComponent {
             console.log('Login successful:', response);
             localStorage.setItem('authToken', response.token); // Store token in localStorage
             localStorage.setItem('userId', response.id.toString()); // Store user ID in localStorage
-            this.router.navigate(['/profile']); // Redirect to profile page
+            this.router.navigate(['/dashboard']); // Redirect to profile page
             this.errorMessage = ''; // Clear error message on successful login
         },
         error: (error) => {
