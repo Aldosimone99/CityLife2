@@ -18,6 +18,9 @@ export class DashboardComponent implements OnInit {
   newComment: { [key: number]: string } = {};
   newPost: string = ''; // Initialize the newPost property
   userName: string = ''; // Variabile per il nome completo dell'utente
+  isDeleteConfirmationVisible: boolean = false;
+  postToDelete: any = null;
+  commentToDelete: any = null;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -109,5 +112,45 @@ export class DashboardComponent implements OnInit {
     } else {
       console.error('Post body must be at least 1 character long');
     }
+  }
+
+  confirmDeletePost(post: any) {
+    this.isDeleteConfirmationVisible = true;
+    this.postToDelete = post;
+  }
+
+  cancelDeletePost() {
+    this.isDeleteConfirmationVisible = false;
+    this.postToDelete = null;
+  }
+
+  deletePost(postId: number) {
+    this.http.delete(`/api/posts/${postId}`).subscribe(
+      () => {
+        this.posts = this.posts.filter(post => post.id !== postId);
+        this.cancelDeletePost();
+      },
+      error => console.error('Error deleting post:', error)
+    );
+  }
+
+  confirmDeleteComment(comment: any) {
+    this.commentToDelete = comment;
+    this.isDeleteConfirmationVisible = true;
+  }
+
+  cancelDeleteComment() {
+    this.commentToDelete = null;
+    this.isDeleteConfirmationVisible = false;
+  }
+
+  deleteComment(postId: number, commentId: number) {
+    this.http.delete(`/api/posts/${postId}/comments/${commentId}`).subscribe(
+      () => {
+        this.comments[postId] = this.comments[postId].filter(comment => comment.id !== commentId);
+        this.cancelDeleteComment();
+      },
+      error => console.error('Error deleting comment:', error)
+    );
   }
 }

@@ -31,11 +31,15 @@
           </div>
           <div class="post-actions">
             <button (click)="toggleComments(post.id)">💬{{ 'DASHBOARD.COMMENTS' | translate }}</button>
+            <button (click)="confirmDeletePost(post)">🗑️ {{ 'DASHBOARD.DELETE' | translate }}</button>
           </div>
           <div class="comments" *ngIf="showComments[post.id]">
             <div *ngFor="let comment of comments[post.id]" class="comment-box">
               <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
               <p>{{ comment.createdAt }}</p>
+              <button (click)="confirmDeleteComment(comment)">
+                <i class="bi bi-trash3"></i>
+              </button>
             </div>
             <div class="add-comment">
               <input type="text" [(ngModel)]="newComment[post.id]" placeholder="{{ 'DASHBOARD.ADD_COMMENT' | translate }}">
@@ -45,5 +49,23 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible && postToDelete}">
+  <div class="modal-content">
+    <h3>{{ 'DASHBOARD.CONFIRM_DELETE' | translate }}</h3>
+    <span class="close" (click)="cancelDeletePost()">&times;</span>
+    <p>{{ 'DASHBOARD.CONFIRM_DELETE_POST' | translate }}</p>
+    <button class="btn btn-danger" (click)="deletePost(postToDelete?.id)">{{ 'DASHBOARD.DELETE' | translate }}</button>
+    <button class="btn btn-secondary" (click)="cancelDeletePost()">{{ 'DASHBOARD.CANCEL' | translate }}</button>
+  </div>
+</div>
+<div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible && commentToDelete}">
+  <div class="modal-content">
+    <h3>{{ 'DASHBOARD.CONFIRM_DELETE' | translate }}</h3>
+    <span class="close" (click)="cancelDeleteComment()">&times;</span>
+    <p>{{ 'DASHBOARD.CONFIRM_DELETE_COMMENT' | translate }}</p>
+    <button class="btn btn-danger" (click)="deleteComment(commentToDelete?.postId, commentToDelete?.id)">{{ 'DASHBOARD.DELETE' | translate }}</button>
+    <button class="btn btn-secondary" (click)="cancelDeleteComment()">{{ 'DASHBOARD.CANCEL' | translate }}</button>
   </div>
 </div>

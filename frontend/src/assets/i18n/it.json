@@ -78,8 +78,11 @@
         "POST": "Pubblica",
         "COMMENTS": "Commenti",
         "ADD_COMMENT": "Aggiungi un commento...",
-        "LIKE": "Mi piace",
-        "COMMENT": "Commenta",
+        "CONFIRM_DELETE": "Conferma Eliminazione",
+        "CONFIRM_DELETE_POST": "Sei sicuro di voler eliminare questo post?",
+        "CONFIRM_DELETE_COMMENT": "Sei sicuro di voler eliminare questo commento?",
+        "CANCEL": "Annulla",
+        "DELETE": "Elimina",
         "NO_POSTS_AVAILABLE": "Nessun post disponibile",
         "WRITE_POST": "Scrivi un nuovo post"
     },

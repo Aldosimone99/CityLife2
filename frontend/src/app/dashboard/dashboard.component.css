@@ -7,7 +7,6 @@
   width: 100vw;
 }
 
-
 header {
   background-color: rgba(24, 25, 26, 0.821); /* Darker background for header */
   padding: 10px;
@@ -222,6 +221,79 @@ header h1 {
   margin: 20px auto; /* Centra il contenitore */
   max-width: 800px; /* Larghezza massima */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra */
+}
+
+.delete-confirmation-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  padding-top: 60px;
+}
+
+.delete-confirmation-modal.show {
+  display: block;
+}
+
+.delete-confirmation-modal .modal-content {
+  background-color: rgba(52, 58, 64, 0.8);
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid #817b7b;
+  width: 380px;
+  height: 280px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.delete-confirmation-modal h3 {
+  font-size: 20px;
+  margin: 0;
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  color: #e4e6eb;
+}
+
+.delete-confirmation-modal p {
+  margin-bottom: 15px;
+  color: #e4e6eb;
+  margin-top: 50px;
+  font-size: 20px;
+}
+
+.delete-confirmation-modal .btn-danger,
+.delete-confirmation-modal .btn-secondary {
+  width: 346px;
+  height: 48px;
+  margin: 4px 0;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.delete-confirmation-modal .close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 13px;
+  right: 20px;
+}
+
+.delete-confirmation-modal .close:hover {
+  color: black;
+  cursor: pointer;
 }
 
 /* Responsive styles for mobile devices */
