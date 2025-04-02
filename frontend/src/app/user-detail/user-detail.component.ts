@@ -15,8 +15,6 @@ export class UserDetailComponent implements OnInit {
   posts: any[] = [];
   comments: { [key: number]: any[] } = {};
   showComments: { [key: number]: boolean } = {};
-  postToDelete: any = null; // Add a variable to store the post to be deleted
-  isDeleteConfirmationVisible: boolean = false; // Add a variable to control the visibility of the delete confirmation modal
   newComment: { [key: number]: string } = {}; // Add a newComment object to store new comments
   commentToDelete: any = null; // Add a variable to store the comment to be deleted
   isDeleteCommentConfirmationVisible: boolean = false; // Add a variable to control the visibility of the delete comment confirmation modal
@@ -80,36 +78,15 @@ export class UserDetailComponent implements OnInit {
   fetchComments(postId: number): void {
     this.http.get<any[]>(`/api/posts/${postId}/comments`).subscribe(
       (response) => {
+        console.log('Fetched comments:', response); // Log the response for debugging
         this.comments[postId] = response.map(comment => ({
           ...comment,
-          body: comment.body || 'No content available', // Ensure the body is set
+          body: comment.content ? comment.content.trim() : 'No content available', // Map 'content' to 'body' for display
           createdAt: formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) // Format as "x time ago"
         }));
       },
       (error) => console.error('Error fetching comments:', error)
     );
-  }
-
-  confirmDeletePost(post: any): void {
-    this.postToDelete = post;
-    this.isDeleteConfirmationVisible = true;
-  }
-
-  cancelDeletePost(): void {
-    this.postToDelete = null;
-    this.isDeleteConfirmationVisible = false;
-  }
-
-  deletePost(): void {
-    if (this.postToDelete) {
-      this.userService.deletePost(this.postToDelete.id).subscribe(() => {
-        this.posts = this.posts.filter(post => post.id !== this.postToDelete.id); // Remove the deleted post from the posts array
-        this.postToDelete = null;
-        this.isDeleteConfirmationVisible = false;
-      }, (error: any) => {
-        console.error('Error deleting post:', error); // Log for debugging
-      });
-    }
   }
 
   addComment(postId: number) {
