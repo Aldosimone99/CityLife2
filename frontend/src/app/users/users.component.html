@@ -2,13 +2,9 @@
 <div class="container">
   <div class="d-flex justify-content-between align-items-center">
     <h2>{{ 'USERS' | translate }}</h2>
-    <div class="add-user-icon d-lg-none" (click)="showAddUserForm()">
-      <i class="bi bi-plus-circle" style="font-size: 24px;"></i>
-    </div>
   </div>
   <div class="search-bar">
     <input type="text" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}" [(ngModel)]="searchTerm" (input)="searchUsers()">
-    <button class="btn btn-primary d-none d-lg-inline" (click)="showAddUserForm()">{{ 'ADD_USER' | translate }}</button>
     <select [(ngModel)]="usersPerPage" (change)="updateUsersPerPage()">
       <option *ngFor="let option of usersPerPageOptions" [value]="option">{{ option }}</option>
     </select>
@@ -20,60 +16,8 @@
           <div class="status-indicator" [ngClass]="{'active': user.status === 'active', 'inactive': user.status === 'inactive'}"></div>
           <img src="https://static.vecteezy.com/system/resources/thumbnails/001/840/612/small_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" alt="Profile Image">
           <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
-          <button class="delete-btn" (click)="deleteUser(user.id); $event.stopPropagation()">
-            <i class="bi bi-trash3"></i>
-          </button>
         </div>
       </ng-container>
     </ng-container>
-  </div>
-  <div class="modal" [ngClass]="{'show': isAddUserFormVisible}">
-    <div class="modal-content">
-      <span class="close" (click)="hideAddUserForm()">&times;</span>
-      <h3>{{ 'ADD_NEW_USER' | translate }}</h3>
-      <form class="modal-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
-        <div class="form-group">
-          <label for="name">{{ 'NAME' | translate }}:</label>
-          <input type="text" id="name" [(ngModel)]="newUser.name" name="name" required #name="ngModel">
-          <div *ngIf="name.invalid && name.touched" class="error-message">
-            {{ 'NAME_REQUIRED' | translate }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email">{{ 'EMAIL' | translate }}:</label>
-          <input type="email" id="email" [(ngModel)]="newUser.email" name="email" required email #email="ngModel">
-          <div *ngIf="email.invalid && email.touched" class="error-message">
-            {{ 'EMAIL_REQUIRED' | translate }}
-          </div>
-          <div *ngIf="emailExistsError" class="error-message">
-            {{ 'EMAIL_EXISTS' | translate }}
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="gender">{{ 'GENDER' | translate }}:</label>
-          <select id="gender" [(ngModel)]="newUser.gender" name="gender" required>
-            <option value="male">{{ 'MALE' | translate }}</option>
-            <option value="female">{{ 'FEMALE' | translate }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="status">{{ 'STATUS' | translate }}:</label>
-          <select id="status" [(ngModel)]="newUser.status" name="status" required>
-            <option value="active">{{ 'ACTIVE' | translate }}</option>
-            <option value="inactive">{{ 'INACTIVE' | translate }}</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">{{ 'ADD_USER' | translate }}</button>
-      </form>
-    </div>
-  </div>
-  <div class="modal delete-confirmation-modal" [ngClass]="{'show': isDeleteConfirmationVisible}">
-    <div class="modal-content">
-      <h3>{{ 'CONFIRM_DELETE' | translate }}</h3>
-      <span class="close" (click)="cancelDeleteUser()">&times;</span>
-      <p>{{ 'CONFIRM_DELETE_USER' | translate }} {{ userToDelete?.name }}?</p>
-      <button class="btn btn-danger" (click)="confirmDeleteUser()">{{ 'DELETE' | translate }}</button>
-      <button class="btn btn-secondary" (click)="cancelDeleteUser()">{{ 'CANCEL' | translate }}</button>
-    </div>
   </div>
 </div>

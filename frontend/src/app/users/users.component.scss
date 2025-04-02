@@ -9,156 +9,15 @@
   padding: 0;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; // Ensure the image does not repeat
+  background-repeat: no-repeat;
 }
 
-// Add these styles to ensure the background color covers the entire viewport
 html, body {
   background-color: #18191a;
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  // Ensure the background color covers the status bar area
-  background: #18191a;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-  padding-top: 60px;
-}
-
-.modal.show {
-  display: block;
-}
-
-.modal-content {
-  background-color: #343a40a0;
-  margin: 5% auto;
-  padding: 20px;
-  border: 1px solid #817b7b;
-  width: 30%;
-  height: auto;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 375px;
-  height: 650px;
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: auto;
-
-  .btn-danger {
-    background-color: red;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 20px;
-    cursor: pointer;
-  }
-
-  .btn-secondary {
-    background-color: gray;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-}
-
-.delete-confirmation-modal .modal-content {
-  background-color: #343a40a0;
-  margin: 20% auto;
-  padding: 20px;
-  border: 1px solid #817b7b;
-  width: 380px;
-  height: 260px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 15px; /* Increase the border radius */
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding-top: 75px; /* Adjust padding as needed */
-}
-
-.delete-confirmation-modal p {
-  margin-bottom: 15px; /* Add margin to move the paragraph down */
-}
-
-.delete-confirmation-modal .btn-danger,
-.delete-confirmation-modal .btn-secondary {
-  width: 346px; /* Set the width */
-  height: 48px; /* Set the height */
-  padding: 8px 16px; /* Adjust the padding */
-  margin: 4px 0; /* Reduce the margin between buttons */
-  border-radius: 5px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.delete-confirmation-modal h3 {
-  font-size: 20px; /* Set the font size */
-  margin: 0; /* Remove default margin */
-  position: absolute;
-  top: 25px;
-  left: 20px;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.delete-confirmation-modal .close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  top: 13px; /* Move the close button higher */
-  right: 20px;
-}
-
-.delete-confirmation-modal .close:hover,
-.delete-confirmation-modal .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 0; /* Rimuovi completamente lo spazio sopra il messaggio di errore */
-  margin-bottom: 0; /* Rimuovi completamente lo spazio sotto il messaggio di errore */
-  line-height: 1; /* Riduci l'altezza della linea */
 }
 
 .container {
@@ -167,25 +26,20 @@ html, body {
   height: 80%;
   justify-content: flex-start;
   align-items: center;
-  background: rgba(24, 25, 26, 0.8); // Semi-transparent background
+  background: rgba(24, 25, 26, 0.8);
   color: white;
   padding-top: 50px;
   margin-top: 50px;
-  border-radius: 10px; // Optional: add rounded corners
-
-}
-
-h1 {
-  margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .search-bar {
   display: flex;
-  justify-content: center; // Center the search bar
+  justify-content: center;
   margin-top: 20px;
   margin-bottom: 80px;
-  width: 50%; // Ensure the search bar takes up 50% of its container
-  max-width: 600px; // Set a maximum width to ensure it doesn't get too wide
+  width: 50%;
+  max-width: 600px;
 
   input {
     margin-right: 10px;
@@ -195,21 +49,18 @@ h1 {
     background-color: #343a40;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.75);
-    padding: 10px 15px; // Adjust padding for better text spacing
+    padding: 10px 15px;
+
     &::placeholder {
       color: rgba(255, 255, 255, 0.75);
     }
+
     &:focus {
       background-color: #343a40;
       color: white;
       border-color: rgba(255, 255, 255, 1);
       box-shadow: none;
     }
-  }
-
-  button {
-    flex-shrink: 0;
-    border-radius: 20px;
   }
 
   select {
@@ -219,6 +70,7 @@ h1 {
     background-color: #343a40;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.75);
+
     &:focus {
       background-color: #343a40;
       color: white;
@@ -245,7 +97,7 @@ h1 {
 }
 
 .user-box {
-  position: relative; /* Aggiungi posizione relativa per posizionare il pallino */
+  position: relative;
   background-color: #444;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.75);
@@ -266,140 +118,14 @@ h1 {
     background-color: #555;
   }
 
-  .delete-btn {
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    font-size: 1.5rem;
-  }
-
-  .delete-btn:hover {
-    color: red;
-  }
-
-  .status-indicator {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-  }
-
-  .status-indicator.active {
-    background-color: green;
-  }
-
-  .status-indicator.inactive {
-    background-color: red;
-  }
 }
-
-.modal-form {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  box-sizing: border-box;
-  height: 100%;
-  width: 90%;
-  overflow-y: auto;
-}
-
-.modal-form input,
-.modal-form select,
-.modal-form textarea {
-  width: calc(100% - 10px); /* Increase the width */
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-size: 16px;
-  background-color: #444; /* Match the background color of the modal */
-  color: white;
-}
-
-.modal-form select {
-  height: 46px; /* Increase the height */
-}
-
-.modal-form input:focus,
-.modal-form select:focus,
-.modal-form textarea:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.modal-form button {
-  width: 100%; /* Make the button take the full width */
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.modal-form button:hover {
-  background-color: #0056b3;
-}
-
-.modal-form .form-group {
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.modal-form .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #fff;
-}
-
-.modal-form .form-group input,
-.modal-form .form-group select,
-.modal-form .form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-size: 16px;
-  background-color: #444; /* Match the background color of the modal */
-  color: white;
-}
-
-.modal-form .form-group input:focus,
-.modal-form .form-group select:focus,
-.modal-form .form-group textarea:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.modal-form .form-group .error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 0; /* Rimuovi completamente lo spazio sopra il messaggio di errore */
-  margin-bottom: 0; /* Rimuovi completamente lo spazio sotto il messaggio di errore */
-  line-height: 0.2; /* Riduci l'altezza della linea */
-}
-
-
-
-
-
-
-
 
 @media (max-width: 400px) {
   :host {
     height: 100vh;
     width: 100vw;
     padding: 10px;
-    background-image: none; // Hide background image on mobile
+    background-image: none;
   }
 
   .container {
@@ -421,7 +147,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 0px;
-    padding: 0 10px; // Add padding to the user list
+    padding: 0 10px;
   }
 
   .user-box {
@@ -436,7 +162,7 @@ h1 {
     box-sizing: border-box;
     cursor: pointer;
     transition: background-color 0.3s;
-    
+
     &:hover {
       background-color: #555;
     }
@@ -446,192 +172,32 @@ h1 {
       height: 50px;
       border-radius: 50%;
       position: absolute;
-      top: 14px; /* Sposta in basso */
-      left: 20px; /* Sposta a destra */
+      top: 14px;
+      left: 20px;
     }
 
     .user-name {
       font-size: 18px;
       font-weight: bold;
       position: absolute;
-      top: 25px; /* Sposta in basso */
-      left: 80px; /* Sposta a destra */
+      top: 25px;
+      left: 80px;
     }
-
-    .user-status {
-      font-size: 10px;
-      color: #ccc;
-      position: absolute;
-      top: 40px; /* Sposta in basso */
-      left: 333px; /* Sposta a destra */
-    }
-
-    .delete-btn {
-      font-size: 20px;
-      position: absolute;
-      bottom: 4px; /* Position at the bottom */
-      right: -13px; /* Position at the right */
-    }
-  }
-
-  .modal-content {
-    width: 90%;
-    height: auto;
-    padding: 20px;
-  }
-
-  .delete-confirmation-modal .modal-content {
-    width: 350px;
-    height: 250px;
-    padding: auto;
-    margin-top: 250px;
-  }
-
-  .delete-confirmation-modal .btn-danger,
-  .delete-confirmation-modal .btn-secondary {
-    width: 100%;
-    height: auto;
-    font-size: 16px;
-  }
-
-  .add-user-icon {
-    cursor: pointer;
-    margin-left: 10px; // Adjust the margin as needed
-  }
-}
-
-
-
-
-
-
-@media (max-width: 480px) {
-  :host {
-    height: 100%;
-    width: 100%;
-    padding: 10px;
-    background-image: none; // Hide background image on mobile
-    margin-bottom: 80px;
-    min-height: 100vh;
-  }
-
-  .container {
-    margin: 25px 0;
-    padding: 10px;
-  }
-
-  .search-bar {
-    flex-direction: row;
-    width: 100%;
-    margin-bottom: 10px;
-
-    input {
-      width: 70%; // Adjust the width for input
-      margin: 5px 0;
-    }
-
-    select {
-      width: 20%; // Adjust the width for select
-      margin: 5px 0;
-    }
-  }
-
-  .user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    padding: 0 10px; // Add padding to the user list
-  }
-
-  .user-box {
-    display: grid;
-    grid-auto-flow: column;
-    align-items: flex-start;
-    background-color: #303030;
-    border: 1px solid rgba(22, 18, 18, 0.75);
-    color: white;
-    width: 100%;
-    height: 80px;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-    &:hover {
-      background-color: #555;
-    }
-
-    img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      position: absolute;
-      top: 14px; /* Sposta in basso */
-      left: 20px; /* Sposta a destra */
-    }
-
-    .user-name {
-      font-size: 18px;
-      font-weight: bold;
-      position: absolute;
-      top: 25px; /* Sposta in basso */
-      left: 80px; /* Sposta a destra */
-    }
-
-    .user-status {
-      font-size: 10px;
-      color: #ccc;
-      position: absolute;
-      top: 40px; /* Sposta in basso */
-      left: 333px; /* Sposta a destra */
-    }
-
-    .delete-btn {
-      font-size: 20px;
-      position: absolute;
-      bottom: 4px; /* Position at the bottom */
-      right: -13px; /* Position at the right */
-    }
-  }
-
-  .modal-content {
-    width: 90%;
-    height: auto;
-    padding: 20px;
-  }
-
-  .delete-confirmation-modal .modal-content {
-    width: 350px;
-    height: 250px;
-    padding: auto;
-    margin-top: 250px;
-  }
-
-  .delete-confirmation-modal .btn-danger,
-  .delete-confirmation-modal .btn-secondary {
-    width: 100%;
-    height: auto;
-    font-size: 16px;
-  }
-
-  .add-user-icon {
-    cursor: pointer;
-    margin-left: 10px; // Adjust the margin as needed
-    margin-bottom: 7px;
   }
 }
 
 @media (max-width: 768px) {
   .search-bar {
-    width: 100%; // Ensure the search bar takes up the full width
+    width: 100%;
     margin-bottom: 10px;
 
     input {
-      width: 70%; // Adjust the width for input
+      width: 70%;
       margin: 5px 0;
     }
 
     select {
-      width: 30%; // Adjust the width for select
+      width: 30%;
       margin: 5px 0;
     }
   }
