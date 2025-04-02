@@ -47,6 +47,8 @@ Prima di eseguire l'applicazione, assicurati di avere installato:
 
 Clona il progetto eseguendo il comando: git clone <https://github.com/Aldosimone99/CityLife2.git>
 
+Esegui il comando npm install per installare le dipendenze
+
 ### Backend (Spring Boot)
 
 1. Vai nella directory del backend:
