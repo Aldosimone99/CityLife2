@@ -101,6 +101,12 @@
         "CONFIRM_DELETE_POST": "Sei sicuro di voler eliminare questo post?",
         "CONFIRM_DELETE_COMMENT": "Sei sicuro di voler eliminare questo commento?",
         "CANCEL": "Annulla",
-        "DELETE": "Elimina"
+        "DELETE": "Elimina",
+        "EDIT_DETAILS": "Modifica Dettagli",
+        "USERNAME": "Nome Utente",
+        "FIRST_NAME": "Nome",
+        "LAST_NAME": "Cognome",
+        "PASSWORD": "Password",
+        "SAVE": "Salva"
     }
 }

@@ -8,6 +8,7 @@
         <p><strong>{{ 'PROFILE.EMAIL' | translate }}:</strong> {{ user.email }}</p>
         <p><strong>{{ 'PROFILE.AGE' | translate }}:</strong> {{ user.age }}</p>
         <p><strong>{{ 'PROFILE.GENDER' | translate }}:</strong> {{ user.gender | uppercase | translate }}</p>
+        <button (click)="openEditModal()" class="btn btn-primary">{{ 'PROFILE.EDIT_DETAILS' | translate }}</button>
       </div>
     </aside>
     <main>
@@ -67,5 +68,39 @@
         </div>
       </section>
     </main>
+  </div>
+</div>
+
+<div class="modal edit-user-modal" *ngIf="isEditModalVisible">
+  <div class="modal-content">
+    <h3>{{ 'PROFILE.EDIT_DETAILS' | translate }}</h3>
+    <span class="close" (click)="closeEditModal()">&times;</span>
+    <form (ngSubmit)="updateUserDetails()">
+      
+      <label for="firstName">{{ 'PROFILE.FIRST_NAME' | translate }}</label>
+      <input id="firstName" [(ngModel)]="editableUser.firstName" name="firstName" required>
+      
+      <label for="lastName">{{ 'PROFILE.LAST_NAME' | translate }}</label>
+      <input id="lastName" [(ngModel)]="editableUser.lastName" name="lastName" required>
+      
+      <label for="email">{{ 'PROFILE.EMAIL' | translate }}</label>
+      <input id="email" [(ngModel)]="editableUser.email" name="email" type="email" required>
+      
+      <label for="password">{{ 'PROFILE.PASSWORD' | translate }}</label>
+      <input id="password" [(ngModel)]="editableUser.password" name="password" type="password">
+      
+      <label for="age">{{ 'PROFILE.AGE' | translate }}</label>
+      <input id="age" [(ngModel)]="editableUser.age" name="age" type="number" required>
+      
+      <label for="gender">{{ 'PROFILE.GENDER' | translate }}</label>
+      <select id="gender" [(ngModel)]="editableUser.gender" name="gender" required>
+        <option value="male">{{ 'PROFILE.MALE' | translate }}</option>
+        <option value="female">{{ 'PROFILE.FEMALE' | translate }}</option>
+        <option value="other">{{ 'PROFILE.OTHER' | translate }}</option>
+      </select>
+      
+      <button type="submit" class="btn btn-success">{{ 'PROFILE.SAVE' | translate }}</button>
+      <button type="button" class="btn btn-secondary" (click)="closeEditModal()">{{ 'PROFILE.CANCEL' | translate }}</button>
+    </form>
   </div>
 </div>

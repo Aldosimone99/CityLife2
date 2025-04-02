@@ -30,8 +30,7 @@
             <p>{{ post.body }}</p>
           </div>
           <div class="post-actions">
-            <button>{{ 'DASHBOARD.LIKE' | translate }}</button>
-            <button (click)="toggleComments(post.id)">{{ 'DASHBOARD.COMMENT' | translate }}</button>
+            <button (click)="toggleComments(post.id)">💬{{ 'DASHBOARD.COMMENTS' | translate }}</button>
           </div>
           <div class="comments" *ngIf="showComments[post.id]">
             <div *ngFor="let comment of comments[post.id]" class="comment-box">

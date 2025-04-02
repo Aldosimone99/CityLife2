@@ -22,6 +22,8 @@ export class ProfileComponent implements OnInit {
   isDeleteConfirmationVisible: boolean = false;
   postToDelete: any = null;
   commentToDelete: any = null;
+  isEditModalVisible: boolean = false;
+  editableUser: any = {};
 
   constructor(
     private authService: AuthService,
@@ -177,6 +179,36 @@ export class ProfileComponent implements OnInit {
         this.cancelDeletePost();
       },
       (error) => console.error('Error deleting post:', error)
+    );
+  }
+
+  openEditModal() {
+    this.editableUser = { ...this.user, password: '' }; // Clone the user object and add a password field for editing
+    this.isEditModalVisible = true; // Ensure this is set to true
+  }
+
+  closeEditModal() {
+    this.isEditModalVisible = false; // Ensure this is set to false
+  }
+
+  updateUserDetails() {
+    const headers = this.authService.getAuthHeaders();
+    const updatedDetails = { ...this.editableUser };
+
+    // Remove the password field if it's empty (to avoid sending an empty password)
+    if (!updatedDetails.password) {
+      delete updatedDetails.password;
+    }
+
+    this.http.put('/api/users/me', updatedDetails, { headers }).subscribe(
+      (response) => {
+        this.user = { ...this.editableUser }; // Update the user details
+        delete this.user.password; // Ensure password is not stored in the user object
+        this.closeEditModal();
+      },
+      (error) => {
+        console.error('Error updating user details:', error);
+      }
     );
   }
 }
