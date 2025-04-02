@@ -1,14 +1,23 @@
 // filepath: /Users/aldosimone/Documents/GitHub/CityLife/src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { trigger, transition, style, animate } from '@angular/animations'; // Import animations
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: false,
+  animations: [
+    trigger('routeAnimations', [
+      transition('* <=> *', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class AppComponent implements OnInit {
   title(title: any) {
@@ -56,5 +65,9 @@ export class AppComponent implements OnInit {
     if (this.searchQuery) {
       this.router.navigate(['/users'], { queryParams: { query: this.searchQuery } });
     }
+  }
+
+  getRouteAnimation(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

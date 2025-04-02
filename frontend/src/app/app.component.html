@@ -1,3 +1,5 @@
 <div [ngClass]="{'login-page': router.url === '/login'}">
-  <router-outlet></router-outlet>
+  <main [@routeAnimations]="getRouteAnimation(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </main>
 </div>
