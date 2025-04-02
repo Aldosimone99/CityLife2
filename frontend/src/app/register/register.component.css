@@ -81,12 +81,40 @@ form .input-group label {
   margin-bottom: 5px;
   font-size: 0.9rem;
 }
-form .input-group input {
+form .input-group input, form .input-group .gender-row {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  background-color: #f1f1f1;
+}
+form .input-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+form .gender-row {
+  display: flex;
+  justify-content: space-between; /* Space out the options */
+  align-items: center; /* Align items vertically */
+  padding: 10px; /* Add padding for consistency */
+  border: 1px solid #ccc; /* Add border to match other inputs */
+  border-radius: 5px; /* Add rounded corners */
+  background-color: #f1f1f1; /* Match the background color of other inputs */
+}
+form .gender-option {
+  display: flex;
+  align-items: center; /* Align the radio button and label vertically */
+  gap: 5px; /* Add spacing between the radio button and label */
+}
+form .gender-option input[type=radio] {
+  margin: 0; /* Remove default margin */
+  accent-color: #000; /* Set the color of the radio button */
+}
+form .gender-option span {
+  font-size: 0.9rem; /* Match the font size of other labels */
+  color: #000; /* Match the text color */
 }
 form .signin-btn {
   background: #000;
