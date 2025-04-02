@@ -63,6 +63,8 @@ body {
   background: $secondary-color; /* Add background color */
   border-radius: 10px; /* Add border radius */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add more visible box shadow */
+  background-color: #303030; // Dark background for the form
+  color: white; // Light text color
 }
 
 header {
@@ -98,39 +100,48 @@ form {
       border-radius: 5px;
       font-size: 1rem;
       background-color: #f1f1f1;
+      background-color: #444; // Dark background for inputs
+      color: white; // Light text color
+      border: 1px solid #555; // Adjust border color
+
+      &::placeholder {
+        color: #ccc; // Light placeholder text
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      }
     }
 
-    input:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    .gender-row {
+      display: flex;
+      justify-content: space-between; /* Space out the options */
+      align-items: center; /* Align items vertically */
+      padding: 10px; /* Add padding for consistency */
+      border: 1px solid #ccc; /* Add border to match other inputs */
+      border-radius: 5px; /* Add rounded corners */
+      background-color: #f1f1f1; /* Match the background color of other inputs */
+      background-color: #444; // Match input background
     }
-  }
 
-  .gender-row {
-    display: flex;
-    justify-content: space-between; /* Space out the options */
-    align-items: center; /* Align items vertically */
-    padding: 10px; /* Add padding for consistency */
-    border: 1px solid #ccc; /* Add border to match other inputs */
-    border-radius: 5px; /* Add rounded corners */
-    background-color: #f1f1f1; /* Match the background color of other inputs */
-  }
+    .gender-option {
+      display: flex;
+      align-items: center; /* Align the radio button and label vertically */
+      gap: 5px; /* Add spacing between the radio button and label */
+    }
 
-  .gender-option {
-    display: flex;
-    align-items: center; /* Align the radio button and label vertically */
-    gap: 5px; /* Add spacing between the radio button and label */
-  }
+    .gender-option input[type="radio"] {
+      margin: 0; /* Remove default margin */
+      accent-color: #000; /* Set the color of the radio button */
+    }
 
-  .gender-option input[type="radio"] {
-    margin: 0; /* Remove default margin */
-    accent-color: #000; /* Set the color of the radio button */
-  }
-
-  .gender-option span {
-    font-size: 0.9rem; /* Match the font size of other labels */
-    color: #000; /* Match the text color */
+    .gender-option span {
+      font-size: 0.9rem; /* Match the font size of other labels */
+      color: #000; /* Match the text color */
+      color: white; // Light text color
+    }
   }
 
   .signin-btn {
@@ -145,6 +156,12 @@ form {
     display: block;
     width: 100%; /* Make the button full width */
     text-align: center;
+    background-color: #007bff; // Primary button color
+    color: white; // Light text color
+
+    &:hover {
+      background-color: #0056b3; // Darker hover color
+    }
   }
 }
 
@@ -236,6 +253,7 @@ button {
   }
 
   .logo {
+    display: none; // Hide the logo on mobile
     width: 200px;
     backdrop-filter: blur(10px); /* Add blur background */
     background-color: rgba(255, 255, 255, 0.198); /* Optional: add semi-transparent background */
@@ -296,6 +314,7 @@ button {
   }
 
   .logo {
+    display: none; // Ensure the logo is hidden on smaller screens
     width: 180px;
     backdrop-filter: blur(10px); /* Add blur background */
     background-color: rgba(255, 255, 255, 0.3); /* Optional: add semi-transparent background */
