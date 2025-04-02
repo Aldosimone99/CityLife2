@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   commentToDelete: any = null;
   isEditModalVisible: boolean = false;
   editableUser: any = {};
+  loggedInUserId: number | null = null;
 
   constructor(
     private authService: AuthService,
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.loadUserProfile();
     this.fetchPosts();
+    this.loggedInUserId = this.authService.getUserId(); // Set the logged-in user's ID
   }
 
   loadUserProfile() {

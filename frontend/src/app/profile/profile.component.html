@@ -32,13 +32,13 @@
           </div>
           <div class="post-actions">
             <button (click)="toggleComments(post.id)">💬 {{ 'PROFILE.COMMENTS' | translate }}</button>
-            <button (click)="confirmDeletePost(post)">🗑️ {{ 'PROFILE.DELETE' | translate }}</button>
+            <button *ngIf="post.user.id === loggedInUserId" (click)="confirmDeletePost(post)">🗑️ {{ 'PROFILE.DELETE' | translate }}</button>
           </div>
           <div class="comments" *ngIf="showComments[post.id]">
             <div *ngFor="let comment of comments[post.id]" class="comment-box">
               <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
               <p>{{ comment.createdAt }}</p> <!-- Display "x time ago" -->
-              <button (click)="confirmDeleteComment(comment)">
+              <button *ngIf="comment.userId === loggedInUserId" (click)="confirmDeleteComment(comment)">
                 <i class="bi bi-trash3"></i>
               </button>
             </div>

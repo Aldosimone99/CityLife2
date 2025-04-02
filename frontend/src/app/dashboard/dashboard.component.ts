@@ -21,12 +21,14 @@ export class DashboardComponent implements OnInit {
   isDeleteConfirmationVisible: boolean = false;
   postToDelete: any = null;
   commentToDelete: any = null;
+  loggedInUserId: number | null = null;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
     this.fetchUserDetails(); // Recupera i dettagli dell'utente loggato
     this.fetchPosts();
+    this.loggedInUserId = this.authService.getUserId(); // Set the logged-in user's ID
   }
 
   fetchUserDetails() {

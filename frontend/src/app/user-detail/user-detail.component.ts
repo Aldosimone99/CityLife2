@@ -19,6 +19,7 @@ export class UserDetailComponent implements OnInit {
   commentToDelete: any = null; // Add a variable to store the comment to be deleted
   isDeleteCommentConfirmationVisible: boolean = false; // Add a variable to control the visibility of the delete comment confirmation modal
   userPosts: any;
+  loggedInUserId: number | null = null; // Add a property to store the logged-in user's ID
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,12 @@ export class UserDetailComponent implements OnInit {
     } else {
       console.error('User ID not found in route parameters');
     }
+    this.loggedInUserId = this.getLoggedInUserId(); // Set the logged-in user's ID
+  }
+
+  getLoggedInUserId(): number | null {
+    // Replace with your logic to retrieve the logged-in user's ID (e.g., from AuthService or localStorage)
+    return Number(localStorage.getItem('userId')) || null;
   }
 
   loadUserData(userId: number): void {
@@ -106,8 +113,12 @@ export class UserDetailComponent implements OnInit {
   }
 
   confirmDeleteComment(comment: any): void {
-    this.commentToDelete = comment;
-    this.isDeleteCommentConfirmationVisible = true;
+    if (comment.userId === this.loggedInUserId) { // Check if the logged-in user is the author of the comment
+      this.commentToDelete = comment;
+      this.isDeleteCommentConfirmationVisible = true;
+    } else {
+      console.error('You are not authorized to delete this comment');
+    }
   }
 
   cancelDeleteComment(): void {
