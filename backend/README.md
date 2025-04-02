@@ -46,13 +46,13 @@ Questo progetto fornisce funzionalità per la registrazione e l'autenticazione d
        - 400 Bad Request: Restituisce i dettagli dell'errore in caso di input non valido.  
        - 500 Internal Server Error: Restituisce un messaggio di errore del server.  
 
-     - **Endpoint**: `/api/posts/{postId}/comments`  
+   - **Endpoint**: `/api/posts/{postId}/comments`  
        **Metodo**: GET  
        **Descrizione**: Recupera tutti i commenti associati a un post specifico.  
        **Risposte**:  
        - 200 OK: Restituisce una lista di commenti.  
 
-     - **Endpoint**: `/api/posts/{postId}/comments/{commentId}`  
+   - **Endpoint**: `/api/posts/{postId}/comments/{commentId}`  
        **Metodo**: DELETE  
        **Descrizione**: Elimina un commento specifico.  
        **Risposte**:  
@@ -69,14 +69,14 @@ Questo progetto fornisce funzionalità per la registrazione e l'autenticazione d
        - 201 Created: Restituisce il post creato.  
        - 400 Bad Request: Restituisce i dettagli dell'errore in caso di input non valido.  
 
-     - **Endpoint**: `/api/posts/{id}`  
+   - **Endpoint**: `/api/posts/{id}`  
        **Metodo**: GET  
        **Descrizione**: Recupera un post specifico tramite ID.  
        **Risposte**:  
        - 200 OK: Restituisce il post richiesto.  
        - 404 Not Found: Post non trovato.  
 
-     - **Endpoint**: `/api/posts/{id}`  
+   - **Endpoint**: `/api/posts/{id}`  
        **Metodo**: DELETE  
        **Descrizione**: Elimina un post specifico.  
        **Risposte**:  
@@ -93,7 +93,7 @@ Questo progetto fornisce funzionalità per la registrazione e l'autenticazione d
        - 200 OK: Restituisce il token JWT e l'ID dell'utente.  
        - 500 Internal Server Error: Restituisce un messaggio di errore del server.  
 
-     - **Endpoint**: `/api/users/me`  
+   - **Endpoint**: `/api/users/me`  
        **Metodo**: GET  
        **Descrizione**: Recupera i dettagli dell'utente autenticato.  
        **Intestazione Richiesta**: `Authorization` (token JWT).  
@@ -101,7 +101,7 @@ Questo progetto fornisce funzionalità per la registrazione e l'autenticazione d
        - 200 OK: Restituisce i dettagli dell'utente.  
        - 404 Not Found: Utente non trovato.  
 
-     - **Endpoint**: `/api/users/me`  
+   - **Endpoint**: `/api/users/me`  
        **Metodo**: PUT  
        **Descrizione**: Aggiorna i dettagli dell'utente autenticato.  
        **Corpo della Richiesta**: `User` (dettagli aggiornati).  
@@ -109,7 +109,7 @@ Questo progetto fornisce funzionalità per la registrazione e l'autenticazione d
        - 200 OK: Conferma l'aggiornamento.  
        - 404 Not Found: Utente non trovato.  
 
-     - **Endpoint**: `/api/users/{id}/posts`  
+   - **Endpoint**: `/api/users/{id}/posts`  
        **Metodo**: GET  
        **Descrizione**: Recupera i post associati a un utente specifico.  
        **Risposte**:  
