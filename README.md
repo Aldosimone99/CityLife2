@@ -40,24 +40,36 @@ Prima di eseguire l'applicazione, assicurati di avere installato:
 - **Node.js** (per Angular)
 - **Angular CLI**
 - **Java 17+** (per Spring Boot)
+- **Docker Compose** (per avviare il database PostgreSQL)
 - **Maven** (per costruire il backend)
-- **Database**: PostgreSQL
+
 
 ## Guida Introduttiva
 
 Clona il progetto eseguendo il comando: git clone <https://github.com/Aldosimone99/CityLife2.git>
 
+
+1. Installa le dipendenze utilizzando il comando:
+   ```bash
+   npm install
+   ```
+
 ### Backend (Spring Boot)
 
-1. Vai nella directory del backend:
+1. Vai nella directory principale del progetto e avvia il docker compose:
+   ```bash
+   docker-compose up
+   ```
+
+2. Vai nella directory del backend:
    ```bash
    cd backend
    ```
-2. Compila il progetto utilizzando Maven:
+3. Compila il progetto utilizzando Maven:
    ```bash
    mvn clean install
    ```
-3. Esegui l'applicazione Spring Boot:
+4. Esegui l'applicazione Spring Boot:
    ```bash
    mvn spring-boot:run
    ```

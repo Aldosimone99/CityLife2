@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.citylife</groupId>
@@ -48,7 +48,6 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-database-postgresql</artifactId>
-			<version>10.18.0</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -82,14 +81,12 @@
     <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
-        <version>1.18.30</version>
         <scope>provided</scope>
     </dependency>
     <!-- Jakarta Persistence -->
     <dependency>
         <groupId>jakarta.persistence</groupId>
         <artifactId>jakarta.persistence-api</artifactId>
-        <version>3.1.0</version>
     </dependency>
     <dependency>
         <groupId>com.h2database</groupId>
@@ -100,7 +97,6 @@
     <dependency>
     <groupId>jakarta.servlet</groupId>
     <artifactId>jakarta.servlet-api</artifactId>
-    <version>5.0.0</version>
     <scope>provided</scope>
 </dependency>
     
@@ -140,7 +136,6 @@
             <plugin>
     <groupId>org.flywaydb</groupId>
     <artifactId>flyway-maven-plugin</artifactId>
-    <version>10.20.1</version>
     <configuration>
         <url>jdbc:postgresql://localhost:5432/mydb</url>
         <user>postgres</user>
