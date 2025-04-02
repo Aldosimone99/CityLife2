@@ -223,3 +223,105 @@ header h1 {
   max-width: 800px; /* Larghezza massima */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra */
 }
+
+/* Responsive styles for mobile devices */
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 10px;
+    height: auto;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .post-container {
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px;
+  }
+
+  .post-header img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .post-header div strong {
+    font-size: 16px;
+  }
+
+  .post-header div p {
+    font-size: 10px;
+  }
+
+  .post-content {
+    font-size: 14px;
+  }
+
+  .post-actions button {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .comments .comment-box {
+    padding: 8px;
+  }
+
+  .comments .add-comment input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .comments .add-comment button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .add-post textarea {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .add-post button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .posts-container {
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  .delete-confirmation-modal .modal-content {
+    width: 90%;
+    height: auto;
+    margin: 10% auto;
+    padding: 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .delete-confirmation-modal p {
+    font-size: 16px; /* Adjust font size for smaller screens */
+    text-align: center;
+  }
+
+  .delete-confirmation-modal .btn-danger,
+  .delete-confirmation-modal .btn-secondary {
+    width: 100%; /* Full width buttons */
+    height: auto;
+    font-size: 16px; /* Adjust font size */
+    padding: 10px;
+    margin: 5px 0; /* Add spacing between buttons */
+  }
+
+  .delete-confirmation-modal h3 {
+    font-size: 18px; /* Adjust font size */
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .delete-confirmation-modal .close {
+    font-size: 24px; /* Adjust size of the close button */
+    top: 10px;
+    right: 15px;
+  }
+}

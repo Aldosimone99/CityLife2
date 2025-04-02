@@ -382,3 +382,131 @@ main {
 .edit-user-modal .close:hover {
   color: #ff0000;
 }
+
+/* Responsive styles for mobile devices */
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 10px;
+    height: auto;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .container {
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: #383232 2px solid;
+    padding: 10px 0;
+  }
+
+  main {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 10px auto;
+  }
+
+  .user-posts {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .user-posts .add-post {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .user-posts .post-container {
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px;
+  }
+
+  .user-posts .post-header img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .user-posts .post-header div strong {
+    font-size: 16px;
+  }
+
+  .user-posts .post-header div p {
+    font-size: 10px;
+  }
+
+  .user-posts .post-content {
+    font-size: 14px;
+  }
+
+  .user-posts .post-actions button {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .user-posts .comments .comment-box {
+    padding: 8px;
+  }
+
+  .user-posts .comments .add-comment input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .user-posts .comments .add-comment button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .delete-confirmation-modal .modal-content {
+    width: 90%;
+    height: auto;
+    margin: 10% auto;
+    margin-top: 200px;
+    padding: 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .delete-confirmation-modal p {
+    font-size: 18px; /* Adjust font size for smaller screens */
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .delete-confirmation-modal .btn-danger,
+  .delete-confirmation-modal .btn-secondary {
+    width: 100%; /* Full width buttons */
+    height: auto;
+    font-size: 16px; /* Adjust font size */
+    padding: 10px;
+    margin: 5px 0; /* Add spacing between buttons */
+  }
+
+  .delete-confirmation-modal h3 {
+    font-size: 18px; /* Adjust font size */
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .delete-confirmation-modal .close {
+    font-size: 24px; /* Adjust size of the close button */
+    top: 10px;
+    right: 15px;
+  }
+
+  .edit-user-modal .modal-content {
+    width: 90%;
+    padding: 15px;
+  }
+}

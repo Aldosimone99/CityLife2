@@ -122,43 +122,47 @@ html, body {
 
 @media (max-width: 400px) {
   :host {
-    height: 100vh;
-    width: 100vw;
     padding: 10px;
+    height: auto;
     background-image: none;
   }
 
   .container {
-    margin: 25px 0;
+    margin: 15px 0;
     padding: 10px;
+    border-radius: 5px;
   }
 
   .search-bar {
     width: 100%;
     margin-bottom: 10px;
 
-    input, select {
+    input {
       width: 100%;
       margin: 5px 0;
+    }
+
+    select {
+      display: none; /* Hide the dropdown on small screens */
     }
   }
 
   .user-list {
-    display: flex;
     flex-direction: column;
-    gap: 0px;
+    gap: 10px;
     padding: 0 10px;
   }
 
   .user-box {
-    display: grid;
-    grid-auto-flow: column;
-    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     background-color: #303030;
     border: 1px solid rgba(22, 18, 18, 0.75);
-    color: white;
     width: 100%;
     height: 80px;
+    padding: 10px;
     box-sizing: border-box;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -171,34 +175,69 @@ html, body {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      position: absolute;
-      top: 14px;
-      left: 20px;
+      margin-right: 15px;
     }
 
     .user-name {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: bold;
-      position: absolute;
-      top: 25px;
-      left: 80px;
+      text-align: left;
     }
   }
 }
 
 @media (max-width: 768px) {
-  .search-bar {
-    width: 100%;
-    margin-bottom: 10px;
+  :host {
+    padding: 10px;
+    height: auto;
+    height: 100vh;
+    width: 100vw;
+  }
 
-    input {
-      width: 70%;
+  .container {
+    height: auto;
+    padding: 20px 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+
+  .search-bar {
+    width: 90%;
+    margin: 10px auto;
+
+    input, select {
+      width: 100%;
       margin: 5px 0;
     }
 
     select {
-      width: 30%;
-      margin: 5px 0;
+      display: none; /* Hide the dropdown on mobile */
+    }
+  }
+
+  .user-list {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .user-box {
+    width: 100%;
+    height: auto;
+    padding: 2px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    img {
+      width: 60px;
+      height: 60px;
+      margin: 15px;
+    }
+
+    .user-name {
+      font-size: 17px;
+      text-align: left;
     }
   }
 }
