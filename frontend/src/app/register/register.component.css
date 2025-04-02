@@ -53,11 +53,10 @@ body {
 .form-box {
   width: 100%;
   padding: 20px;
-  background: #fff; /* Add background color */
+  background: #fff; /* Default light mode for desktop */
+  color: #000;
   border-radius: 10px; /* Add border radius */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add more visible box shadow */
-  background-color: #303030;
-  color: white;
 }
 
 header {
@@ -89,16 +88,14 @@ form .input-group input, form .input-group .gender-row {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
-  background-color: #f1f1f1;
-  background-color: #444;
-  color: white;
-  border: 1px solid #555;
+  background-color: #f1f1f1; /* Light input background for desktop */
+  color: #000; /* Dark text for inputs */
 }
 form .input-group input::-moz-placeholder, form .input-group .gender-row::-moz-placeholder {
-  color: #ccc;
+  color: #888; /* Light placeholder text */
 }
 form .input-group input::placeholder, form .input-group .gender-row::placeholder {
-  color: #ccc;
+  color: #888; /* Light placeholder text */
 }
 form .input-group input:focus, form .input-group .gender-row:focus {
   outline: none;
@@ -113,7 +110,6 @@ form .input-group .gender-row {
   border: 1px solid #ccc; /* Add border to match other inputs */
   border-radius: 5px; /* Add rounded corners */
   background-color: #f1f1f1; /* Match the background color of other inputs */
-  background-color: #444;
 }
 form .input-group .gender-option {
   display: flex;
@@ -127,7 +123,6 @@ form .input-group .gender-option input[type=radio] {
 form .input-group .gender-option span {
   font-size: 0.9rem; /* Match the font size of other labels */
   color: #000; /* Match the text color */
-  color: white;
 }
 form .signin-btn {
   background: #000;
@@ -215,19 +210,47 @@ footer a {
   }
   .form-box {
     padding: 15px;
-    background-color: #303030;
-    color: white;
+    background: #303030; /* Dark background for mobile */
+    color: #fff; /* Light text for contrast */
   }
   .form-box input {
-    background-color: #444;
-    color: white;
-    border: 1px solid #555;
+    background-color: #444; /* Dark input background */
+    color: #fff; /* Light text for inputs */
+    border: 1px solid #555; /* Darker border */
   }
   .form-box input::-moz-placeholder {
-    color: white;
+    color: #ccc; /* Light placeholder text */
   }
   .form-box input::placeholder {
-    color: white;
+    color: #ccc; /* Light placeholder text */
+  }
+  .form-box input:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow */
+  }
+  form .input-group input {
+    background-color: #444; /* Dark input background */
+    color: #fff; /* Light text for inputs */
+    border: 1px solid #555; /* Darker border */
+  }
+  form .input-group input::placeholder {
+    color: #ccc; /* Light placeholder text */
+  }
+  form .input-group input:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow */
+  }
+  form .input-group .gender-row {
+    background-color: #444; /* Dark background for inputs and gender row */
+    color: #fff; /* Light text for inputs and gender row */
+    border: 1px solid #555; /* Darker border */
+  }
+  form .input-group .gender-option span {
+    color: #fff; /* Light text for gender labels */
+  }
+  form .input-group .gender-row:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow */
   }
   .logo {
     display: none;
@@ -241,6 +264,11 @@ footer a {
   .signin-btn {
     font-size: 0.9rem;
     padding: 8px;
+    background-color: #007bff; /* Blue button */
+    color: #fff; /* White text */
+  }
+  .signin-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
   }
   .language-switcher {
     flex-direction: row; /* Change to row to place buttons side by side */
@@ -306,5 +334,19 @@ footer a {
   }
   .overlay-text h2 {
     font-size: 25px;
+  }
+}
+
+@media (max-height: 1145px) {
+  .logo {
+    width: 150px; /* Reduce the size of the logo */
+    top: 10px; /* Adjust position */
+    left: 10px;
+  }
+}
+
+@media (max-height: 900px) {
+  .logo {
+    display: none; /* Hide the logo for very small heights */
   }
 }/*# sourceMappingURL=register.component.css.map */
