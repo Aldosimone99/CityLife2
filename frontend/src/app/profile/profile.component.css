@@ -2,8 +2,9 @@
   padding: 20px;
   background-color: #121212; /* Dark background color */
   color: #ffffff; /* Light text color */
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .container {
@@ -387,9 +388,8 @@ main {
 @media (max-width: 768px) {
   .profile-page {
     padding: 10px;
-    height: auto;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
   }
 
   .container {
