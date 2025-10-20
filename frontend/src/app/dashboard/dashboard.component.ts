@@ -84,7 +84,30 @@ export class DashboardComponent implements OnInit {
           if (!this.comments[postId]) {
             this.comments[postId] = [];
           }
-          this.comments[postId].push(response);
+          
+          console.log('Comment response from server:', response); // Debug log
+          console.log('Comment createdAt value:', response.createdAt); // Debug log
+          
+          // Ensure we have a valid date, otherwise use current time
+          let createdAtDate;
+          if (response.createdAt) {
+            createdAtDate = new Date(response.createdAt);
+            // Check if the date is valid
+            if (isNaN(createdAtDate.getTime())) {
+              console.warn('Invalid comment date from server, using current time');
+              createdAtDate = new Date();
+            }
+          } else {
+            console.warn('No comment createdAt from server, using current time');
+            createdAtDate = new Date();
+          }
+          
+          // Format the createdAt timestamp before adding to the comments array
+          const formattedComment = {
+            ...response,
+            createdAt: formatDistanceToNow(createdAtDate, { addSuffix: true })
+          };
+          this.comments[postId].push(formattedComment);
           this.newComment[postId] = '';
         },
         (error) => console.error('Error adding comment:', error)
@@ -100,10 +123,27 @@ export class DashboardComponent implements OnInit {
 
       this.http.post('/api/posts', post).subscribe(
         (response: any) => {
+          console.log('Response from server:', response); // Debug log
+          console.log('CreatedAt value:', response.createdAt); // Debug log
+          
+          // Ensure we have a valid date, otherwise use current time
+          let createdAtDate;
+          if (response.createdAt) {
+            createdAtDate = new Date(response.createdAt);
+            // Check if the date is valid
+            if (isNaN(createdAtDate.getTime())) {
+              console.warn('Invalid date from server, using current time');
+              createdAtDate = new Date();
+            }
+          } else {
+            console.warn('No createdAt from server, using current time');
+            createdAtDate = new Date();
+          }
+          
           this.posts.unshift({
             ...response,
-            userName: response.user ? `${response.user.firstName} ${response.user.lastName}` : 'Unknown User', // Use user details from the response
-            createdAt: formatDistanceToNow(new Date(response.createdAt), { addSuffix: true })
+            userName: response.user ? `${response.user.firstName} ${response.user.lastName}` : 'Unknown User',
+            createdAt: formatDistanceToNow(createdAtDate, { addSuffix: true })
           });
           this.newPost = '';
         },
