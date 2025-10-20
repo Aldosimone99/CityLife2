@@ -4,7 +4,7 @@ import { PostService } from '../services/post.service';
 import { CommentService } from '../services/comment.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'; // Correct import for date-fns v4
 
 @Component({
   selector: 'app-profile',
@@ -67,8 +67,9 @@ export class ProfileComponent implements OnInit {
         this.posts = postsWithUsers.map((post: any) => ({
           ...post,
           userName: post.user ? `${post.user.firstName} ${post.user.lastName}` : 'Unknown User', // Handle undefined user
-          createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) // Format as "x time ago"
-        })).sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+          createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }), // Format as "x time ago"
+          originalCreatedAt: post.createdAt // Keep original timestamp for sorting
+        })).sort((a: any, b: any) => new Date(b.originalCreatedAt).getTime() - new Date(a.originalCreatedAt).getTime());
 
         // Load comments for each post
         this.posts.forEach(post => this.fetchComments(post.id));
@@ -102,11 +103,34 @@ export class ProfileComponent implements OnInit {
       };
 
       this.authService.createComment(postId, comment).subscribe(
-        (response) => {
+        (response: any) => {
           if (!this.comments[postId]) {
             this.comments[postId] = [];
           }
-          this.comments[postId].push(response);
+          
+          console.log('Comment response from server:', response); // Debug log
+          console.log('Comment createdAt value:', response.createdAt); // Debug log
+          
+          // Ensure we have a valid date, otherwise use current time
+          let createdAtDate;
+          if (response.createdAt) {
+            createdAtDate = new Date(response.createdAt);
+            // Check if the date is valid
+            if (isNaN(createdAtDate.getTime())) {
+              console.warn('Invalid comment date from server, using current time');
+              createdAtDate = new Date();
+            }
+          } else {
+            console.warn('No comment createdAt from server, using current time');
+            createdAtDate = new Date();
+          }
+          
+          // Format the createdAt timestamp before adding to the comments array
+          const formattedComment = {
+            ...response,
+            createdAt: formatDistanceToNow(createdAtDate, { addSuffix: true })
+          };
+          this.comments[postId].push(formattedComment);
           this.newComment[postId] = '';
         },
         (error) => console.error('Error adding comment:', error)
@@ -142,11 +166,29 @@ export class ProfileComponent implements OnInit {
       };
 
       this.postService.addPost(post).subscribe(
-        (response) => {
+        (response: any) => {
+          console.log('Response from server:', response); // Debug log
+          console.log('CreatedAt value:', response.createdAt); // Debug log
+          
+          // Ensure we have a valid date, otherwise use current time
+          let createdAtDate;
+          if (response.createdAt) {
+            createdAtDate = new Date(response.createdAt);
+            // Check if the date is valid
+            if (isNaN(createdAtDate.getTime())) {
+              console.warn('Invalid date from server, using current time');
+              createdAtDate = new Date();
+            }
+          } else {
+            console.warn('No createdAt from server, using current time');
+            createdAtDate = new Date();
+          }
+          
           this.posts.unshift({
             ...response,
-            userName: response.user ? `${response.user.firstName} ${response.user.lastName}` : 'Unknown User', // Use user details from the response
-            createdAt: response.createdAt
+            userName: response.user ? `${response.user.firstName} ${response.user.lastName}` : 'Unknown User',
+            createdAt: formatDistanceToNow(createdAtDate, { addSuffix: true }),
+            originalCreatedAt: response.createdAt || new Date().toISOString() // Keep original timestamp for sorting
           });
           this.newPost = '';
         },

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'; // Correct import for date-fns v4
 import { HttpClient } from '@angular/common/http'; // Import HttpClient
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { formatDistanceToNow } from 'date-fns'; // Import date-fns for formatting
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'; // Correct import for date-fns v4
 import { AuthService } from '../services/auth.service'; // Import AuthService
 
 @Component({
