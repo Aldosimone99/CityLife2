@@ -50,8 +50,9 @@ export class DashboardComponent implements OnInit {
         userName: post.user && post.user.firstName && post.user.lastName 
           ? `${post.user.firstName} ${post.user.lastName}` 
           : 'Unknown User', // Handle undefined user or missing properties
-        createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) // Format as "x time ago"
-      })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())),
+        createdAt: formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }), // Format as "x time ago"
+        originalCreatedAt: post.createdAt // Keep original timestamp for sorting
+      })).sort((a, b) => new Date(b.originalCreatedAt).getTime() - new Date(a.originalCreatedAt).getTime())),
     ).subscribe(postsWithUsers => {
       this.posts = postsWithUsers;
     });
@@ -143,7 +144,8 @@ export class DashboardComponent implements OnInit {
           this.posts.unshift({
             ...response,
             userName: response.user ? `${response.user.firstName} ${response.user.lastName}` : 'Unknown User',
-            createdAt: formatDistanceToNow(createdAtDate, { addSuffix: true })
+            createdAt: formatDistanceToNow(createdAtDate, { addSuffix: true }),
+            originalCreatedAt: response.createdAt || new Date().toISOString() // Keep original timestamp for sorting
           });
           this.newPost = '';
         },
