@@ -3,8 +3,9 @@
   background-color: #121212; /* Match the background color from profile component */
   color: #cc8989; /* Light text color */
   font-family: Arial, sans-serif; /* Ensure consistent font */
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 header {
@@ -300,9 +301,8 @@ header h1 {
 @media (max-width: 768px) {
   .dashboard-page {
     padding: 10px;
-    height: auto;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
   }
 
   .post-container {
