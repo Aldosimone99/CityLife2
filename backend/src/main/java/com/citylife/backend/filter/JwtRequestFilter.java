@@ -36,7 +36,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt); // Ensure this extracts the username correctly
+            try {
+                username = jwtUtil.extractUsername(jwt); // Ensure this extracts the username correctly
+            } catch (io.jsonwebtoken.ExpiredJwtException e) {
+                // Token expired - return 401 Unauthorized
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\":\"JWT token has expired\",\"message\":\"Please login again\"}");
+                return;
+            } catch (Exception e) {
+                // Invalid token - return 401 Unauthorized
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+                response.getWriter().write("{\"error\":\"Invalid JWT token\",\"message\":\"Please login again\"}");
+                return;
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
