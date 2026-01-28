@@ -1,82 +1,88 @@
 # Frontend
 
-## Funzionalità principali
+## Main Features
 
-- **Registrazione**  
-  Tramite la pagina `/register`, permette all'utente di registrarsi sulla piattaforma inserendo i propri dati.
+- **User Registration**  
+  Through the `/register` page, users can sign up by providing their personal information.
 
 - **Login**  
-  Consente all'utente di accedere inserendo email e password.
+  Allows users to authenticate using email and password.
 
 - **Dashboard**  
-  La dashboard è la pagina visualizzata dopo il login. Mostra un messaggio di benvenuto con il nome e cognome dell'utente e tutti i post degli altri utenti.
+  The dashboard is displayed after login.  
+  It shows a welcome message with the user’s first and last name and displays posts created by other users.
 
 - **Navbar**  
-  Permette all'utente di navigare tra le pagine del sito e di scegliere la lingua (Italiano o Inglese).
+  Allows navigation across the application and enables language selection (Italian or English).
 
-- **Creazione Post**  
-  Consente all'utente di creare post, che possono essere successivamente eliminati.
+- **Post Creation**  
+  Users can create new posts, which can later be deleted by the author.
 
-- **Creazione Commenti**  
-  Permette di aggiungere commenti ai post, che possono essere eliminati dall'utente.
+- **Comments Creation**  
+  Users can add comments to posts and delete their own comments.
 
-- **Profilo Personale**  
-  Tramite la pagina `/Profile`, l'utente può visualizzare i propri post, crearne di nuovi e modificare i propri dati personali.
+- **Personal Profile**  
+  Through the `/profile` page, users can:
+  - View their own posts  
+  - Create new posts  
+  - Update personal information  
 
-- **Pagina Users**  
-  Nella pagina `/Users`, è possibile visualizzare la lista degli utenti registrati e accedere ai loro profili.
+- **Users Page**  
+  The `/users` page displays a list of all registered users and provides access to their profiles.
 
-- **Profili Utenti**  
-  Nei profili degli utenti, è possibile visualizzare i loro dati personali e i post pubblicati.
+- **User Profiles**  
+  Each user profile shows personal information and published posts.
 
-- **Interfaccia Reattiva**  
-  Ottimizzata per dispositivi desktop e mobili.
+- **Responsive UI**  
+  Optimized for both desktop and mobile devices.
 
-- **Integrazione API**  
-  Comunica con il backend per ottenere e aggiornare i dati in tempo reale.
-
----
-
-## Requisiti
-
-- **Node.js**: Versione 14 o superiore  
-- **Angular CLI**: Versione 12 o superiore  
-- **Browser moderno**: Chrome, Firefox, Edge  
+- **API Integration**  
+  Communicates with the backend to fetch and update data in real time.
 
 ---
 
-## Installazione
+## Requirements
 
-1. **Clona il repository**  
+- **Node.js**: Version 14 or higher  
+- **Angular CLI**: Version 12 or higher  
+- **Modern browser**: Chrome, Firefox, Edge  
+
+---
+
+## Installation
+
+1. **Clone the repository**
    ```bash
    git clone https://github.com/aldosimone99/CityLife2.git
    cd CityLife2/frontend
    ```
 
-2. **Installa le dipendenze**  
+2. **Install dependencies**  
    ```bash
    npm install
    ```
 
-3. **Avvia l'applicazione in modalità sviluppo**  
+3. **Start the application in development mode**  
    ```bash
    ng serve
    ```
 
-4. **Apri il browser**  
-   Visita [http://localhost:4200](http://localhost:4200).
+4. **Open the browser**  
+   Visit [http://localhost:4200](http://localhost:4200).
 
 ---
 
-## Struttura del progetto
+## Project Structure
 
 - **`src/app`**  
-  Contiene i componenti principali di Angular.
+  Contains the main Angular components, services, and modules.
 
 - **`src/assets`**  
-  Include risorse statiche come immagini e file CSS.
+  Includes static resources such as images and stylesheets.
 
+## Purpose of the Frontend
 
-
-
-
+ 	•	Component-based UI development with Angular
+	•	Integration with a secure backend API
+	•	Real-world user flows (authentication, profiles, posts, comments)
+	•	Responsive and user-focused interface design

@@ -1,163 +1,158 @@
 # Backend
 
-Questo progetto fornisce funzionalità per la registrazione e l'autenticazione degli utenti, la creazione di post e commenti, la modifica dei dati personali. L'API del backend supporta varie operazioni tramite controller specifici.
+This project provides functionality for user registration and authentication, the creation of posts and comments, and the modification of personal data. The backend API supports various operations via specific controllers.
 
+## Technologies Used
 
-## Tecnologie Utilizzate
-
-- **Java**: Linguaggio di programmazione principale.
-- **Spring Framework**: Utilizzato per la gestione delle dipendenze, la configurazione e lo sviluppo delle API REST.
-- **Spring Boot**: Per semplificare la configurazione e l'avvio del progetto.
-- **Hibernate**: Per la gestione della persistenza dei dati.
-- **PostgreSQL**: Database utilizzato per il salvataggio dei dati.
-- **Spring Security**: Per la gestione della sicurezza e dell'autenticazione.
-
+- **Java**: Primary programming language.
+- **Spring Framework**: Used for dependency management, configuration, and REST API development.
+- **Spring Boot**: Simplifies project configuration and startup.
+- **Hibernate**: Handles data persistence.
+- **PostgreSQL**: Database used for data storage.
+- **Spring Security**: Manages security and authentication.
 
 # Controllers
 
-   - **CommentController**: Gestisce le operazioni relative ai commenti, tra cui:
-     - Creazione di nuovi commenti associati a un post specifico.
-     - Recupero di tutti i commenti di un post o di un singolo commento tramite ID.
-     - Modifica di un commento esistente.
-     - Eliminazione di un commento specifico.
-   - **PostController**: Gestisce le operazioni relative ai post, tra cui:
-     - Creazione di nuovi post associati all'utente autenticato.
-     - Recupero di tutti i post o di un singolo post tramite ID.
-     - Eliminazione di un post specifico.
-     - Gestione degli errori per input non validi o ID non corretti.
-   - **UserController**: Gestisce le operazioni relative agli utenti, tra cui:
-     - Registrazione di nuovi utenti con verifica della disponibilità di email o username.
-     - Login e generazione di token JWT.
-     - Recupero dei dettagli dell'utente autenticato.
-     - Modifica dei dati personali dell'utente autenticato.
-     - Recupero dei post associati a un utente specifico.
-     - Eliminazione di un utente specifico.
+- **CommentController**: Manages operations related to comments, including:
+  - Creating new comments associated with a specific post.
+  - Retrieving all comments for a post or a single comment by ID.
+  - Editing an existing comment.
+  - Deleting a specific comment.
+- **PostController**: Manages operations related to posts, including:
+  - Creating new posts associated with the authenticated user.
+  - Retrieving all posts or a single post by ID.
+  - Deleting a specific post.
+  - Handling errors for invalid input or incorrect IDs.
+- **UserController**: Manages operations related to users, including:
+  - Registering new users, checking for email or username availability.
+  - User login and JWT token generation.
+  - Retrieving the authenticated user’s details.
+  - Updating the authenticated user’s personal data.
+  - Retrieving posts associated with a specific user.
+  - Deleting a specific user.
 
+## CommentController
 
+- **Endpoint**: `/api/posts/{postId}/comments`  
+  **Method**: POST  
+  **Description**: Creates a new comment associated with a specific post.  
+  **Request Body**: `Comment` (comment details).  
+  **Responses**:  
+  - **200 OK**: Returns the created comment.  
+  - **400 Bad Request**: Returns error details for invalid input.  
+  - **500 Internal Server Error**: Returns a server error message.  
 
-## CommentController 
+- **Endpoint**: `/api/posts/{postId}/comments`  
+  **Method**: GET  
+  **Description**: Retrieves all comments associated with a specific post.  
+  **Responses**:  
+  - **200 OK**: Returns a list of comments.  
 
-   - **Endpoint**: `/api/posts/{postId}/comments`  
-       **Metodo**: POST  
-       **Descrizione**: Crea un nuovo commento associato a un post specifico.  
-       **Corpo della Richiesta**: `Comment` (dettagli del commento).  
-       **Risposte**:  
-       - 200 OK: Restituisce il commento creato.  
-       - 400 Bad Request: Restituisce i dettagli dell'errore in caso di input non valido.  
-       - 500 Internal Server Error: Restituisce un messaggio di errore del server.  
+- **Endpoint**: `/api/posts/{postId}/comments/{commentId}`  
+  **Method**: DELETE  
+  **Description**: Deletes a specific comment.  
+  **Responses**:  
+  - **204 No Content**: Confirms deletion.  
+  - **404 Not Found**: Comment not found.  
 
-   - **Endpoint**: `/api/posts/{postId}/comments`  
-       **Metodo**: GET  
-       **Descrizione**: Recupera tutti i commenti associati a un post specifico.  
-       **Risposte**:  
-       - 200 OK: Restituisce una lista di commenti.  
+## PostController
 
-   - **Endpoint**: `/api/posts/{postId}/comments/{commentId}`  
-       **Metodo**: DELETE  
-       **Descrizione**: Elimina un commento specifico.  
-       **Risposte**:  
-       - 204 No Content: Conferma l'eliminazione.  
-       - 404 Not Found: Commento non trovato.  
+- **Endpoint**: `/api/posts`  
+  **Method**: POST  
+  **Description**: Creates a new post associated with the authenticated user.  
+  **Request Body**: `Post` (post details).  
+  **Responses**:  
+  - **201 Created**: Returns the created post.  
+  - **400 Bad Request**: Returns error details for invalid input.  
 
+- **Endpoint**: `/api/posts/{id}`  
+  **Method**: GET  
+  **Description**: Retrieves a specific post by ID.  
+  **Responses**:  
+  - **200 OK**: Returns the requested post.  
+  - **404 Not Found**: Post not found.  
 
- ## PostController 
-   - **Endpoint**: `/api/posts`  
-       **Metodo**: POST  
-       **Descrizione**: Crea un nuovo post associato all'utente autenticato.  
-       **Corpo della Richiesta**: `Post` (dettagli del post).  
-       **Risposte**:  
-       - 201 Created: Restituisce il post creato.  
-       - 400 Bad Request: Restituisce i dettagli dell'errore in caso di input non valido.  
+- **Endpoint**: `/api/posts/{id}`  
+  **Method**: DELETE  
+  **Description**: Deletes a specific post.  
+  **Responses**:  
+  - **204 No Content**: Confirms deletion.  
+  - **400 Bad Request**: Invalid ID.  
 
-   - **Endpoint**: `/api/posts/{id}`  
-       **Metodo**: GET  
-       **Descrizione**: Recupera un post specifico tramite ID.  
-       **Risposte**:  
-       - 200 OK: Restituisce il post richiesto.  
-       - 404 Not Found: Post non trovato.  
+## UserController
 
-   - **Endpoint**: `/api/posts/{id}`  
-       **Metodo**: DELETE  
-       **Descrizione**: Elimina un post specifico.  
-       **Risposte**:  
-       - 204 No Content: Conferma l'eliminazione.  
-       - 400 Bad Request: ID non valido.  
+- **Endpoint**: `/api/users/login`  
+  **Method**: POST  
+  **Description**: Logs in a user and generates a JWT token.  
+  **Request Body**: `LoginRequest` (email and password).  
+  **Responses**:  
+  - **200 OK**: Returns the JWT token and user ID.  
+  - **500 Internal Server Error**: Returns a server error message.  
 
+- **Endpoint**: `/api/users/me`  
+  **Method**: GET  
+  **Description**: Retrieves the authenticated user’s details.  
+  **Request Header**: `Authorization` (JWT token).  
+  **Responses**:  
+  - **200 OK**: Returns user details.  
+  - **404 Not Found**: User not found.  
 
- ## UserController
-   - **Endpoint**: `/api/users/login`  
-       **Metodo**: POST  
-       **Descrizione**: Effettua il login di un utente e genera un token JWT.  
-       **Corpo della Richiesta**: `LoginRequest` (email e password).  
-       **Risposte**:  
-       - 200 OK: Restituisce il token JWT e l'ID dell'utente.  
-       - 500 Internal Server Error: Restituisce un messaggio di errore del server.  
+- **Endpoint**: `/api/users/me`  
+  **Method**: PUT  
+  **Description**: Updates the authenticated user’s details.  
+  **Request Body**: `User` (updated details).  
+  **Responses**:  
+  - **200 OK**: Confirms the update.  
+  - **404 Not Found**: User not found.  
 
-   - **Endpoint**: `/api/users/me`  
-       **Metodo**: GET  
-       **Descrizione**: Recupera i dettagli dell'utente autenticato.  
-       **Intestazione Richiesta**: `Authorization` (token JWT).  
-       **Risposte**:  
-       - 200 OK: Restituisce i dettagli dell'utente.  
-       - 404 Not Found: Utente non trovato.  
+- **Endpoint**: `/api/users/{id}/posts`  
+  **Method**: GET  
+  **Description**: Retrieves posts associated with a specific user.  
+  **Responses**:  
+  - **200 OK**: Returns a list of posts.  
+  - **404 Not Found**: User not found.  
 
-   - **Endpoint**: `/api/users/me`  
-       **Metodo**: PUT  
-       **Descrizione**: Aggiorna i dettagli dell'utente autenticato.  
-       **Corpo della Richiesta**: `User` (dettagli aggiornati).  
-       **Risposte**:  
-       - 200 OK: Conferma l'aggiornamento.  
-       - 404 Not Found: Utente non trovato.  
+# Security
 
-   - **Endpoint**: `/api/users/{id}/posts`  
-       **Metodo**: GET  
-       **Descrizione**: Recupera i post associati a un utente specifico.  
-       **Risposte**:  
-       - 200 OK: Restituisce una lista di post.  
-       - 404 Not Found: Utente non trovato.
+Project security is managed via **Spring Security** and **JWT (JSON Web Token)**. Below are the main security aspects implemented:
 
+- **Authentication**:
+  - Users authenticate by providing email and password via the `/api/users/login` endpoint.
+  - After successful authentication, a JWT token is generated and returned to the client.
+  - The JWT token must be included in the `Authorization` header of subsequent requests with the `Bearer` prefix.
 
-# Sicurezza
+- **Authorization**:
+  - Protected endpoints require a valid JWT token to access resources.
+  - The `JwtRequestFilter` intercepts requests, validates the JWT token, and sets the security context for the authenticated user.
 
-La sicurezza del progetto è gestita tramite **Spring Security** e **JWT (JSON Web Token)**. Di seguito sono riportati i principali aspetti della sicurezza implementata:
+- **Resource Protection**:
+  - Only authenticated users can access or modify their own resources (e.g., profile details or posts).
+  - Sensitive operations, such as modifying or deleting data, are protected by authorization checks based on user identity.
 
-- **Autenticazione**:
-  - Gli utenti si autenticano fornendo email e password tramite l'endpoint `/api/users/login`.
-  - Dopo una corretta autenticazione, viene generato un token JWT che viene restituito al client.
-  - Il token JWT deve essere incluso nell'intestazione `Authorization` delle richieste successive con il prefisso `Bearer`.
+- **Error Handling**:
+  - Requests with an invalid or missing JWT token return an HTTP 403 (Forbidden).
+  - Authentication and authorization errors are handled centrally to ensure consistent responses.
 
-- **Autorizzazione**:
-  - Gli endpoint protetti richiedono un token JWT valido per accedere alle risorse.
-  - Il filtro `JwtRequestFilter` intercetta le richieste, valida il token JWT e imposta il contesto di sicurezza per l'utente autenticato.
+This configuration ensures that only authorized users can access resources and that sensitive data is protected.
 
-- **Protezione delle risorse**:
-  - Solo gli utenti autenticati possono accedere o modificare le proprie risorse (ad esempio, i dettagli del profilo o i post).
-  - Le operazioni sensibili, come la modifica o l'eliminazione di dati, sono protette da controlli di autorizzazione basati sull'identità dell'utente.
+## How to Run the Project
 
-- **Gestione degli errori**:
-  - Le richieste con token JWT non valido o mancante restituiscono un errore HTTP 403 (Forbidden).
-  - Gli errori di autenticazione e autorizzazione sono gestiti in modo centralizzato per garantire una risposta coerente.
+1. Make sure you have installed:
+   - **Java 17** or higher.
+   - **Maven** for dependency management.
 
-Questa configurazione garantisce che solo gli utenti autorizzati possano accedere alle risorse e che i dati sensibili siano protetti.
-
-## Come Avviare il Progetto
-
-1. Assicurati di avere installato:
-   - **Java 17** o versione superiore.
-   - **Maven** per la gestione delle dipendenze.
-
-2. Clona il repository:
+2. Clone the repository:
    ```bash
    git clone https://github.com/aldosimone99/CityLife2.git
    cd CityLife2/backend
    ```
 
-3. Inizializza il database tramite Docker:
-   ```bash
+	3.	Initialize the database via Docker:
+  ```bash
    docker-compose up
    ```
 
-4. Avvia l'applicazione:
+4. Start the application:
    ```bash
    mvn spring-boot:run
    ```

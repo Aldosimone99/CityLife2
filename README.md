@@ -1,96 +1,125 @@
-# CityLife2
+# CityLife2 — Full-Stack Social Web App (Angular + Spring Boot)
 
-CityLife è un progetto basato su Angular per il frontend e Spring Boot per il backend. Il principio è quello di un social network, dove puoi registrarti, postare e commentare interagendo con altri utenti.
+CityLife2 is a **full-stack web application** built with **Angular** for the frontend and **Spring Boot (Java)** for the backend.
 
-## Struttura del Progetto
+The project follows a **social network** concept: users can register, log in, create posts, and comment while interacting with other users.  
+This repository is organized as a real-world **client–server architecture**, where the frontend communicates with the backend through **REST APIs**.
 
-### FrontEnd
+---
 
-La sezione FrontEnd contiene il codice dell'interfaccia utente, costruito con Angular. Per dettagli su come configurare e avviare il frontend, consulta il file [frontend/README.md](./frontend/README.md).
+## Project Structure
 
-### BackEnd
+### Frontend
 
-La sezione BackEnd include il codice per il server e la gestione dell'API, costruito con Java Spring Boot. Per dettagli su come configurare e avviare il backend, consulta il file [backend/README.md](./backend/README.md).
+The `frontend` section contains the UI code built with **Angular**.  
+For setup and run instructions, see:  
+- [`frontend/README.md`](./frontend/README.md)
 
-## Panoramica del Progetto
+### Backend
 
-### Funzionalità
+The `backend` section contains the server-side code built with **Spring Boot (Java)**, including API and security.  
+For setup and run instructions, see:  
+- [`backend/README.md`](./backend/README.md)
 
-- **Registrazione e Login**: Permettono agli utenti di creare un account e accedere all'applicazione.
-- **Creazione Post**: Permette all'utente di creare o eliminare i post.
-- **Creazione Commenti**: Permette all'utente di creare o eliminare i commenti nei vari post.
-- **Gestione Profilo**: Permette all'utente loggato di visualizzare e aggiornare il proprio profilo.
-- **Visualizzare Profili**: Permette all'utente loggato di visualizzare i profili degli altri utenti.
-- **MultiLingua**: Permette all'utente di scegliere tramite toggle la lingua da utilizzare tra Italiano e Inglese.
-- **Sicurezza**: Implementata con Spring Security per la gestione dell'autenticazione e autorizzazione.
+---
 
-### Tecnologie Utilizzate
+## Features
 
-- **Frontend**: Sviluppato con Angular, offre un'interfaccia utente dinamica e interattiva anche su mobile.
-- **Backend**: Basato su Spring Boot, garantisce scalabilità e affidabilità.
-- **Spring Security**: Utilizzato per implementare la sicurezza dell'applicazione.
-- **API RESTful**: La comunicazione tra frontend e backend avviene tramite API RESTful.
-- **Integrazione con Database**: Supporta l'integrazione con database relazionali per la persistenza dei dati.
-- **Database**: PostgreSQL è utilizzato come database principale.
+- **Registration & Login**  
+  Users can create an account and authenticate into the application.
 
-## Prerequisiti
+- **Posts**  
+  Users can create and delete posts.
 
-Prima di eseguire l'applicazione, assicurati di avere installato:
+- **Comments**  
+  Users can create and delete comments on posts.
 
-- **Node.js** (per Angular)
+- **Profile Management**  
+  Authenticated users can view and update their profile.
+
+- **Browse Other Profiles**  
+  Authenticated users can view other users’ profiles.
+
+- **Multilanguage (i18n)**  
+  Language toggle between **Italian** and **English**.
+
+- **Security**  
+  Authentication and authorization implemented with **Spring Security**.
+
+---
+
+## Tech Stack
+
+- **Frontend:** Angular (TypeScript), HTML, CSS  
+- **Backend:** Spring Boot (Java), Spring Security  
+- **API:** RESTful APIs  
+- **Database:** PostgreSQL  
+- **Tooling:** Docker Compose (database), Maven (backend build)
+
+---
+
+## Prerequisites
+
+Before running the application, make sure you have:
+
+- **Node.js** (for Angular)
 - **Angular CLI**
-- **Java 17+** (per Spring Boot)
-- **Docker Compose** (per avviare il database PostgreSQL)
-- **Maven** (per costruire il backend)
+- **Java 17+** (for Spring Boot)
+- **Docker + Docker Compose** (to start PostgreSQL)
+- **Maven** (to build the backend)
 
+---
 
-## Guida Introduttiva
+## Getting Started
 
-Clona il progetto eseguendo il comando: git clone <https://github.com/Aldosimone99/CityLife2.git>
+Clone the repository:
+
+```bash
+git clone https://github.com/Aldosimone99/CityLife2.git
 
 ### Backend (Spring Boot)
 
-1. Assicurati di avere Docker installato e in esecuzione. Avvia il database tramite Docker Compose:
+1. Make sure Docker is installed and running. Start PostgreSQL via Docker Compose:
    ```bash
    docker-compose up
    ```
 
-2. Vai nella directory del backend:
+2. Go to the backend directory:
    ```bash
    cd backend
    ```
-3. Compila il progetto utilizzando Maven:
+3. Build the project using Maven:
    ```bash
    mvn clean install
    ```
-4. Esegui l'applicazione Spring Boot:
+4. Run the Spring Boot application:
    ```bash
    mvn spring-boot:run
    ```
 
 ### Frontend (Angular)
 
-1. Vai nella directory del frontend:
+1. Go to the frontend directory:
    ```bash
    cd frontend
    ```
 
-2. Assicurati di avere Angular CLI installato globalmente:
+2. (Optional) Install Angular CLI globally:
    ```bash
    npm install -g @angular/cli
    ```
-3. Installa le dipendenze:
+3. Install dependencies:
    ```bash
    npm install
    ```
-4. Avvia il server di sviluppo di Angular:
+4. Start the Angular development server:
    ```bash
    ng serve
    ```
-4. Apri il browser e vai su `http://localhost:4200`.
+5. Open your browser and go to `http://localhost:4200`.
 
-## Struttura delle Cartelle
+## Folder Structure
 
-- **/backend**: Contiene l'applicazione Spring Boot.
-- **/frontend**: Contiene l'applicazione Angular.
+- **/backend**: Contains the Spring Boot application.
+- **/frontend**: Contains the Angular application.
 
