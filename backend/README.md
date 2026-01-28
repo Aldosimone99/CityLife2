@@ -148,9 +148,9 @@ This configuration ensures that only authorized users can access resources and t
    ```
 
 3.	Initialize the database via Docker:
-  ```bash
+   ```bash
    docker-compose up
-  ```
+   ```
 
 4. Start the application:
    ```bash
