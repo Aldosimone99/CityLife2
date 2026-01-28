@@ -147,7 +147,7 @@ This configuration ensures that only authorized users can access resources and t
    cd CityLife2/backend
    ```
 
-	3.	Initialize the database via Docker:
+3.	Initialize the database via Docker:
   ```bash
    docker-compose up
    ```

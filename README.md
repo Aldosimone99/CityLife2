@@ -76,6 +76,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/Aldosimone99/CityLife2.git
+```
 
 ### Backend (Spring Boot)
 
