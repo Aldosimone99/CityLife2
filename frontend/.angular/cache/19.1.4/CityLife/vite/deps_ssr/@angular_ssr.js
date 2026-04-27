@@ -14,9 +14,9 @@ import {
   setAngularAppManifest
 } from "./chunk-HPEIOYB7.js";
 import "./chunk-AL2RAVJN.js";
+import "./chunk-HL2CHUJK.js";
 import "./chunk-RRZPJVCY.js";
 import "./chunk-GWD5P6VC.js";
-import "./chunk-HL2CHUJK.js";
 import "./chunk-FCDGJVSW.js";
 import "./chunk-AXSLA3V6.js";
 import "./chunk-X6GTHVJB.js";
